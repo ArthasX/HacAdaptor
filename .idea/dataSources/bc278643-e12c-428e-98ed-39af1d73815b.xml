@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="hacadaptor@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1" name="hacadaptor">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="barcodeip"/>
+    <schema id="4" parent="1" name="information_schema"/>
+    <schema id="5" parent="1" name="mysql"/>
+    <schema id="6" parent="1" name="performance_schema"/>
+    <schema id="7" parent="1" name="sakila"/>
+    <schema id="8" parent="1" name="sys"/>
+    <schema id="9" parent="1" name="test"/>
+    <schema id="10" parent="1" name="world"/>
+    <schema id="11" parent="1" name="ysgl"/>
+    <table id="12" parent="2" name="account"/>
+    <table id="13" parent="2" name="act_type"/>
+    <table id="14" parent="2" name="device"/>
+    <table id="15" parent="2" name="log"/>
+    <table id="16" parent="2" name="port"/>
+    <column id="17" parent="12" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="18" parent="12" name="accountid">
+      <Position>2</Position>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="19" parent="12" name="name">
+      <Position>3</Position>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="20" parent="12" name="manageaccount">
+      <Position>4</Position>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="21" parent="12" name="accounttype">
+      <Position>5</Position>
+      <DataType>varchar(1)|0</DataType>
+    </column>
+    <column id="22" parent="12" name="deviceid">
+      <Position>6</Position>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <index id="23" parent="12" name="fk_account_type_value">
+      <ColNames>accounttype</ColNames>
+    </index>
+    <index id="24" parent="12" name="fk_device_id">
+      <ColNames>deviceid</ColNames>
+    </index>
+    <key id="25" parent="12" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="26" parent="12" name="account_ibfk_2">
+      <ColNames>accounttype</ColNames>
+      <RefSchemaName>hacadaptor</RefSchemaName>
+      <RefTableName>act_type</RefTableName>
+      <RefColNames>value</RefColNames>
+    </foreign-key>
+    <foreign-key id="27" parent="12" name="account_ibfk_1">
+      <ColNames>deviceid</ColNames>
+      <RefSchemaName>hacadaptor</RefSchemaName>
+      <RefTableName>device</RefTableName>
+      <RefColNames>deviceid</RefColNames>
+    </foreign-key>
+    <column id="28" parent="13" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="29" parent="13" name="value">
+      <Position>2</Position>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="30" parent="13" name="name">
+      <Position>3</Position>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <index id="31" parent="13" name="act_type_value_idx">
+      <ColNames>value</ColNames>
+    </index>
+    <key id="32" parent="13" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="33" parent="14" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="34" parent="14" name="deviceid">
+      <Position>2</Position>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="35" parent="14" name="name">
+      <Position>3</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="36" parent="14" name="ip">
+      <Position>4</Position>
+      <DataType>varchar(15)|0</DataType>
+    </column>
+    <index id="37" parent="14" name="device_id_idx">
+      <ColNames>deviceid</ColNames>
+    </index>
+    <key id="38" parent="14" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="39" parent="15" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="40" parent="15" name="workorder">
+      <Position>2</Position>
+      <DataType>varchar(15)|0</DataType>
+    </column>
+    <column id="41" parent="15" name="devicename">
+      <Position>3</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="42" parent="15" name="ip">
+      <Position>4</Position>
+      <DataType>varchar(15)|0</DataType>
+    </column>
+    <column id="43" parent="15" name="content">
+      <Position>5</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="44" parent="15" name="optdate">
+      <Position>6</Position>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="45" parent="15" name="remark">
+      <Position>7</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <key id="46" parent="15" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="47" parent="16" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="48" parent="16" name="portid">
+      <Position>2</Position>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="49" parent="16" name="protocol">
+      <Position>3</Position>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <column id="50" parent="16" name="deviceid">
+      <Position>4</Position>
+      <DataType>varchar(10)|0</DataType>
+    </column>
+    <index id="51" parent="16" name="fk_device_id">
+      <ColNames>deviceid</ColNames>
+    </index>
+    <key id="52" parent="16" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="53" parent="16" name="port_ibfk_1">
+      <ColNames>deviceid</ColNames>
+      <RefSchemaName>hacadaptor</RefSchemaName>
+      <RefTableName>device</RefTableName>
+      <RefColNames>deviceid</RefColNames>
+      <OnUpdate>update</OnUpdate>
+    </foreign-key>
+  </database-model>
+</dataSource>

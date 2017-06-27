@@ -170,7 +170,10 @@ public class SqlProvider {
         } catch (Exception e) {
             new RuntimeException("get select sql is exceptoin:" + e);
         }
-        selectSql.append(" from ").append(tableName).append(" where ");
+        selectSql.append(" from ").append(tableName);
+        //如果bean的字段值都是空的，代表全查
+        if(selectParaNames.size()>0)
+            selectSql.append(" where ");
         for (int i = 0; i < selectParaNames.size(); i++) {
             selectSql.append(selectParaNames.get(i)).append("=").append(selectParas.get(i));
             if (i != selectParaNames.size() - 1)

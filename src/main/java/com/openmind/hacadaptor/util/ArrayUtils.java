@@ -17,6 +17,7 @@ public class ArrayUtils {
         for(T[] t :beanFields){
             length+=t.length;
         }
+        //first[x,x,x,.........length]
         T[] result=Arrays.copyOf(first,length);
         int offset=first.length;
         for(T[] t:beanFields){

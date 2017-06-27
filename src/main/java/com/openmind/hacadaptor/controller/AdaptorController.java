@@ -1,10 +1,8 @@
 package com.openmind.hacadaptor.controller;
 
-import com.openmind.hacadaptor.bl.IAdaptorService;
-import com.openmind.hacadaptor.mapper.DeviceMapper;
+import com.openmind.hacadaptor.service.IAdaptorService;
 import com.openmind.hacadaptor.mode.Device;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -24,6 +22,7 @@ public class AdaptorController {
         Device d = adaptorService.getDevices(deviceId);
         return d;
     }
+
 
 
 }

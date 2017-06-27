@@ -3,12 +3,10 @@ package com.openmind.hacadaptor.sqlutil;
 /**
  * Created by KJB-001064 on 2017/6/22.
  */
-public class HumpToUnderLineFormat implements TableFormat{
+public class HumpToUnderLineFormat implements TableFormat {
 
     @Override
     public String getColumnName(String field) {
-
-
         return null;
     }
 
@@ -19,6 +17,6 @@ public class HumpToUnderLineFormat implements TableFormat{
 
     @Override
     public String getId() {
-        return null;
+        return "id";
     }
 }

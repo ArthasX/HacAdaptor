@@ -10,7 +10,7 @@
 
     <context:component-scan base-package="com.openmind.hacadaptor.mapper"/>
 
-    <context:component-scan base-package="com.openmind.hacadaptor.bl"/>
+    <context:component-scan base-package="com.openmind.hacadaptor.service"/>
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:jdbc.properties"/>

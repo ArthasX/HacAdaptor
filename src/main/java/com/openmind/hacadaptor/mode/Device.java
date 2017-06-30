@@ -3,11 +3,13 @@ package com.openmind.hacadaptor.mode;
 import com.openmind.hacadaptor.sqlutil.Column;
 import com.openmind.hacadaptor.sqlutil.Table;
 
+import java.io.Serializable;
+
 /**
  * Created by KJB-001064 on 2017/6/22.
  */
 @Table("DEVICE")
-public class Device extends BaseMode {
+public class Device extends Identity {
 
     @Column("deviceid")
     private String deviceId;
@@ -25,7 +27,7 @@ public class Device extends BaseMode {
         this.deviceId = deviceId;
     }
 
-    public Device(String deviceId, String name, String ip, String id) {
+    public Device(String deviceId, String name, String ip, long id) {
         super(id);
         this.deviceId = deviceId;
         this.name = name;

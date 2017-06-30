@@ -7,9 +7,11 @@ import org.springframework.util.StringUtils;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by KJB-001064 on 2017/6/22.
+ * //用map或者Page什么的包装一个类传入， 就可以附带各种其他参数了
  */
 public class SqlProvider {
 
@@ -47,6 +49,7 @@ public class SqlProvider {
                 }
             }
         } catch (Exception e) {
+            //throw
             new RuntimeException("get insert sql is exceptoin:" + e);
         }
         for (int i = 0; i < insertParaNames.size(); i++) {
@@ -161,6 +164,7 @@ public class SqlProvider {
                 Object object = field.get(bean);
                 selectSql.append(field.getName());
                 if (object != null) {
+                    if(object instanceof Integer)
                     selectParaNames.add(columnName);
                     selectParas.add("#{" + field.getName() + "}");
                 }
@@ -172,7 +176,7 @@ public class SqlProvider {
         }
         selectSql.append(" from ").append(tableName);
         //如果bean的字段值都是空的，代表全查
-        if(selectParaNames.size()>0)
+        if (selectParaNames.size() > 0)
             selectSql.append(" where ");
         for (int i = 0; i < selectParaNames.size(); i++) {
             selectSql.append(selectParaNames.get(i)).append("=").append(selectParas.get(i));
@@ -219,11 +223,53 @@ public class SqlProvider {
         }
         selectSql.append(" from ").append(tableName).append(" where ");
         for (int i = 0; i < selectParaNames.size(); i++) {
-            selectSql.append(selectParaNames.get(i)).append("like '%").append(selectParas.get(i)).append('%');
+            selectSql.append(selectParaNames.get(i)).append(" like '%").append(selectParas.get(i)).append("'% ");
             if (i != selectParaNames.size() - 1)
                 selectSql.append(" and ");
         }
-        logger.info("##select sql##:" + selectSql.toString());
+        logger.info("##fuzzy select sql##:" + selectSql.toString());
+        return selectSql.toString();
+    }
+
+
+    public String selectCount(Object bean) {
+        Class<?> beanClass = bean.getClass();
+        String tableName = getTableName(beanClass);
+        Field[] fields = getFields(beanClass);
+        StringBuilder selectSql = new StringBuilder();
+        List<String> selectParaNames = new ArrayList<>();
+        List<String> selectParas = new ArrayList<>();
+        selectSql.append("select count(1) ").append(" from ").append(tableName);
+        try {
+            for (int i = 0; i < fields.length; i++) {
+                Field field = fields[i];
+                Column column = field.getAnnotation(Column.class);
+                String columnName = "";
+                if (column != null)
+                    if (column.required())
+                        columnName = column.value();
+                if (StringUtils.isEmpty(columnName)) {
+                    columnName = tableFormat.getColumnName(field.getName());
+                }
+                field.setAccessible(true);
+                Object object = field.get(bean);
+                selectSql.append(field.getName());
+                if (object != null) {
+                    selectParaNames.add(columnName);
+                    selectParas.add("#{" + field.getName() + "}");
+                }
+                if (i != fields.length - 1)
+                    selectSql.append(",");
+            }
+        } catch (Exception e) {
+            new RuntimeException("get select count sql is exceptoin:" + e);
+        }
+        for (int i = 0; i < selectParaNames.size(); i++) {
+            selectSql.append(selectParaNames.get(i)).append(" like '%").append(selectParas.get(i)).append("'% ");
+            if (i != selectParaNames.size() - 1)
+                selectSql.append(" and ");
+        }
+        logger.info("##select count sql##" + selectSql.toString());
         return selectSql.toString();
     }
 

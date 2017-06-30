@@ -1,17 +1,31 @@
 package com.openmind.hacadaptor.service;
 
+import com.openmind.hacadaptor.sqlutil.Page;
+import org.springframework.stereotype.Service;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by KJB-001064 on 2017/6/27.
  */
-public interface IBaseService<T extends Serializable> {
-    <T extends Serializable> T getById(T t);
-    <T extends Serializable> T deleteById(T t);
-    <T extends Serializable> T updateById(T t);
-    <T extends Serializable> T save(T t);
+@Service("baseService")
+public interface IBaseService<T,ID extends Serializable> {
+    T selectById(Class<T> clz,ID id);
 
-    //传空的T 有SqlProvide组装 成没有
-    <T extends Serializable> List<T> listAll(T t);
+    T deleteById(Class<T> clz,ID id);
+
+    T select(T t);
+
+    T delete(T t);
+
+    T update(T t);
+
+    T save(T t);
+
+    List<T> selectAll(T t);
+
+    Page<T> pageSelect(T t);
+
+    int selectCount(T t);
 }

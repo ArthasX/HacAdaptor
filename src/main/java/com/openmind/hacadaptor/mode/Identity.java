@@ -7,23 +7,23 @@ import java.io.Serializable;
 /**
  * Created by KJB-001064 on 2017/6/23.
  */
-public class BaseMode implements Serializable {
+public class Identity implements Serializable {
     @Column("id")
-    private String id;
+    private long id;
 
-    public BaseMode() {
+    public Identity() {
 
     }
 
-    public BaseMode(String id) {
+    public Identity(long id) {
         this.id = id;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 }

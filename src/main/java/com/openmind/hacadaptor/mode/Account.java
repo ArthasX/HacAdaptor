@@ -3,11 +3,13 @@ package com.openmind.hacadaptor.mode;
 import com.openmind.hacadaptor.sqlutil.Column;
 import com.openmind.hacadaptor.sqlutil.Table;
 
+import java.io.Serializable;
+
 /**
  * Created by KJB-001064 on 2017/6/22.
  */
 @Table("ACCOUNT")
-public class Account extends BaseMode {
+public class Account extends Identity {
     @Column("accountId")
     private String accountId;
     @Column("name")
@@ -19,14 +21,15 @@ public class Account extends BaseMode {
     @Column("deviceid")
     private String deviceId;
 
-    public Account(){
+    public Account() {
         super();
     }
+
     public Account(String accountId) {
         this.accountId = accountId;
     }
 
-    public Account(String id, String accountId, String name, String manageAccount, String accountType, String deviceId) {
+    public Account(long id, String accountId, String name, String manageAccount, String accountType, String deviceId) {
         super(id);
         this.accountId = accountId;
         this.name = name;

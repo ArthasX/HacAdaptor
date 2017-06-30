@@ -3,6 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.openmind.hacadaptor.mapper.DeviceMapper">
+<mapper namespace="com.openmind.hacadaptor.dao.DeviceMapper">
 
 </mapper>

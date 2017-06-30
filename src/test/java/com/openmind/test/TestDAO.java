@@ -1,6 +1,6 @@
 package com.openmind.test;
 
-import com.openmind.hacadaptor.mapper.DeviceMapper;
+import com.openmind.hacadaptor.dao.DeviceMapper;
 import com.openmind.hacadaptor.mode.Device;
 import org.junit.Assert;
 import org.junit.Test;
@@ -8,8 +8,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import javax.annotation.Resource;
 
 /**
  * Created by KJB-001064 on 2017/6/22.

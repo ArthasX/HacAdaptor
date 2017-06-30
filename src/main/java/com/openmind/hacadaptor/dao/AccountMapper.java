@@ -1,4 +1,4 @@
-package com.openmind.hacadaptor.mapper;
+package com.openmind.hacadaptor.dao;
 
 import com.openmind.hacadaptor.mode.Account;
 import org.springframework.stereotype.Repository;

@@ -31,7 +31,7 @@ public class TestController {
 
     @Test
     public void test() throws Exception{
-        mockMvc.perform(get("/Adaptor/devices/1234")).andExpect(status().isOk()).andDo(print());
+        mockMvc.perform(get("/devices/1234")).andExpect(status().isOk()).andDo(print());
     }
 
 }

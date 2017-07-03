@@ -1,6 +1,7 @@
 ##ignore this file##
 /build/
 /target/
+/.idea/
 .classpath
 .project
 .settings      

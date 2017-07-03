@@ -1,4 +1,4 @@
-package com.openmind.socketserver;
+package com.openmind.hacadaptor.socket.socketserver;
 
 import java.io.IOException;
 import java.net.ServerSocket;

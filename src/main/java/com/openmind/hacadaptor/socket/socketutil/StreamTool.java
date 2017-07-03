@@ -1,4 +1,4 @@
-package com.openmind.socketutil;
+package com.openmind.hacadaptor.socket.socketutil;
 
 import java.io.IOException;
 import java.io.InputStream;

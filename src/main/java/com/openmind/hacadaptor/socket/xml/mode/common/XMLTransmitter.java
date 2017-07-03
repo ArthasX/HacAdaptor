@@ -1,6 +1,6 @@
-package com.openmind.xml.mode.common;
+package com.openmind.hacadaptor.socket.xml.mode.common;
 
-import com.openmind.socketutil.SocketUtil;
+import com.openmind.hacadaptor.socket.socketutil.SocketUtil;
 
 /**
  * Created by KJB-001064 on 2017/6/30.
@@ -14,8 +14,15 @@ public class XMLTransmitter   {
      * @param xmlData
      * @return hac返回的xml
      */
-
-    public static String trans(XMLData xmlData) {
+    public static byte[] trans(XMLData xmlData) {
         return SocketUtil.request(xmlData.getBytes());
+    }
+
+    public static byte[] trans(byte[] bytes){
+        return SocketUtil.request(bytes);
+    }
+
+    public static<T extends  Context> XMLDTO<T> trans(XMLDTO<T> xmldto){
+        return SocketUtil.request(xmldto);
     }
 }

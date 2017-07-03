@@ -1,4 +1,4 @@
-package com.openmind.xml.mode.session;
+package com.openmind.hacadaptor.socket.xml.mode.session;
 
 import javax.xml.bind.annotation.XmlElement;
 

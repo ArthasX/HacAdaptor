@@ -1,4 +1,4 @@
-package com.openmind.xml.mode.common;
+package com.openmind.hacadaptor.socket.xml.mode.common;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

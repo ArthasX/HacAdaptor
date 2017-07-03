@@ -1,6 +1,6 @@
-package com.openmind.xml.mode.worknote;
+package com.openmind.hacadaptor.socket.xml.mode.worknote;
 
-import com.openmind.xml.mode.devices.Port;
+import com.openmind.hacadaptor.socket.xml.mode.devices.Port;
 
 import javax.xml.bind.annotation.XmlElement;
 

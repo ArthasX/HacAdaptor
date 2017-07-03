@@ -1,4 +1,4 @@
-package com.openmind.xml.mode.token;
+package com.openmind.hacadaptor.socket.xml.mode.token;
 
 /**
  * 暂时不需要.

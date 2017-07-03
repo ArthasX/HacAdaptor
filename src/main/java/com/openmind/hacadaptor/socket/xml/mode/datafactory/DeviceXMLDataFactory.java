@@ -1,10 +1,9 @@
-package com.openmind.xml.mode.datafactory;
+package com.openmind.hacadaptor.socket.xml.mode.datafactory;
 
-import com.openmind.xml.mode.common.XMLBody;
-import com.openmind.xml.mode.common.XMLData;
-import com.openmind.xml.mode.common.XMLHeader;
-import com.openmind.xml.mode.common.XMLType;
-import com.openmind.xml.mode.devices.Device;
+import com.openmind.hacadaptor.socket.xml.mode.common.XMLData;
+import com.openmind.hacadaptor.socket.xml.mode.common.XMLHeader;
+import com.openmind.hacadaptor.socket.xml.mode.common.XMLType;
+import com.openmind.hacadaptor.socket.xml.mode.devices.DeviceXML;
 
 /**
  * Created by KJB-001064 on 2017/6/30.
@@ -18,8 +17,8 @@ public class DeviceXMLDataFactory extends XMLDataFactory {
     }
 
     @Override
-    public XMLData getXMLData() {
-        XMLData<Device> xmlData= new XMLData<>();
+    public XMLData<DeviceXML> getXMLData() {
+        XMLData<DeviceXML> xmlData= new XMLData<>();
         xmlData.setXmlBody(xmlBody);
         xmlData.setXmlHeader(xmlHeader);
         return xmlData;

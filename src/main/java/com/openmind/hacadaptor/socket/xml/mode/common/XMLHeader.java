@@ -1,8 +1,7 @@
-package com.openmind.xml.mode.common;
+package com.openmind.hacadaptor.socket.xml.mode.common;
 
 
-import com.openmind.util.ArrayUtil;
-import com.openmind.util.ByteUtil;
+import com.openmind.hacadaptor.socket.util.ByteUtil;
 
 import java.nio.ByteBuffer;
 import java.util.ResourceBundle;
@@ -14,6 +13,16 @@ public class XMLHeader {
     private String sToken;
     private int iXmlType;
     private int iXmlSize;
+
+    public XMLHeader() {
+;
+    }
+
+    public XMLHeader(String sToken, int iXmlType, int iXmlSize) {
+        this.sToken = sToken;
+        this.iXmlType = iXmlType;
+        this.iXmlSize = iXmlSize;
+    }
 
     public String getsToken() {
         return sToken;
@@ -46,11 +55,11 @@ public class XMLHeader {
     }
 
     public byte[] getBytes() {
-        byte[] token=sToken.getBytes();
-        byte[] xmlType=ByteUtil.intToByteArray(iXmlType);
-        byte[] xmlSize=ByteUtil.intToByteArray(iXmlSize);
+        byte[] token = sToken.getBytes();
+        byte[] xmlType = ByteUtil.intToByteArray(iXmlType);
+        byte[] xmlSize = ByteUtil.intToByteArray(iXmlSize);
 
-        ByteBuffer byteBuffer=ByteBuffer.allocate(20);
+        ByteBuffer byteBuffer = ByteBuffer.allocate(20);
         byteBuffer.put(token).put(xmlType).put(xmlSize);
         return byteBuffer.array();
     }

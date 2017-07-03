@@ -1,27 +1,29 @@
-package com.openmind.xml.mode.common;
+package com.openmind.hacadaptor.socket.xml.mode.common;
 
-import com.openmind.xml.mode.devices.Device;
-import com.openmind.xml.mode.devices.DeviceXML;
-import com.openmind.xml.mode.login.LoginXML;
-import com.openmind.xml.mode.login.User;
-import com.openmind.xml.mode.session.Session;
-import com.openmind.xml.mode.session.WorkNoteSessionXMLBack;
-import com.openmind.xml.mode.session.WorkNoteSessionXMLSend;
-import com.openmind.xml.mode.token.TokenXML;
-import com.openmind.xml.mode.worknote.SetWorkNoteStatusXMLSend;
-import com.openmind.xml.mode.worknote.WorkNote;
-import com.openmind.xml.mode.worknote.WorkNoteXMLBack;
-import com.openmind.xml.mode.worknote.WorkNoteXMLSend;
+import com.openmind.hacadaptor.socket.xml.mode.devices.Device;
+import com.openmind.hacadaptor.socket.xml.mode.devices.DeviceXML;
+import com.openmind.hacadaptor.socket.xml.mode.login.LoginXML;
+import com.openmind.hacadaptor.socket.xml.mode.login.User;
+import com.openmind.hacadaptor.socket.xml.mode.session.Session;
+import com.openmind.hacadaptor.socket.xml.mode.session.WorkNoteSessionXMLBack;
+import com.openmind.hacadaptor.socket.xml.mode.session.WorkNoteSessionXMLSend;
+import com.openmind.hacadaptor.socket.xml.mode.token.TokenXML;
+import com.openmind.hacadaptor.socket.xml.mode.worknote.SetWorkNoteStatusXMLSend;
+import com.openmind.hacadaptor.socket.xml.mode.worknote.WorkNote;
+import com.openmind.hacadaptor.socket.xml.mode.worknote.WorkNoteXMLBack;
+import com.openmind.hacadaptor.socket.xml.mode.worknote.WorkNoteXMLSend;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * Created by KJB-001064 on 2017/6/26.
  */
 @XmlRootElement(name = "Document")
-public class XMLBody<T>  {
+@XmlType(name = "", propOrder = {"documentProperties","context"})
+public class XMLBody<T extends  Context>  {
     protected DocumentProperties documentProperties;
     protected T context;
 
@@ -34,6 +36,10 @@ public class XMLBody<T>  {
         documentProperties = new DocumentProperties();
         documentProperties.setVersion("3");
         documentProperties.setNumber(num);
+    }
+
+    public XMLBody(T context){
+        this.context = context;
     }
 
     @XmlElement(name = "DocumentProperties")

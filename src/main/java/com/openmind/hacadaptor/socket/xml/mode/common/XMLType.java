@@ -1,4 +1,4 @@
-package com.openmind.xml.mode.common;
+package com.openmind.hacadaptor.socket.xml.mode.common;
 
 /**
  * XML_WN_GET_RESOURCE  0x01 获取设备资源

@@ -1,4 +1,4 @@
-package com.openmind.util;
+package com.openmind.hacadaptor.socket.util;
 
 import java.nio.ByteBuffer;
 
@@ -44,5 +44,25 @@ public class ByteUtil {
         buffer.put(bytes, 0, bytes.length);
         buffer.flip();//need flip
         return buffer.getLong();
+    }
+
+    public static byte[] getSubBytes(byte[] bytes, int start, int length) {
+        if (start < 0 || start > bytes.length)
+            try {
+            } catch (Exception e) {
+                new Exception("the start position is out of  bytes index");
+            }
+        int len1 = bytes.length - start;
+        int len2 = length;
+        int len = len1 < len2 ? len1 : len2;
+        byte[] b = new byte[len];
+        for (int i = start; i < len + start; i++) {
+            b[i - start] = bytes[i];
+        }
+        return b;
+    }
+
+    public static byte[] getSubBytes(byte[] bytes, int start){
+        return  getSubBytes(bytes,start,bytes.length-start);
     }
 }

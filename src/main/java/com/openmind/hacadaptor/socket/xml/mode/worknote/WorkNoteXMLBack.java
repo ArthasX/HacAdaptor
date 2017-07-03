@@ -1,4 +1,4 @@
-package com.openmind.xml.mode.worknote;
+package com.openmind.hacadaptor.socket.xml.mode.worknote;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.List;

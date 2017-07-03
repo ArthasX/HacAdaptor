@@ -1,20 +1,24 @@
-package com.openmind.xml.mode.devices;
+package com.openmind.hacadaptor.socket.xml.mode.devices;
+
+import com.openmind.hacadaptor.socket.xml.mode.common.Context;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 /**
  * Created by KJB-001064 on 2017/6/30.
  */
-public class DeviceXML {
-    private List<Device> device;
+@XmlRootElement(name = "Context")
+public class DeviceXML extends Context {
+    private List<Device> devices;
 
     @XmlElement(name = "Item")
-    public List<Device> getDevice() {
-        return device;
+    public List<Device> getDevices() {
+        return devices;
     }
 
-    public void setDevice(List<Device> device) {
-        this.device = device;
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
     }
 }

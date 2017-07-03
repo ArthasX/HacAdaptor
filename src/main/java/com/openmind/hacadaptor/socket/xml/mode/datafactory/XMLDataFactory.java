@@ -1,7 +1,7 @@
-package com.openmind.xml.mode.datafactory;
+package com.openmind.hacadaptor.socket.xml.mode.datafactory;
 
-import com.openmind.xml.mode.common.XMLBody;
-import com.openmind.xml.mode.common.XMLHeader;
+import com.openmind.hacadaptor.socket.xml.mode.common.XMLBody;
+import com.openmind.hacadaptor.socket.xml.mode.common.XMLHeader;
 
 /**
  * Created by KJB-001064 on 2017/6/28.

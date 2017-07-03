@@ -1,4 +1,4 @@
-package com.openmind.xml.mode.devices;
+package com.openmind.hacadaptor.socket.xml.mode.devices;
 
 import javax.xml.bind.annotation.XmlElement;
 

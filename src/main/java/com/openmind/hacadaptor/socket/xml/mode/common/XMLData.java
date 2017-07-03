@@ -1,4 +1,4 @@
-package com.openmind.xml.mode.common;
+package com.openmind.hacadaptor.socket.xml.mode.common;
 
 import javax.xml.bind.JAXBException;
 import java.nio.ByteBuffer;
@@ -6,9 +6,11 @@ import java.nio.ByteBuffer;
 /**
  * The completed xml data to be sent to HAC
  */
-public class XMLData<T> {
+public class XMLData<T extends Context> {
     protected XMLHeader xmlHeader;
     protected XMLBody<T> xmlBody;
+
+
 
     public XMLHeader getXmlHeader() {
         return xmlHeader;
@@ -18,7 +20,7 @@ public class XMLData<T> {
         this.xmlHeader = xmlHeader;
     }
 
-    public XMLBody getXmlBody() {
+    public XMLBody<T> getXmlBody() {
         return xmlBody;
     }
 

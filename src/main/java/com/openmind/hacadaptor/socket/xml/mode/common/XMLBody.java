@@ -3,6 +3,7 @@ package com.openmind.hacadaptor.socket.xml.mode.common;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * Created by KJB-001064 on 2017/6/26.
@@ -29,16 +30,19 @@ public abstract class XMLBody<T,B> implements IXMLBody<T,B> {
     public DocumentProperties getDocumentProperties() {
         return documentProperties;
     }
+
     @XmlTransient
+    @Override
     public T getSentContext() {
         return sentContext;
     }
 
     @Override
     public void setSentContext(T sentContext) {
-
+        this.sentContext=sentContext;
     }
     @XmlTransient
+    @Override
     public B getBackContext(){
         return backContext;
     }

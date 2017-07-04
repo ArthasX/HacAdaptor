@@ -22,10 +22,14 @@ public class ListenService implements Runnable {
     @Override
     public void run() {
         try {
+            System.out.println(System.getProperty("user.dir"));
             InputStream is = socket.getInputStream();
             byte[] readbyte = StreamTool.readStrem(is);
             OutputStream os = socket.getOutputStream();
-            File f = new File("c:/devicelist.xml");
+            String path= ListenService.class.getClassLoader().getResource("devicelist.xml").getPath();
+//            File f = new File("classpath://devicelist.xml");
+            System.out.println(path);
+            File f=new File(path);
             FileReader fileReader = new FileReader(f);
             BufferedReader br = new BufferedReader(fileReader);
             StringBuilder sb = new StringBuilder();

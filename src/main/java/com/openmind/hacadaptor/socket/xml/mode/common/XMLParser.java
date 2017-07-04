@@ -14,7 +14,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.openmind.hacadaptor.socket.util.ByteUtil.getSubBytes;
 
 /**
  * XML to JavaBean

@@ -81,10 +81,10 @@ public class SocketUtil {
     }
 
     public static XMLDTO request(XMLDTO xmldto) {
-        byte[] b = xmldto.getXmlData().getBytes();
+        byte[] data = xmldto.getXmlData().getBytes();
 
         byte[] header = new byte[20];//去掉头部 20 byte长度
-        byte[] buffer = null;
+        byte[] body = null;
 
         int index = 0;
         int readLen;
@@ -97,18 +97,20 @@ public class SocketUtil {
             socket.connect(socketAddress);
             logger.info("connected...");
             OutputStream os = socket.getOutputStream();
-            os.write(b);
+
+            os.write(data);
             os.flush();
             InputStream is = socket.getInputStream();
             if (is != null) {
                 //读取头20字节，获取结果
                 is.read(header);
-                resultType = ByteUtil.byteArrayToInt(ByteUtil.getSubBytes(header, 12, 4));
-                xmldto.setResultType(resultType);
+                xmldto.setXmlHeaderBytesBack(header);
+                //resultType = ByteUtil.byteArrayToInt(ByteUtil.getSubBytes(header, 12, 4));
+                //xmldto.setResultType(resultType);
                 totalLen = ByteUtil.byteArrayToInt(ByteUtil.getSubBytes(header, 16, 4));
-                buffer = new byte[totalLen];
+                body = new byte[totalLen];
                 while (index < totalLen) {
-                    readLen = is.read(buffer, index, totalLen - index);
+                    readLen = is.read(body, index, totalLen - index);
                     if (readLen > 0)
                         index = index + readLen;
                     else
@@ -121,7 +123,7 @@ public class SocketUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        xmldto.setXmlBodyBytes(buffer);
+        xmldto.setXmlBodyBytesBack(body);
         return xmldto;
     }
 

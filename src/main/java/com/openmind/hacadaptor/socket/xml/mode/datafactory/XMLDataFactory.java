@@ -6,7 +6,7 @@ import com.openmind.hacadaptor.socket.xml.mode.common.XMLHeader;
 /**
  * Created by KJB-001064 on 2017/6/28.
  */
-abstract class XMLDataFactory implements IMake {
+public abstract class XMLDataFactory implements IMake {
     protected XMLHeader xmlHeader;
     protected XMLBody xmlBody;
 

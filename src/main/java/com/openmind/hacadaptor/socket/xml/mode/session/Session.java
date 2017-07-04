@@ -1,12 +1,14 @@
 package com.openmind.hacadaptor.socket.xml.mode.session;
 
+import com.openmind.hacadaptor.socket.xml.mode.common.Context;
+
 import javax.xml.bind.annotation.XmlElement;
 
 /**
  * 工单Session的具体内容
  */
 
-public class Session {
+public class Session extends Context {
 
     private String sessionId;
     private String operator;

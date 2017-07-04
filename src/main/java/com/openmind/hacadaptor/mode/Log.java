@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Created by KJB-001064 on 2017/6/27.
  */
 @Table("LOG")
-public class Log extends Identity   {
+public class Log extends Identity {
 
     @Column("workorder")
     private String workOrder;
@@ -24,9 +24,10 @@ public class Log extends Identity   {
     @Column("remark")
     private String remark;
 
-    public Log(){
+    public Log() {
 
     }
+
     public Log(String workOrder, String deviceName, String ip, String content, String optDate, String remark) {
         this.workOrder = workOrder;
         this.deviceName = deviceName;

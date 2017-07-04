@@ -5,12 +5,11 @@ import com.openmind.hacadaptor.socket.socketutil.SocketUtil;
 /**
  * Created by KJB-001064 on 2017/6/30.
  */
-public class XMLTransmitter   {
+public class XMLTransmitter {
 
     private XMLData xmlData;
 
     /**
-     *
      * @param xmlData
      * @return hac返回的xml
      */
@@ -18,11 +17,11 @@ public class XMLTransmitter   {
         return SocketUtil.request(xmlData.getBytes());
     }
 
-    public static byte[] trans(byte[] bytes){
+    public static byte[] trans(byte[] bytes) {
         return SocketUtil.request(bytes);
     }
 
-    public static<T extends  Context> XMLDTO<T> trans(XMLDTO<T> xmldto){
+    public static XMLDTO trans(XMLDTO xmldto) {
         return SocketUtil.request(xmldto);
     }
 }

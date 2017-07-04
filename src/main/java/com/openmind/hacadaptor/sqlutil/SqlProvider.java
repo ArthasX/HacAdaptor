@@ -164,8 +164,8 @@ public class SqlProvider {
                 Object object = field.get(bean);
                 selectSql.append(field.getName());
                 if (object != null) {
-                    if(object instanceof Integer)
-                    selectParaNames.add(columnName);
+                    if (object instanceof Integer)
+                        selectParaNames.add(columnName);
                     selectParas.add("#{" + field.getName() + "}");
                 }
                 if (i != fields.length - 1)

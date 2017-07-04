@@ -1,10 +1,12 @@
 package com.openmind.hacadaptor.socket.xml.mode.login;
 
 
+import com.openmind.hacadaptor.socket.xml.mode.common.Context;
+
 /**
- *  操作人员信息
+ * 操作人员信息
  */
-public class User {
+public class User extends Context {
     private String groupId;
     private String groupName;
     private String login;

@@ -1,5 +1,6 @@
 package com.openmind.hacadaptor.socket.xml.mode.worknote;
 
+import com.openmind.hacadaptor.socket.xml.mode.common.Context;
 import com.openmind.hacadaptor.socket.xml.mode.devices.Port;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -7,7 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * 提交变更工单
  */
-public class WorkNoteXMLSend {
+public class WorkNoteSentXML extends Context {
     private String operator;
     private String workNoteNumber;
     private String startTime;

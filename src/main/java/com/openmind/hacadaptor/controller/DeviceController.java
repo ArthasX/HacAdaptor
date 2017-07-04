@@ -33,7 +33,7 @@ public class DeviceController {
     @ResponseBody
     public List<Device> getDevices() {
         Device d = new Device();
-        List<Device> list= deviceService.selectAll(d);
+        List<Device> list = deviceService.selectAll(d);
         return list;
     }
 

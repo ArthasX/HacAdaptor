@@ -6,6 +6,8 @@ import com.openmind.hacadaptor.socket.util.ByteUtil;
 import java.nio.ByteBuffer;
 import java.util.ResourceBundle;
 
+import static com.openmind.hacadaptor.socket.util.ByteUtil.getSubBytes;
+
 /**
  * Created by KJB-001064 on 2017/6/26.
  */
@@ -15,7 +17,7 @@ public class XMLHeader {
     private int iXmlSize;
 
     public XMLHeader() {
-;
+        ;
     }
 
     public XMLHeader(String sToken, int iXmlType, int iXmlSize) {
@@ -62,6 +64,13 @@ public class XMLHeader {
         ByteBuffer byteBuffer = ByteBuffer.allocate(20);
         byteBuffer.put(token).put(xmlType).put(xmlSize);
         return byteBuffer.array();
+    }
+
+    public static XMLHeader HeaderBytes2Object(byte[] bytes) {
+        String token = new String(getSubBytes(bytes, 0, 12));
+        int xmlType = ByteUtil.byteArrayToInt(getSubBytes(bytes, 12, 4));
+        int xmlSize = ByteUtil.byteArrayToInt(getSubBytes(bytes, 16, 4));
+        return new XMLHeader(token, xmlType, xmlSize);
     }
 }
 

@@ -6,7 +6,7 @@ package com.openmind.hacadaptor.socket.hacoperation;
 public class BaseOperation {
 
 
-    public BaseOperation(){
+    public BaseOperation() {
 
     }
 

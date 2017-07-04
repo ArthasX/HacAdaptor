@@ -2,6 +2,7 @@ package com.openmind.hacadaptor.socket;
 
 import com.openmind.hacadaptor.socket.hacoperation.DeviceOperator;
 import com.openmind.hacadaptor.socket.xml.mode.devices.Device;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.List;
@@ -12,7 +13,8 @@ import java.util.List;
 public class TestDevicesSocket {
     @Test
     public void getDevices(){
-
-        List<Device> list = DeviceOperator.getDevices();
+        DeviceOperator deviceOperator= new DeviceOperator();
+        List<Device> list = deviceOperator.getDevices();
+        Assert.assertNotNull(list);
     }
 }

@@ -6,10 +6,9 @@ import java.nio.ByteBuffer;
 /**
  * The completed xml data to be sent to HAC
  */
-public class XMLData<T extends Context> {
+public class XMLData {
     protected XMLHeader xmlHeader;
-    protected XMLBody<T> xmlBody;
-
+    protected IXMLBody xmlBody;
 
 
     public XMLHeader getXmlHeader() {
@@ -20,11 +19,11 @@ public class XMLData<T extends Context> {
         this.xmlHeader = xmlHeader;
     }
 
-    public XMLBody<T> getXmlBody() {
+    public IXMLBody getXmlBody() {
         return xmlBody;
     }
 
-    public void setXmlBody(XMLBody xmlBody) {
+    public void setXmlBody(IXMLBody xmlBody) {
         this.xmlBody = xmlBody;
     }
 

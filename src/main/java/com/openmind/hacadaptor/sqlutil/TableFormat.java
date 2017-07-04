@@ -5,6 +5,8 @@ package com.openmind.hacadaptor.sqlutil;
  */
 public interface TableFormat {
     String getColumnName(String field);
+
     String getTableName(String field);
+
     String getId();
 }

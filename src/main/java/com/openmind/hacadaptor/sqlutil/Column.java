@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 public @interface Column {
     //public String name() default "fieldName";
 
-     boolean required() default true;
+    boolean required() default true;
 
-     String value();
+    String value();
 }

@@ -10,10 +10,10 @@ import java.util.List;
  * Created by KJB-001064 on 2017/6/27.
  */
 @Service("baseService")
-public interface IBaseService<T,ID extends Serializable> {
-    T selectById(Class<T> clz,ID id);
+public interface IBaseService<T, ID extends Serializable> {
+    T selectById(Class<T> clz, ID id);
 
-    T deleteById(Class<T> clz,ID id);
+    T deleteById(Class<T> clz, ID id);
 
     T select(T t);
 

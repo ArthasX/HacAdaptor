@@ -12,21 +12,22 @@ public class ArrayUtils {
 //        return addAll(beanFields,superBeanFields);
 //    }
 
-    public static<T> T[] addAll(T[] first,T[] ...beanFields){
-        int length=first.length;
-        for(T[] t :beanFields){
-            length+=t.length;
+    public static <T> T[] addAll(T[] first, T[]... beanFields) {
+        int length = first.length;
+        for (T[] t : beanFields) {
+            length += t.length;
         }
         //first[x,x,x,.........length]
-        T[] result=Arrays.copyOf(first,length);
-        int offset=first.length;
-        for(T[] t:beanFields){
-            System.arraycopy(t,0,result,offset,t.length);
-            offset+=t.length;
+        T[] result = Arrays.copyOf(first, length);
+        int offset = first.length;
+        for (T[] t : beanFields) {
+            System.arraycopy(t, 0, result, offset, t.length);
+            offset += t.length;
         }
         return result;
     }
-    public void test(String s){
+
+    public void test(String s) {
         System.out.println(s);
     }
 }

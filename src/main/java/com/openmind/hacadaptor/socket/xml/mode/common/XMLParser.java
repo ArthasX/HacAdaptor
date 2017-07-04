@@ -1,17 +1,18 @@
 package com.openmind.hacadaptor.socket.xml.mode.common;
 
-import com.openmind.hacadaptor.socket.util.ByteUtil;
-import com.openmind.hacadaptor.socket.util.FileUtil;
-import com.openmind.hacadaptor.socket.xml.mode.datafactory.DeviceXMLDataFactory;
+import com.openmind.hacadaptor.socket.xml.mode.devices.Device;
+import com.openmind.hacadaptor.socket.xml.mode.devices.DeviceXMLBody;
+import com.openmind.hacadaptor.socket.xml.mode.devices.DeviceBackXML;
 import com.openmind.hacadaptor.socket.xml.mode.session.Session;
 import com.openmind.hacadaptor.socket.xml.mode.session.WorkNoteSessionXMLBack;
 import com.openmind.hacadaptor.socket.xml.mode.session.WorkNoteSessionXMLSend;
+import com.openmind.hacadaptor.socket.xml.mode.worknote.WorkNoteSentXMLBody;
+import com.openmind.hacadaptor.socket.xml.mode.worknote.WorkNoteSentXML;
 
 import javax.xml.bind.*;
 import java.io.*;
-import java.lang.reflect.Parameter;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.openmind.hacadaptor.socket.util.ByteUtil.getSubBytes;
 
@@ -29,15 +30,17 @@ public class XMLParser {
      * @return xmlString
      * @throws JAXBException
      */
-    public static <T> String Object2XML(T t) throws JAXBException {
-        JAXBContext jaxbContext = JAXBContext.newInstance(t.getClass());
+    public static <T> String Object2XML(T t,Class<?> ...tClass) throws JAXBException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(tClass);
         Marshaller marshaller = jaxbContext.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         StringWriter writer = new StringWriter();
         marshaller.marshal(t, writer);
         return writer.toString();
     }
-
+    public static <T> String Object2XML(T t) throws JAXBException {
+        return Object2XML(t,XMLBody.class,t.getClass());
+    }
     /**
      * get object from xml
      *
@@ -49,6 +52,10 @@ public class XMLParser {
      */
     @SuppressWarnings("unchecked")
     public static <T> T XML2Object(Class<T> tClass, String content) throws JAXBException {
+        return XML2Object(content, XMLBody.class, tClass);
+    }
+
+    public static <T> T XML2Object(String content, Class<?>... tClass) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(tClass);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
         return (T) unmarshaller.unmarshal(new StringReader(content));
@@ -59,45 +66,41 @@ public class XMLParser {
         return XML2Object(tClass, new String(bytes));
     }
 
-    public static <T extends Context> T XML2Object(XMLBody<T> xmlBody,byte[] bytes) throws JAXBException{
-        Type genType=xmlBody.getContext().getClass().getGenericSuperclass();
-        Type[] params=((ParameterizedType)genType).getActualTypeArguments();
-        Class entityClass =(Class)params[0];
-        return (T)XML2Object(entityClass,bytes);
-    }
-
-    public static XMLHeader HeaderBytes2Object(byte[] bytes) {
-        String token = new String(getSubBytes(bytes, 0, 12));
-        int xmlType = ByteUtil.byteArrayToInt(getSubBytes(bytes, 12, 4));
-        int xmlSize = ByteUtil.byteArrayToInt(getSubBytes(bytes, 16, 4));
-        return new XMLHeader(token, xmlType, xmlSize);
-    }
-
-
 
     private static void test() {
         WorkNoteSessionXMLSend workNoteSessionXMLSend = new WorkNoteSessionXMLSend();
         workNoteSessionXMLSend.setWorkNoteNumber("123456789");
+        WorkNoteSentXML workNoteSentXML = new WorkNoteSentXML();
+        workNoteSentXML.setOperator("123");
+        workNoteSentXML.setReason("rrrrrrrrrr");
         Session session = new Session();
         session.setAccount("12345");
         WorkNoteSessionXMLBack workNoteSessionXMLBack = new WorkNoteSessionXMLBack();
         workNoteSessionXMLBack.addSession(session);
         workNoteSessionXMLBack.addSession(session);
-        XMLBody<WorkNoteSessionXMLSend> xmlBody = new XMLBody<WorkNoteSessionXMLSend>();
-        xmlBody.setContext(workNoteSessionXMLSend);
-        XMLBody<WorkNoteSessionXMLBack> xmlBody2 = new XMLBody<WorkNoteSessionXMLBack>();
-        xmlBody2.setContext(workNoteSessionXMLBack);
+        XMLBody xmlBody = new WorkNoteSentXMLBody();
+        xmlBody.setSentContext(workNoteSentXML);
+//        XMLBody<WorkNoteSessionXMLBack> xmlBody2 = new XMLBody<WorkNoteSessionXMLBack>();
+//        xmlBody2.setBackContext(workNoteSessionXMLBack);
+        DeviceXMLBody deviceXMLBody = new DeviceXMLBody();
+        Device device = new Device();
+        device.setDeviceName("123");
+        List<Device> list = new ArrayList<>();
+        list.add(device);
+        DeviceBackXML devicesXML = new DeviceBackXML();
+        devicesXML.setDevices(list);
+        deviceXMLBody.setSentContext(devicesXML);
         try {
-            System.out.println(XMLParser.Object2XML(xmlBody));
-            // System.out.println(XMLParser.Object2XML(xmlBody1));
-            System.out.println(XMLParser.Object2XML(xmlBody2));
+            System.out.println(XMLParser.Object2XML(deviceXMLBody));
+             System.out.println(XMLParser.Object2XML(xmlBody));
+//            System.out.println(XMLParser.Object2XML(xmlBody2));
         } catch (JAXBException e) {
             e.printStackTrace();
         }
 
         System.out.println("-----------------------------read from file----------------------------------------");
         try {
-            File f = new File("d:/test.xml");
+            File f = new File("c:/devicelist.xml");
             //FileInputStream fileInputStream = new FileInputStream(f);
             FileReader fileReader = new FileReader(f);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -107,7 +110,7 @@ public class XMLParser {
                 sb.append(tmp);
             }
             System.out.println(sb.toString());
-            XMLBody xmlBody3 = XMLParser.XML2Object(XMLBody.class, sb.toString());
+            DeviceXMLBody xmlBody3 = XMLParser.XML2Object(DeviceXMLBody.class, sb.toString());
             System.out.println(xmlBody3);
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,67 +1,65 @@
 package com.openmind.hacadaptor.socket.xml.mode.common;
 
-import com.openmind.hacadaptor.socket.xml.mode.devices.DeviceXML;
+import com.openmind.hacadaptor.socket.util.ClassUtil;
 
 import javax.xml.bind.JAXBException;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 
 /**
- * Created by KJB-001064 on 2017/7/3.
+ *
+ * @param <T> XMLDataBody
  */
-public class XMLDTO<T extends Context> {
-    private XMLData<T> xmlData;
-    private byte[] xmlBodyBytes;
-    private int resultCount;
-    private boolean isSuccess = true;
+public class XMLDTO<T,B> implements BaseDTO<T,B> {
+    private XMLData xmlData;
+    private XMLData xmlDataBack;
+    private byte[] xmlBodyBytesBack;
+    private byte[] xmlHeaderBytesBack;
+    private int resultCount = 0;
     private int resultType;
+    private int errorCode = 0;
+    private String errorMessage = "";
 
-
-    public XMLBody<T> getXmlBody() {
-        return xmlData.getXmlBody();
+    public XMLDTO() {
+        xmlDataBack = new XMLData();
     }
 
-    public T getContext() {
-        return xmlData.getXmlBody().getContext();
+    public IXMLBody getResult() {
+        return xmlDataBack.getXmlBody();
+    }
+
+    private void setResultType(int resultType) {
+        this.resultType = resultType;
+        if (resultType == XMLType.XML_WN_REQUEST_ERROR)
+            errorCode = 1;
     }
 
     public XMLData getXmlData() {
         return xmlData;
     }
 
-    public void setXmlData(XMLData<T> xmlData) {
+    public void setXmlData(XMLData xmlData) {
         this.xmlData = xmlData;
     }
 
-    public byte[] getXmlBodyBytes() {
-        return xmlBodyBytes;
+    public byte[] getXmlBodyBytesBack() {
+        return xmlBodyBytesBack;
     }
 
-    public void setXmlBodyBytes(byte[] xmlBodyBytes) {
-        this.xmlBodyBytes = xmlBodyBytes;
-    }
-
-    public void setSuccess(boolean success) {
-        isSuccess = success;
-    }
-
-    public XMLBody<T> getResult() {
-        if (xmlData.getXmlBody() == null) {
+    public void setXmlBodyBytesBack(byte[] xmlBodyBytesBack) {
+        this.xmlBodyBytesBack = xmlBodyBytesBack;
+        if (xmlBodyBytesBack != null) {
+            Class<B> tClass = (Class<B>) ClassUtil.getSuperClassGenricType(getClass(), 1);
             try {
-                Type genType=this.getClass().getGenericSuperclass();
-                Type[] params=((ParameterizedType)genType).getActualTypeArguments();
-                Class entityClass =(Class)params[0];
-                XMLBody<T> resultXMLBody = new XMLBody<>();
-                XMLParser.XML2Object(resultXMLBody, xmlBodyBytes);
-                String resultC = resultXMLBody.getDocumentProperties().getNumber();
+                IXMLBody xmlBody = (IXMLBody) XMLParser.XML2Object(tClass, xmlBodyBytesBack);
+                String resultC = xmlBody.getDocumentProperties().getNumber();
                 if (resultC != null || !"".equals(resultC))
                     this.resultCount = Integer.parseInt(resultC);
-                this.xmlData.setXmlBody(resultXMLBody);
+                this.xmlDataBack.setXmlBody(xmlBody);
             } catch (JAXBException e) {
                 e.printStackTrace();
+                errorCode = 1;
+                errorMessage = "XML to JavaBean error";
             }
         }
-        return xmlData.getXmlBody();
     }
 
     public int getResultCount() {
@@ -72,17 +70,17 @@ public class XMLDTO<T extends Context> {
         this.resultCount = resultCount;
     }
 
-    public boolean isSuccess() {
-        return isSuccess;
-    }
-
     public int getResultType() {
         return resultType;
     }
 
-    public void setResultType(int resultType) {
-        this.resultType = resultType;
-        if (resultType == XMLType.XML_WN_REQUEST_ERROR)
-            isSuccess = false;
+    public byte[] getXmlHeaderBytesBack() {
+        return xmlHeaderBytesBack;
+    }
+
+    public void setXmlHeaderBytesBack(byte[] xmlHeaderBytesBack) {
+        this.xmlHeaderBytesBack = xmlHeaderBytesBack;
+        this.xmlDataBack.setXmlHeader(XMLHeader.HeaderBytes2Object(xmlHeaderBytesBack));
+        setResultType(this.xmlDataBack.getXmlHeader().getiXmlType());
     }
 }

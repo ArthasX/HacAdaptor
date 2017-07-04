@@ -10,11 +10,12 @@ public class Port {
     private String portId;
     private List<String> accountId;
 
-    @XmlElement(name="Port")
+    @XmlElement(name = "Port")
     public String getPortId() {
         return portId;
     }
-    @XmlElement(name="Account")
+
+    @XmlElement(name = "Account")
     public List<String> getAccountId() {
         return accountId;
     }

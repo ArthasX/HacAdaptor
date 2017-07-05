@@ -12,11 +12,11 @@ public class WorkNoteBackXML extends Context {
     private List<WorkNote> workNoteList;
 
     @XmlElement(name = "Item")
-    public List<WorkNote> getWorkNoteList() {
+    public List<WorkNote> getContextDetail() {
         return workNoteList;
     }
 
-    public void setWorkNoteList(List<WorkNote> workNoteList) {
+    public void setContextDetail(List<WorkNote> workNoteList) {
         this.workNoteList = workNoteList;
     }
 }

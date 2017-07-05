@@ -12,7 +12,7 @@ import java.lang.reflect.Field;
  */
 @XmlRootElement(name = "Document")
 //@XmlType(name = "", propOrder = {"documentProperties", "backContext"})
-public abstract class XMLBody<T, B> implements IXMLBody<T, B> {
+public abstract class XMLBody<T extends IContext, B extends IContext> implements IXMLBody<T, B> {
     protected DocumentProperties documentProperties;
     protected T sentContext;
     protected B backContext;

@@ -25,7 +25,6 @@ public class XMLParser {
      * get xml from Object
      *
      * @param t   Object
-     * @param <T> Object's class
      * @return xmlString
      * @throws JAXBException
      */
@@ -45,7 +44,6 @@ public class XMLParser {
      *
      * @param tClass  Object's class
      * @param content xml content
-     * @param <T>     Object's class
      * @return Object
      * @throws JAXBException
      */

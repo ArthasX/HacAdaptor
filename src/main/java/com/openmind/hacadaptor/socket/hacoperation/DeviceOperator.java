@@ -26,8 +26,9 @@ public class DeviceOperator implements IOperation {
      */
     public List<Device> getDevices() {
         xmldto = getXmldtoBack();
-        DeviceBackXML deviceBackXML = (DeviceBackXML) xmldto.getResult().getBackContext();
-        return deviceBackXML.getDevices();
+//        DeviceBackXML deviceBackXML = (DeviceBackXML) xmldto.getResult().getBackContext();
+//        return deviceBackXML.getDevices();
+        return (List<Device>)xmldto.getResult().getBackContext().getContextDetail();
     }
 
     public XMLDTO getXmldtoBack() {

@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * Created by KJB-001064 on 2017/6/28.
  */
-public class SetWorkNoteStatusSentXML extends Context {
+public class SetWorkNoteStatusSentXML extends Context<String> {
     private String WorkNoteNumber;
 
     @XmlElement(name = "WorkNoteNumber")

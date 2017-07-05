@@ -42,7 +42,7 @@ public class SocketUtil {
     public static byte[] request(byte[] b) {
         byte[] header = new byte[20];//去掉头部 20 byte长度
         int index = 0;
-        int readLen = 0;
+        int readLen = 0;    
         int totalLen = 0;
         byte[] buffer = null;
         try {

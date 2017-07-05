@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 返回的Session结果
  */
-public class WorkNoteSessionXMLBack extends Context {
+public class WorkNoteSessionXMLBack extends Context<List<Session>> {
     private List<Session> session;
 
     public WorkNoteSessionXMLBack() {
@@ -17,11 +17,11 @@ public class WorkNoteSessionXMLBack extends Context {
     }
 
     @XmlElement(name = "Session")
-    public List<Session> getSession() {
+    public List<Session> getContextDetail() {
         return session;
     }
 
-    public void setSession(List<Session> session) {
+    public void setContextDetail(List<Session> session) {
         this.session = session;
     }
 

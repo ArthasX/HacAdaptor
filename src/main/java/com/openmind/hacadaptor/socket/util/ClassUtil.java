@@ -7,8 +7,6 @@ import java.lang.reflect.Type;
  * Created by KJB-001064 on 2017/7/4.
  */
 public class ClassUtil {
-
-
     public static Class<Object> getSuperClassGenricType(final Class clazz, final int index) {
         Type genType = clazz.getGenericSuperclass();
         if (!(genType instanceof ParameterizedType))
@@ -21,14 +19,4 @@ public class ClassUtil {
         return (Class) params[index];
     }
 
-    public static <T> T getNewInstans(Class<T> tClass) {
-        try {
-            return tClass.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 }

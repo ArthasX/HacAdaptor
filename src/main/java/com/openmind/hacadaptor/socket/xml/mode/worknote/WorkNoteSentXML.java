@@ -16,6 +16,18 @@ public class WorkNoteSentXML extends Context {
     private String reason;
     private Port[] port;
 
+    public WorkNoteSentXML() {
+    }
+
+    public WorkNoteSentXML(String operator, String workNoteNumber, String startTime, String endTime, String reason, Port[] port) {
+        this.operator = operator;
+        this.workNoteNumber = workNoteNumber;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.reason = reason;
+        this.port = port;
+    }
+
     @XmlElement(name = "Operator")
     public String getOperator() {
         return operator;

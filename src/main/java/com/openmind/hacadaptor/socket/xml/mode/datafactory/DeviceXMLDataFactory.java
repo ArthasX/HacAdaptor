@@ -13,18 +13,21 @@ public class DeviceXMLDataFactory extends XMLDataFactory {
     public DeviceXMLDataFactory() {
         xmlHeader = XMLHeader.getPreparedHeader();
         xmlHeader.setiXmlType(XMLType.XML_WN_GET_RESOURCE);
-        xmlHeader.setiXmlSize(0);
+       // xmlHeader.setiXmlSize(0);
     }
 
+    /**
+     * 由于后去资源不需要发送xml data，所以 xmlSize默认是0
+     * @return XMLData
+     */
     @Override
     public XMLData getXMLData() {
         XMLData xmlData = new XMLData();
         DeviceXMLBody deviceXMLBody = new DeviceXMLBody();
-        xmlData.setXmlBody(deviceXMLBody);
         xmlData.setXmlHeader(xmlHeader);
+        xmlData.setXmlBody(deviceXMLBody);
         return xmlData;
     }
-
 
 
 }

@@ -1,5 +1,7 @@
 package com.openmind.hacadaptor.socket.xml.mode.datafactory;
 
+import com.openmind.hacadaptor.socket.hacoperation.WorkNoteOperator;
+import com.openmind.hacadaptor.socket.xml.mode.common.XMLBody;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLData;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLHeader;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLType;
@@ -10,23 +12,34 @@ import com.openmind.hacadaptor.socket.xml.mode.common.XMLType;
 public class WorkNoteXMLDataFactory extends XMLDataFactory {
 
 
-    public WorkNoteXMLDataFactory() {
-        xmlHeader = XMLHeader.getPreparedHeader();
+    public WorkNoteXMLDataFactory(int operationType, XMLBody body) {
+        xmlBody = body;
+        switch (operationType) {
+            case WorkNoteOperator.SUBMIT_WORK_NOTE:
+                initSubmitWorkNoteSendHeader();
+                break;
+            case WorkNoteOperator.SET_WORK_NOTE:
+                initSetWorkNoteSendHeader();
+                break;
+        }
     }
 
-    /**
-     *
-     * @param xmlSize 发送的XML数据byte长度
-     */
-    private void initWorkNoteSendHeader(int xmlSize){
-        xmlHeader.setiXmlType(XMLType.XML_WN_CHANGE_DATA);
-        xmlHeader.setiXmlSize(xmlSize);
-    }
-    private void initSetWorkNoteSendHeader(){
 
+    private void initSubmitWorkNoteSendHeader() {
+        xmlHeader = XMLHeader.getPreparedHeader(XMLType.XML_WN_CHANGE_DATA);
     }
+
+    private void initSetWorkNoteSendHeader() {
+        xmlHeader = XMLHeader.getPreparedHeader(XMLType.XML_WN_SET_END);
+    }
+
     @Override
     public XMLData getXMLData() {
-        return null;
+        XMLData xmlData = new XMLData();
+        xmlData.setXmlHeader(xmlHeader);
+        xmlData.setXmlBody(xmlBody);
+        return xmlData;
     }
+
+
 }

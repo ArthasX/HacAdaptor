@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import java.util.List;
 
 /**
- * 提交变更工单
+ * 提交变更工单,返回的结果
  */
 public class WorkNoteBackXML extends Context {
     private List<WorkNote> workNoteList;

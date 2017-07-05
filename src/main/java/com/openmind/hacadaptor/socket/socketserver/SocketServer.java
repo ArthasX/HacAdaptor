@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
+ * this is for unit test
  * Created by KJB-001064 on 2017/6/26.
  */
 public class SocketServer {

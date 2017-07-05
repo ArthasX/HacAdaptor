@@ -1,7 +1,11 @@
 package com.openmind.hacadaptor.socket.xml.mode.datafactory;
 
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLBody;
+import com.openmind.hacadaptor.socket.xml.mode.common.XMLData;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLHeader;
+
+import java.nio.ByteBuffer;
+import java.util.List;
 
 /**
  * Created by KJB-001064 on 2017/6/28.
@@ -25,4 +29,8 @@ public abstract class XMLDataFactory implements IMake {
     public void setXmlBody(XMLBody xmlBody) {
         this.xmlBody = xmlBody;
     }
+
+    public abstract XMLData getXMLData() ;
+
+//    public abstract XMLData getXMLData(int xmlSize) ;
 }

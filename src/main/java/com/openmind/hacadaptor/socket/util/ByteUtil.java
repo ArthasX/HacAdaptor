@@ -49,10 +49,8 @@ public class ByteUtil {
 
     public static byte[] getSubBytes(byte[] bytes, int start, int length) {
         if (start < 0 || start > bytes.length)
-            try {
-            } catch (Exception e) {
-                new Exception("the start position is out of  bytes index");
-            }
+//            throw new Exception("the start position is out of  bytes index");
+            throw new RuntimeException("the start position is out of  bytes index");
         int len1 = bytes.length - start;
         int len2 = length;
         int len = len1 < len2 ? len1 : len2;

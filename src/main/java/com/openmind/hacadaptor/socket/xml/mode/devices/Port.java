@@ -10,6 +10,14 @@ public class Port {
     private String portId;
     private List<String> accountId;
 
+    public Port() {
+    }
+
+    public Port(String portId, List<String> accountId) {
+        this.portId = portId;
+        this.accountId = accountId;
+    }
+
     @XmlElement(name = "Port")
     public String getPortId() {
         return portId;

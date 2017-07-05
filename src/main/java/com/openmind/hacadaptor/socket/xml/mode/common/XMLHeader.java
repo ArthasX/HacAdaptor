@@ -55,6 +55,12 @@ public class XMLHeader {
         xmlHeader.setsToken(ResourceBundle.getBundle("setting").getString("token"));
         return xmlHeader;
     }
+    public static XMLHeader getPreparedHeader(int xmlType) {
+        XMLHeader xmlHeader = new XMLHeader();
+        xmlHeader.setsToken(ResourceBundle.getBundle("setting").getString("token"));
+        xmlHeader.setiXmlType(xmlType);
+        return xmlHeader;
+    }
 
     public byte[] getBytes() {
         byte[] token = sToken.getBytes();

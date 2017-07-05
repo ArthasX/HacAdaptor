@@ -11,4 +11,6 @@ public interface IXMLBody<T,B> {
 
     B getBackContext();
     void setBackContext(B backContext);
+
+    byte[] getBytes();
 }

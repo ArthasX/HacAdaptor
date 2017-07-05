@@ -3,6 +3,7 @@ package com.openmind.hacadaptor.socket.util;
 import java.io.*;
 
 /**
+ * this is for test
  * Created by KJB-001064 on 2017/7/3.
  */
 public class FileUtil {
@@ -20,6 +21,5 @@ public class FileUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

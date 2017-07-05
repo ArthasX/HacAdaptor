@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Document>
+  <DocumentProperties>
+    <Version>3.00</Version>
+    <Number>1</Number>
+  </DocumentProperties>
+  <Context>
+	<SpecifyAccount>1</SpecifyAccount>
+	<Operator>test</Operator>
+	<WorkNoteNumber>SPL0001119T004</WorkNoteNumber>
+	<StartTime>2014-12-29 11:30:00</StartTime>
+	<EndTime>2014-12-29 22:30:00</EndTime>
+	<Port>
+	<PortId>4116</PortId>
+	</Port>	
+  </Context>
+ </Document>

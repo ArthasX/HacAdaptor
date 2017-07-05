@@ -16,5 +16,6 @@ public class TestDevicesSocket {
         DeviceOperator deviceOperator= new DeviceOperator();
         List<Device> list = deviceOperator.getDevices();
         Assert.assertNotNull(list);
+        Assert.assertEquals(33,list.size());
     }
 }

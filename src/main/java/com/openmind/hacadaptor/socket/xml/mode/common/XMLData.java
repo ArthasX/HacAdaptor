@@ -9,7 +9,9 @@ import java.nio.ByteBuffer;
 public class XMLData {
     protected XMLHeader xmlHeader;
     protected IXMLBody xmlBody;
-
+    private byte[] bodyBytes;
+    private byte[] headerBytes;
+    private int xmlSize;
 
     public XMLHeader getXmlHeader() {
         return xmlHeader;
@@ -17,6 +19,8 @@ public class XMLData {
 
     public void setXmlHeader(XMLHeader xmlHeader) {
         this.xmlHeader = xmlHeader;
+        if(xmlBody!=null)
+            xmlHeader.setiXmlSize(xmlSize);
     }
 
     public IXMLBody getXmlBody() {
@@ -25,19 +29,23 @@ public class XMLData {
 
     public void setXmlBody(IXMLBody xmlBody) {
         this.xmlBody = xmlBody;
+//        if (xmlBody != null)
+//            try {
+//                bodyBytes = XMLParser.Object2XML(this.xmlBody).getBytes();
+//                xmlSize = bodyBytes.length;
+//                if (xmlHeader != null)
+//                    xmlHeader.setiXmlSize(xmlSize);
+//            } catch (JAXBException e) {
+//                e.printStackTrace();
+//            }
+        bodyBytes=xmlBody.getBytes();
     }
 
     public byte[] getBytes() {
-        byte[] body = new byte[0];
         byte[] header = xmlHeader.getBytes();
         if (xmlBody != null) {
-            try {
-                body = XMLParser.Object2XML(xmlBody).getBytes();
-            } catch (JAXBException e) {
-                e.printStackTrace();
-            }
-            ByteBuffer byteBuffer = ByteBuffer.allocate(header.length + body.length);
-            return byteBuffer.put(header).put(body).array();
+            ByteBuffer byteBuffer = ByteBuffer.allocate(header.length + bodyBytes.length);
+            return byteBuffer.put(header).put(bodyBytes).array();
         } else
             return header;
     }

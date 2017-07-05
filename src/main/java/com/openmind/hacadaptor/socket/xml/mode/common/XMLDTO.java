@@ -5,10 +5,9 @@ import com.openmind.hacadaptor.socket.util.ClassUtil;
 import javax.xml.bind.JAXBException;
 
 /**
- *
  * @param <T> XMLDataBody
  */
-public class XMLDTO<T,B> implements BaseDTO<T,B> {
+public class XMLDTO<T, B> implements BaseDTO<T, B> {
     private XMLData xmlData;
     private XMLData xmlDataBack;
     private byte[] xmlBodyBytesBack;
@@ -46,7 +45,7 @@ public class XMLDTO<T,B> implements BaseDTO<T,B> {
 
     public void setXmlBodyBytesBack(byte[] xmlBodyBytesBack) {
         this.xmlBodyBytesBack = xmlBodyBytesBack;
-        if (xmlBodyBytesBack != null) {
+        if (xmlBodyBytesBack != null && xmlBodyBytesBack.length > 0) {
             Class<B> tClass = (Class<B>) ClassUtil.getSuperClassGenricType(getClass(), 1);
             try {
                 IXMLBody xmlBody = (IXMLBody) XMLParser.XML2Object(tClass, xmlBodyBytesBack);
@@ -57,7 +56,7 @@ public class XMLDTO<T,B> implements BaseDTO<T,B> {
             } catch (JAXBException e) {
                 e.printStackTrace();
                 errorCode = 1;
-                errorMessage = "XML to JavaBean error";
+                errorMessage = "[" + this.getClass().getName() + "]XML to JavaBean error :" + tClass.getName();
             }
         }
     }
@@ -82,5 +81,21 @@ public class XMLDTO<T,B> implements BaseDTO<T,B> {
         this.xmlHeaderBytesBack = xmlHeaderBytesBack;
         this.xmlDataBack.setXmlHeader(XMLHeader.HeaderBytes2Object(xmlHeaderBytesBack));
         setResultType(this.xmlDataBack.getXmlHeader().getiXmlType());
+    }
+
+    public int getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }

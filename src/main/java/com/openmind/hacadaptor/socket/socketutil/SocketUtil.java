@@ -3,6 +3,7 @@ package com.openmind.hacadaptor.socket.socketutil;
 import com.openmind.hacadaptor.socket.util.ByteUtil;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLDTO;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLType;
+import jdk.nashorn.internal.runtime.ECMAException;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -72,6 +73,8 @@ public class SocketUtil {
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (RuntimeException e){
+            e.printStackTrace();
         }
         return buffer;
     }
@@ -109,19 +112,26 @@ public class SocketUtil {
                 //xmldto.setResultType(resultType);
                 totalLen = ByteUtil.byteArrayToInt(ByteUtil.getSubBytes(header, 16, 4));
                 body = new byte[totalLen];
-                while (index < totalLen) {
-                    readLen = is.read(body, index, totalLen - index);
-                    if (readLen > 0)
-                        index = index + readLen;
-                    else
-                        break;
-                }
+//                while (index < totalLen) {
+//                    readLen = is.read(body, index, totalLen - index);
+//                    if (readLen > 0)
+//                        index = index + readLen;
+//                    else
+//                        break;
+//                }
+                StreamTool.readStream(is,body,index,totalLen);
                 is.close();
             }
             os.close();
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
+            xmldto.setErrorMessage(e.getMessage());
+            xmldto.setErrorCode(1);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            xmldto.setErrorMessage(e.getMessage());
+            xmldto.setErrorCode(1);
         }
         xmldto.setXmlBodyBytesBack(body);
         return xmldto;

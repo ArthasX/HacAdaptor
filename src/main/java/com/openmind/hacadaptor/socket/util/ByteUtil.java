@@ -3,7 +3,7 @@ package com.openmind.hacadaptor.socket.util;
 import java.nio.ByteBuffer;
 
 /**
- * Created by KJB-001064 on 2017/6/30.
+ * Created by LiuBin on 2017/6/30.
  */
 public class ByteUtil {
     private static ByteBuffer buffer = ByteBuffer.allocate(8);
@@ -66,4 +66,13 @@ public class ByteUtil {
     }
 
 
+    public static void main(String[] args){
+        byte b= -21;
+        System.out.println(b);
+        System.out.println((int)b);
+        int a =byteToInt(b);
+        System.out.println(a);
+        byte c=intToByte(a);
+        System.out.println(c);
+    }
 }

@@ -3,7 +3,7 @@ package com.openmind.hacadaptor.sqlutil;
 import java.lang.annotation.*;
 
 /**
- * Created by KJB-001064 on 2017/6/22.
+ * Created by LiuBin on 2017/6/22.
  */
 @Target(ElementType.FIELD)
 @Inherited

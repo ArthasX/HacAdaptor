@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 返回的Session结果
+ *
  */
-public class WorkNoteSessionXMLBack extends Context<List<Session>> {
+public class SessionBackContext extends Context<List<Session>> {
     private List<Session> session;
 
-    public WorkNoteSessionXMLBack() {
+    public SessionBackContext() {
         this.session = new ArrayList<Session>();
     }
 

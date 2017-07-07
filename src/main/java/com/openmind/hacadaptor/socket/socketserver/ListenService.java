@@ -10,8 +10,8 @@ import java.net.Socket;
 import java.nio.ByteBuffer;
 
 /**
- * this is for test
- * Created by KJB-001064 on 2017/6/26.
+ * this is for unit test
+ * Created by LiuBin on 2017/6/26.
  */
 public class ListenService implements Runnable {
     Socket socket;
@@ -53,7 +53,7 @@ public class ListenService implements Runnable {
             }
             byte[] body = sb.toString().getBytes();
             String token = "1234567890ab";
-            int xmlTypeOut = XMLType.XML_WN_GET_RESOURCE;
+            int xmlTypeOut = resutType(xmlTypeIn);
             int xmlSizeOut = body.length;
             ByteBuffer byteBuffer = ByteBuffer.allocate(20+xmlSizeOut);
             byteBuffer.put(token.getBytes()).put(ByteUtil.intToByteArray(xmlTypeOut))
@@ -72,17 +72,17 @@ public class ListenService implements Runnable {
     private String filePath(int xmlType) {
         switch (xmlType) {
             case XMLType.XML_WN_GET_RESOURCE:
-                return f("devicelist.xml");
+                return f("xml/devicelist.xml");
             case XMLType.XML_WN_CHANGE_DATA:
-                return f("worknoteback.xml");
+                return f("xml/worknoteback.xml");
             case XMLType.XML_WN_SET_END:
-                return f("empty.xml");
+                return f("xml/empty.xml");
             case XMLType.XML_WN_GET_SESSION:
                 return f("");
             case XMLType.XML_QX_GET_SESSION:
-                return f("");
+                return f("xml/session.xml");
             case XMLType.XML_WN_GET_LOGIN:
-                return f("");
+                return f("xml/user.xml");
             case XMLType.XML_WN_GET_TOKEN:
                 return f("");
             default:
@@ -90,6 +90,22 @@ public class ListenService implements Runnable {
         }
     }
 
+    private int resutType(int xmlType) {
+        switch (xmlType) {
+            case XMLType.XML_WN_GET_RESOURCE:
+                return XMLType.XML_WN_GET_RESOURCE;
+            case XMLType.XML_WN_GET_SESSION:
+                return XMLType.XML_WN_GET_RESOURCE;
+//            case XMLType.XML_WN_GET_SESSION:
+//                return XMLType.XML_WN_GET_SESSION;
+            case XMLType.XML_WN_GET_LOGIN:
+                return XMLType.XML_WN_GET_LOGIN;
+            case XMLType.XML_WN_GET_TOKEN:
+                return XMLType.XML_WN_GET_TOKEN;
+            default:
+                return XMLType.XML_WN_REQUEST_OK;
+        }
+    }
     private String f(String name) {
         return ListenService.class.getClassLoader().getResource(name).getPath();
     }

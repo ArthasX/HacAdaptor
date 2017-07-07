@@ -6,10 +6,10 @@ import com.openmind.hacadaptor.sqlutil.Table;
 import java.io.Serializable;
 
 /**
- * Created by KJB-001064 on 2017/6/22.
+ * Created by LiuBin on 2017/6/22.
  */
 @Table("ACCOUNT")
-public class Account extends Identity {
+public class Account implements BaseMode {
     @Column("accountId")
     private String accountId;
     @Column("name")
@@ -29,8 +29,8 @@ public class Account extends Identity {
         this.accountId = accountId;
     }
 
-    public Account(long id, String accountId, String name, String manageAccount, String accountType, String deviceId) {
-        super(id);
+    //    public Account(long id, String accountId, String name, String manageAccount, String accountType, String deviceId) {
+    public Account(String accountId, String name, String manageAccount, String accountType, String deviceId) {
         this.accountId = accountId;
         this.name = name;
         this.manageAccount = manageAccount;

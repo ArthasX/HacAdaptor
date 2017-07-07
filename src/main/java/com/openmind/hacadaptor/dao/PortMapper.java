@@ -4,7 +4,7 @@ import com.openmind.hacadaptor.mode.Port;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by KJB-001064 on 2017/6/27.
+ * Created by LiuBin on 2017/6/27.
  */
 @Repository
 public interface PortMapper extends BaseMapper<Port> {

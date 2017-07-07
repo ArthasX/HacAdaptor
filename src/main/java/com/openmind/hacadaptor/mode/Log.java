@@ -6,10 +6,10 @@ import com.openmind.hacadaptor.sqlutil.Table;
 import java.io.Serializable;
 
 /**
- * Created by KJB-001064 on 2017/6/27.
+ * Created by LiuBin on 2017/6/27.
  */
 @Table("LOG")
-public class Log extends Identity {
+public class Log extends Identity implements BaseMode {
 
     @Column("workorder")
     private String workOrder;
@@ -37,7 +37,7 @@ public class Log extends Identity {
         this.remark = remark;
     }
 
-    public Log(long id, String workOrder, String deviceName, String ip, String content, String optDate, String remark) {
+    public Log(String id, String workOrder, String deviceName, String ip, String content, String optDate, String remark) {
         super(id);
         this.workOrder = workOrder;
         this.deviceName = deviceName;

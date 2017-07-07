@@ -3,7 +3,7 @@ package com.openmind.hacadaptor.sqlutil;
 import java.util.List;
 
 /**
- * Created by KJB-001064 on 2017/6/29.
+ * Created by LiuBin on 2017/6/29.
  */
 public class Page<T> {
     private List<T> list;
@@ -12,6 +12,7 @@ public class Page<T> {
     private int currentPage;
     private int totalCount;
     private Class<T> modeClz;
+    private ICondition condition;
 
     public Page() {
 
@@ -78,5 +79,13 @@ public class Page<T> {
 
     public void setModeClz(Class<T> modeClz) {
         this.modeClz = modeClz;
+    }
+
+    public ICondition getCondition() {
+        return condition;
+    }
+
+    public void setCondition(ICondition condition) {
+        this.condition = condition;
     }
 }

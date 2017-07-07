@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by KJB-001064 on 2017/6/27.
+ * Created by LiuBin on 2017/6/27.
  */
 @Service("baseService")
 public interface IBaseService<T, ID extends Serializable> {

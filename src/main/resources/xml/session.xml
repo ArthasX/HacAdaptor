@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Document>
+    <DocumentProperties>
+        <Version>3.00</Version>
+        <Number>2</Number>
+    </DocumentProperties>
+    <Context>
+        <Session>
+            <SessionId>222</SessionId>
+            <Operator>user1</Operator>
+            <ClientIpAddress>192.168.0.1</ClientIpAddress>
+            <StartDateTime>2012-5-5D08:55:05</StartDateTime>
+            <EndDateTime>2012-5-5D09:15:15</EndDateTime>
+            <DestIpAddress>172.15.12.11</DestIpAddress>
+            <DestPort>23</DestPort>
+            <Protocol>telnet</Protocol>
+            <Account>root</Account>
+            <LogSize>15356</LogSize>
+        </Session>
+        <Session>
+            <SessionId>222</SessionId>
+            <Operator>user1</Operator>
+            <ClientIpAddress>192.168.0.1</ClientIpAddress>
+            <StartDateTime>2012-5-5D08:55:05</StartDateTime>
+            <EndDateTime>2012-5-5D09:15:15</EndDateTime>
+            <DestIpAddress>172.15.12.11</DestIpAddress>
+            <DestPort>23</DestPort>
+            <Protocol>telnet</Protocol>
+            <Account>root</Account>
+            <LogSize>15356</LogSize>
+        </Session>
+    </Context>
+</Document>

@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Created by KJB-001064 on 2017/6/28.
+ * Created by LiuBin on 2017/6/28.
  */
 @XmlRootElement(name = "DocumentProperties")
 public class DocumentProperties {

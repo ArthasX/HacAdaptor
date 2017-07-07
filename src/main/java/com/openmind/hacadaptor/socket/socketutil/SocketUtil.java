@@ -6,6 +6,7 @@ import com.openmind.hacadaptor.socket.xml.mode.common.XMLType;
 import jdk.nashorn.internal.runtime.ECMAException;
 import org.apache.log4j.Logger;
 
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -16,28 +17,28 @@ import java.nio.ByteBuffer;
 import java.util.ResourceBundle;
 
 /**
- * Created by KJB-001064 on 2017/6/26.
+ * Created by LiuBin on 2017/6/26.
  */
 public class SocketUtil {
 
     static Logger logger = Logger.getLogger(SocketUtil.class);
-    private static Socket socket = new Socket();
+
     private static String ip = ResourceBundle.getBundle("setting").getString("ip");
     private static int port = Integer.parseInt(ResourceBundle.getBundle("setting").getString("port"));
     private static SocketAddress socketAddress = new InetSocketAddress(ip, port);
     private static int timeout = Integer.parseInt(ResourceBundle.getBundle("setting").getString("timeout"));
 
-
-    public static void init() {
-
-        try {
-            socket.setKeepAlive(true);
-            socket.setSoTimeout(timeout);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
+//
+//    public static void init() {
+//
+//        try {
+//            socket.setKeepAlive(true);
+//            socket.setSoTimeout(timeout);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
     public static byte[] request(byte[] b) {
         byte[] header = new byte[20];//去掉头部 20 byte长度
@@ -47,7 +48,9 @@ public class SocketUtil {
         byte[] buffer = null;
         try {
             logger.info("init socket--- " + ip + ":" + port);
-            init();
+            Socket socket = new Socket();
+            socket.setKeepAlive(true);
+            socket.setSoTimeout(timeout);
             logger.info("connect to server...");
             socket.connect(socketAddress);
             logger.info("connected...");
@@ -55,6 +58,7 @@ public class SocketUtil {
             os.write(b);
             os.flush();
             InputStream is = socket.getInputStream();
+
             if (is != null) {
                 //读取头20字节，获取结果
                 is.read(header);
@@ -94,18 +98,22 @@ public class SocketUtil {
         int totalLen;
         int resultType;
         try {
+            logger.info(xmldto.getClass().getSimpleName());
             logger.info("init socket--- " + ip + ":" + port);
-            init();
+            Socket socket = new Socket();
+            socket.setKeepAlive(true);
+            socket.setSoTimeout(timeout);
             logger.info("connect to server...");
             socket.connect(socketAddress);
             logger.info("connected...");
             OutputStream os = socket.getOutputStream();
-
             os.write(data);
             os.flush();
+            logger.info("data pushed to hac server...");
             InputStream is = socket.getInputStream();
             if (is != null) {
                 //读取头20字节，获取结果
+                logger.info("reading data from hac server...");
                 is.read(header);
                 xmldto.setXmlHeaderBytesBack(header);
                 //resultType = ByteUtil.byteArrayToInt(ByteUtil.getSubBytes(header, 12, 4));
@@ -124,6 +132,7 @@ public class SocketUtil {
             }
             os.close();
             socket.close();
+            logger.info("read finished...Socket closed...");
         } catch (IOException e) {
             e.printStackTrace();
             xmldto.setErrorMessage(e.getMessage());
@@ -139,7 +148,6 @@ public class SocketUtil {
 
     public static void main(String[] args) {
         String ip = ResourceBundle.getBundle("setting").getString("ip");
-        init();
         request("hello world");
         System.out.println(ip);
     }

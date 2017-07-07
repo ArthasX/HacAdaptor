@@ -3,12 +3,12 @@ package com.openmind.hacadaptor.socket;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLBody;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLParser;
 import com.openmind.hacadaptor.socket.xml.mode.devices.Device;
-import com.openmind.hacadaptor.socket.xml.mode.devices.DeviceBackXML;
+import com.openmind.hacadaptor.socket.xml.mode.devices.DeviceBackContext;
 import com.openmind.hacadaptor.socket.xml.mode.devices.DeviceXMLBody;
 import com.openmind.hacadaptor.socket.xml.mode.session.Session;
-import com.openmind.hacadaptor.socket.xml.mode.session.WorkNoteSessionXMLBack;
-import com.openmind.hacadaptor.socket.xml.mode.session.WorkNoteSessionXMLSend;
-import com.openmind.hacadaptor.socket.xml.mode.worknote.WorkNoteSentXML;
+import com.openmind.hacadaptor.socket.xml.mode.session.SessionBackContext;
+import com.openmind.hacadaptor.socket.xml.mode.session.SessionSentContext;
+import com.openmind.hacadaptor.socket.xml.mode.worknote.WorkNoteSentContext;
 import com.openmind.hacadaptor.socket.xml.mode.worknote.WorkNoteSentXMLBody;
 import org.junit.Test;
 
@@ -20,32 +20,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by KJB-001064 on 2017/7/5.
+ * Created by LiuBin on 2017/7/5.
  */
 public class commtest {
 
     @Test
     public void test() {
-        WorkNoteSessionXMLSend workNoteSessionXMLSend = new WorkNoteSessionXMLSend();
-        workNoteSessionXMLSend.setWorkNoteNumber("123456789");
-        WorkNoteSentXML workNoteSentXML = new WorkNoteSentXML();
-        workNoteSentXML.setOperator("123");
-        workNoteSentXML.setReason("rrrrrrrrrr");
+        SessionSentContext sessionSentContext = new SessionSentContext();
+        sessionSentContext.setWorkNoteNumber("123456789");
+        WorkNoteSentContext workNoteSentContext = new WorkNoteSentContext();
+        workNoteSentContext.setOperator("123");
+        workNoteSentContext.setReason("rrrrrrrrrr");
         Session session = new Session();
         session.setAccount("12345");
-        WorkNoteSessionXMLBack workNoteSessionXMLBack = new WorkNoteSessionXMLBack();
+        SessionBackContext workNoteSessionXMLBack = new SessionBackContext();
         workNoteSessionXMLBack.addSession(session);
         workNoteSessionXMLBack.addSession(session);
         XMLBody xmlBody = new WorkNoteSentXMLBody();
-        xmlBody.setSentContext(workNoteSentXML);
-//        XMLBody<WorkNoteSessionXMLBack> xmlBody2 = new XMLBody<WorkNoteSessionXMLBack>();
+        xmlBody.setSentContext(workNoteSentContext);
+//        XMLBody<SessionBackContext> xmlBody2 = new XMLBody<SessionBackContext>();
 //        xmlBody2.setBackContext(workNoteSessionXMLBack);
         DeviceXMLBody deviceXMLBody = new DeviceXMLBody();
         Device device = new Device();
         device.setDeviceName("123");
         List<Device> list = new ArrayList<>();
         list.add(device);
-        DeviceBackXML devicesXML = new DeviceBackXML();
+        DeviceBackContext devicesXML = new DeviceBackContext();
         devicesXML.setDevices(list);
         deviceXMLBody.setSentContext(devicesXML);
         try {
@@ -77,18 +77,18 @@ public class commtest {
 
     @Test
     public void testGetBytes() {
-        WorkNoteSessionXMLSend workNoteSessionXMLSend = new WorkNoteSessionXMLSend();
-        workNoteSessionXMLSend.setWorkNoteNumber("123456789");
-        WorkNoteSentXML workNoteSentXML = new WorkNoteSentXML();
-        workNoteSentXML.setOperator("123");
-        workNoteSentXML.setReason("rrrrrrrrrr");
+        SessionSentContext sessionSentContext = new SessionSentContext();
+        sessionSentContext.setWorkNoteNumber("123456789");
+        WorkNoteSentContext workNoteSentContext = new WorkNoteSentContext();
+        workNoteSentContext.setOperator("123");
+        workNoteSentContext.setReason("rrrrrrrrrr");
         Session session = new Session();
         session.setAccount("12345");
-        WorkNoteSessionXMLBack workNoteSessionXMLBack = new WorkNoteSessionXMLBack();
+        SessionBackContext workNoteSessionXMLBack = new SessionBackContext();
         workNoteSessionXMLBack.addSession(session);
         workNoteSessionXMLBack.addSession(session);
         XMLBody xmlBody = new WorkNoteSentXMLBody();
-        xmlBody.setSentContext(workNoteSentXML);
+        xmlBody.setSentContext(workNoteSentContext);
         xmlBody.getBytes();
     }
 }

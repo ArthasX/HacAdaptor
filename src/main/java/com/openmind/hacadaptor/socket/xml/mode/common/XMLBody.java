@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.lang.reflect.Field;
 
 /**
- * Created by KJB-001064 on 2017/6/26.
+ * Created by LiuBin on 2017/6/26.
  */
 @XmlRootElement(name = "Document")
 //@XmlType(name = "", propOrder = {"documentProperties", "backContext"})

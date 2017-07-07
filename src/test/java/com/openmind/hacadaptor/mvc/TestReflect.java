@@ -7,7 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * Created by KJB-001064 on 2017/6/23.
+ * Created by LiuBin on 2017/6/23.
  */
 
 public class TestReflect {

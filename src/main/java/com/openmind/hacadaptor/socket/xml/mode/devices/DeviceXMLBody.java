@@ -7,20 +7,20 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Created by KJB-001064 on 2017/7/4.
+ * Created by LiuBin on 2017/7/4.
  */
 @XmlRootElement(name = "Document")
-public class DeviceXMLBody extends XMLBody<IContext,DeviceBackXML> {
+public class DeviceXMLBody extends XMLBody<IContext,DeviceBackContext> {
 
-    DeviceBackXML context;
+    DeviceBackContext context;
 
     @XmlElement(name = "Context")
     @Override
-    public DeviceBackXML getBackContext() {
+    public DeviceBackContext getBackContext() {
         return context;
     }
 
-    public void setBackContext(DeviceBackXML context) {
+    public void setBackContext(DeviceBackContext context) {
         this.context = context;
     }
 }

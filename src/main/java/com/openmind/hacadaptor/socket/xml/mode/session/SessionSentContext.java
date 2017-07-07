@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
  * 获取工单回话信息 用于关闭前确认
  */
 
-public class WorkNoteSessionXMLSend extends Context {
+public class SessionSentContext extends Context {
 
     private String workNoteNumber;
 

@@ -10,8 +10,8 @@ import java.util.List;
 
 
 /**
- * Created by KJB-001064 on 2017/6/22.
- * //用map或者Page什么的包装一个类传入， 就可以附带各种其他参数了
+ * Created by LiuBin on 2017/6/22.
+ * TODO 以后改进用map或者Page什么的包装一个类传入， 就可以附带各种其他参数了
  */
 public class SqlProvider {
 
@@ -49,7 +49,7 @@ public class SqlProvider {
                 }
             }
         } catch (Exception e) {
-            //throw
+
             new RuntimeException("get insert sql is exceptoin:" + e);
         }
         for (int i = 0; i < insertParaNames.size(); i++) {
@@ -73,6 +73,8 @@ public class SqlProvider {
         String tableName = getTableName(beanClass);
         Field[] fields = getFields(beanClass);
         StringBuilder updateSql = new StringBuilder();
+        List<String> updateParaNames = new ArrayList<>();
+        List<String> updateParas = new ArrayList<>();
         updateSql.append(" update ").append(tableName).append(" set ");
         try {
             for (int i = 0; i < fields.length; i++) {
@@ -90,14 +92,18 @@ public class SqlProvider {
                 field.setAccessible(true);
                 Object beanValue = field.get(bean);
                 if (beanValue != null) {
-                    updateSql.append(columnName).append("=#{").append(field.getName()).append("}");
-                    if (i != fields.length - 1) {
-                        updateSql.append(",");
-                    }
+                    updateParaNames.add(columnName);
+                    updateParas.add("#{" + field.getName() + "}");
                 }
             }
         } catch (Exception e) {
             new RuntimeException("get update sql is exceptoin:" + e);
+        }
+        for (int i = 0; i < updateParaNames.size(); i++) {
+            updateSql.append(updateParaNames.get(i)).append(updateParas.get(i));
+            if (i != updateParaNames.size() - 1) {
+                updateSql.append(",");
+            }
         }
         updateSql.append(" where ").append(tableFormat.getId() + " =#{id}");
         logger.info("##update sql##:" + updateSql.toString());
@@ -109,6 +115,8 @@ public class SqlProvider {
         String tableName = getTableName(beanClass);
         Field[] fields = getFields(beanClass);
         StringBuilder deleteSql = new StringBuilder();
+        List<String> deleteParaNames = new ArrayList<>();
+        List<String> deleteParas = new ArrayList<>();
         deleteSql.append(" delete from ").append(tableName).append(" where  ");
         try {
             for (int i = 0; i < fields.length; i++) {
@@ -126,14 +134,22 @@ public class SqlProvider {
                 field.setAccessible(true);
                 Object beanValue = field.get(bean);
                 if (beanValue != null) {
-                    deleteSql.append(columnName).append("=#{").append(field.getName()).append("}");
-                    if (i != fields.length - 1) {
-                        deleteSql.append(" and ");
-                    }
+                    deleteParaNames.add(columnName);
+                    deleteParas.add("#{" + field.getName() + "}");
                 }
             }
         } catch (Exception e) {
             new RuntimeException("get delete sql is exceptoin:" + e);
+        }
+        if (deleteParaNames.size() < 1) {
+            logger.error("There must be at least one sql parameter! class:[" + beanClass.getSimpleName() + "]");
+            throw new RuntimeException("There must be at least one sql parameter! class:[" + beanClass.getSimpleName() + "]");
+        }
+        for (int i = 0; i < deleteParaNames.size(); i++) {
+            deleteSql.append(deleteParaNames.get(i)).append("=").append(deleteParas.get(i));
+            if (i != deleteParaNames.size() - 1) {
+                deleteSql.append(",");
+            }
         }
         logger.info("##delete sql##:" + deleteSql.toString());
         return deleteSql.toString();
@@ -164,8 +180,7 @@ public class SqlProvider {
                 Object object = field.get(bean);
                 selectSql.append(field.getName());
                 if (object != null) {
-                    if (object instanceof Integer)
-                        selectParaNames.add(columnName);
+                    selectParaNames.add(columnName);
                     selectParas.add("#{" + field.getName() + "}");
                 }
                 if (i != fields.length - 1)
@@ -176,8 +191,13 @@ public class SqlProvider {
         }
         selectSql.append(" from ").append(tableName);
         //如果bean的字段值都是空的，代表全查
+        //用fuzzyselect 替代
         if (selectParaNames.size() > 0)
             selectSql.append(" where ");
+        else {
+            logger.error("There must be at least one sql parameter! class:[" + beanClass.getSimpleName() + "]");
+            throw new RuntimeException("There must be at least one sql parameter! class:[" + beanClass.getSimpleName() + "]");
+        }
         for (int i = 0; i < selectParaNames.size(); i++) {
             selectSql.append(selectParaNames.get(i)).append("=").append(selectParas.get(i));
             if (i != selectParaNames.size() - 1)
@@ -223,7 +243,7 @@ public class SqlProvider {
         }
         selectSql.append(" from ").append(tableName).append(" where ");
         for (int i = 0; i < selectParaNames.size(); i++) {
-            selectSql.append(selectParaNames.get(i)).append(" like '%").append(selectParas.get(i)).append("'% ");
+            selectSql.append(selectParaNames.get(i)).append(" like  CONCAT(CONCAT('%', ").append(selectParas.get(i)).append("), '%')  ");
             if (i != selectParaNames.size() - 1)
                 selectSql.append(" and ");
         }
@@ -258,8 +278,6 @@ public class SqlProvider {
                     selectParaNames.add(columnName);
                     selectParas.add("#{" + field.getName() + "}");
                 }
-                if (i != fields.length - 1)
-                    selectSql.append(",");
             }
         } catch (Exception e) {
             new RuntimeException("get select count sql is exceptoin:" + e);

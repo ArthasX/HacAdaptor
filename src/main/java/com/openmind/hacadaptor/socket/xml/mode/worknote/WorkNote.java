@@ -5,7 +5,7 @@ import com.openmind.hacadaptor.socket.xml.mode.common.Context;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- * Created by KJB-001064 on 2017/6/30.
+ * Created by LiuBin on 2017/6/30.
  */
 public class WorkNote extends Context {
     private String workNoteId;

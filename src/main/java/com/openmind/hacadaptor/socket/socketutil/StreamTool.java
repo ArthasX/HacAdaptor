@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Created by KJB-001064 on 2017/6/27.
+ * Created by LiuBin on 2017/6/27.
  */
 public class StreamTool {
     public static byte[] readStream(InputStream is) throws IOException {

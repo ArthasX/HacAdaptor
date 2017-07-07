@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 提交变更工单,返回的结果
  */
-public class WorkNoteBackXML extends Context {
+public class WorkNoteBackContext extends Context<List<WorkNote>> {
     private List<WorkNote> workNoteList;
 
     @XmlElement(name = "Item")

@@ -3,7 +3,7 @@ package com.openmind.hacadaptor.socket.xml.mode.devices;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- * Created by KJB-001064 on 2017/6/28.
+ * Created by LiuBin on 2017/6/28.
  */
 public class Account {
     private String name;

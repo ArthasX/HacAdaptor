@@ -110,4 +110,6 @@ public class Session extends Context {
     public void setLogSize(String logSize) {
         this.logSize = logSize;
     }
+
+
 }

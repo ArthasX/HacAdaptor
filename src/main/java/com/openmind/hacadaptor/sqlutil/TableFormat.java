@@ -1,12 +1,12 @@
 package com.openmind.hacadaptor.sqlutil;
 
 /**
- * Created by KJB-001064 on 2017/6/22.
+ * Created by LiuBin on 2017/6/22.
  */
-public interface TableFormat {
+public interface TableFormat<T> {
     String getColumnName(String field);
 
-    String getTableName(String field);
+    String getTableName(String className);
 
     String getId();
 }

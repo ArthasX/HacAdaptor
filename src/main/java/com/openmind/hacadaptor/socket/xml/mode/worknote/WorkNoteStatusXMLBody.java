@@ -7,19 +7,19 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Created by KJB-001064 on 2017/7/4.
+ * Created by LiuBin on 2017/7/4.
  */
 @XmlRootElement(name = "Document")
-public class SetWorkNoteStatusXMLBody extends XMLBody<SetWorkNoteStatusSentXML, IContext> {
-    SetWorkNoteStatusSentXML context;
+public class WorkNoteStatusXMLBody extends XMLBody<WorkNoteStatusSentContext, IContext> {
+    WorkNoteStatusSentContext context;
 
     @XmlElement(name = "Context")
     @Override
-    public void setSentContext(SetWorkNoteStatusSentXML context) {
+    public void setSentContext(WorkNoteStatusSentContext context) {
         this.context = context;
     }
 
-    public SetWorkNoteStatusSentXML getSentContext() {
+    public WorkNoteStatusSentContext getSentContext() {
         return context;
     }
 

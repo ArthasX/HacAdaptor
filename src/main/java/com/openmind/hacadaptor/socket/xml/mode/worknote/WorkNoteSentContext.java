@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * 提交变更工单
  */
-public class WorkNoteSentXML extends Context {
+public class WorkNoteSentContext extends Context {
     private String operator;
     private String workNoteNumber;
     private String startTime;
@@ -16,10 +16,10 @@ public class WorkNoteSentXML extends Context {
     private String reason;
     private Port[] port;
 
-    public WorkNoteSentXML() {
+    public WorkNoteSentContext() {
     }
 
-    public WorkNoteSentXML(String operator, String workNoteNumber, String startTime, String endTime, String reason, Port[] port) {
+    public WorkNoteSentContext(String operator, String workNoteNumber, String startTime, String endTime, String reason, Port[] port) {
         this.operator = operator;
         this.workNoteNumber = workNoteNumber;
         this.startTime = startTime;

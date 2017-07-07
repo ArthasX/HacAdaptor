@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import java.util.List;
 
 /**
- * Created by KJB-001064 on 2017/6/28.
+ * Created by LiuBin on 2017/6/28.
  */
 public class Device extends Context {
     private String deviceName;

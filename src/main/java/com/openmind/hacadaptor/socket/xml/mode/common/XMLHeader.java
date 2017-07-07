@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 import static com.openmind.hacadaptor.socket.util.ByteUtil.getSubBytes;
 
 /**
- * Created by KJB-001064 on 2017/6/26.
+ * Created by LiuBin on 2017/6/26.
  */
 public class XMLHeader {
     private String sToken;

@@ -1,18 +1,7 @@
 package com.openmind.hacadaptor.socket.xml.mode.common;
 
-import com.openmind.hacadaptor.socket.xml.mode.devices.Device;
-import com.openmind.hacadaptor.socket.xml.mode.devices.DeviceXMLBody;
-import com.openmind.hacadaptor.socket.xml.mode.devices.DeviceBackXML;
-import com.openmind.hacadaptor.socket.xml.mode.session.Session;
-import com.openmind.hacadaptor.socket.xml.mode.session.WorkNoteSessionXMLBack;
-import com.openmind.hacadaptor.socket.xml.mode.session.WorkNoteSessionXMLSend;
-import com.openmind.hacadaptor.socket.xml.mode.worknote.WorkNoteSentXMLBody;
-import com.openmind.hacadaptor.socket.xml.mode.worknote.WorkNoteSentXML;
-
 import javax.xml.bind.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**

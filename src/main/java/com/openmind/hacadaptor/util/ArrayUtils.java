@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Created by KJB-001064 on 2017/6/22.
+ * Created by LiuBin on 2017/6/22.
  */
 public class ArrayUtils {
 //    public static<T> T[] addAll(T[] beanFields,T[] superBeanFields){

@@ -51,13 +51,13 @@ public class HumpToUnderLineFormat<T> implements TableFormat<T> {
      */
     @Override
     public String getId() {
-//        Field[] fields = clazz.getDeclaredFields();
-//        Column column;
-//        for (Field f : fields) {
-//            column = f.getAnnotation(Column.class);
-//            if (column.required() && column.value().equals("id"))
-//                return f.getName();
-//        }
+        Field[] fields = clazz.getDeclaredFields();
+        Column column;
+        for (Field f : fields) {
+            column = f.getAnnotation(Column.class);
+            if (column.required() && column.value().equals("id"))
+                return f.getName();
+        }
         return "id";
     }
 

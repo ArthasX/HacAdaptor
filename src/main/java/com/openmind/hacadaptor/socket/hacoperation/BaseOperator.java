@@ -7,7 +7,7 @@ import com.openmind.hacadaptor.socket.xml.mode.common.XMLDTO;
  * <p>I think it's redundant,however,i decided to keep it.
  * <p>Created by LiuBin on 2017/7/6.
  */
-public abstract class BaseOperation implements IOperation {
+public abstract class BaseOperator implements IOperator {
     protected XMLDTO xmldto;
 
     @Override

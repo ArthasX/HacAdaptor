@@ -10,15 +10,17 @@ import com.openmind.hacadaptor.socket.xml.mode.login.LoginDTO;
  * <p>
  * Created by LiuBin on 2017/7/6.
  */
-public class LoginOperator extends BaseOperation {
+public class LoginOperator extends BaseOperator {
     public LoginOperator() {
         xmldto = new LoginDTO();
         LoginXMLDataFactory loginXMLDataFactory = new LoginXMLDataFactory();
         xmldto.setXmlData(loginXMLDataFactory.getXMLData());
-        xmldto = XMLTransmitter.trans(xmldto);
+
     }
+
     @Override
     public XMLDTO getXmldtoBack() {
+        xmldto = XMLTransmitter.trans(xmldto);
         return xmldto;
     }
 }

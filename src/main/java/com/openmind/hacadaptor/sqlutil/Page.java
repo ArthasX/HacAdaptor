@@ -13,6 +13,7 @@ public class Page<T> {
     private int totalCount;
     private Class<T> modeClz;
     private ICondition condition;
+    private T t;
 
     public Page() {
 
@@ -87,5 +88,13 @@ public class Page<T> {
 
     public void setCondition(ICondition condition) {
         this.condition = condition;
+    }
+
+    public T getT() {
+        return t;
+    }
+
+    public void setT(T t) {
+        this.t = t;
     }
 }

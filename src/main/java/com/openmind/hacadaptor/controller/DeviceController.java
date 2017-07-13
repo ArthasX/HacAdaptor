@@ -2,6 +2,7 @@ package com.openmind.hacadaptor.controller;
 
 
 import com.openmind.hacadaptor.mode.Device;
+import com.openmind.hacadaptor.mode.Result;
 import com.openmind.hacadaptor.service.DeviceServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,4 +38,27 @@ public class DeviceController {
         return list;
     }
 
+    @RequestMapping(value = "/{deviceId}",method = RequestMethod.PUT)
+    @ResponseBody
+    public Device updateDevice(@PathVariable("deviceId") String deviceId){
+
+        return null;
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @ResponseBody
+    public Result getDevices(@RequestBody Device device) {
+        Result result = new Result();
+        result.setData(device);
+        return result;
+    }
+
+
+    @RequestMapping(value = "/updateDevices")
+    @ResponseBody
+    public Result updateDevicesFromHac(){
+        Result result = new Result();
+
+        return result;
+    }
 }

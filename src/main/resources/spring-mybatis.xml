@@ -11,6 +11,9 @@
     <context:component-scan base-package="com.openmind.hacadaptor.dao"/>
 
     <context:component-scan base-package="com.openmind.hacadaptor.service"/>
+
+    <context:component-scan base-package="com.openmind.hacadaptor.socket.hacoperation"/>
+
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:jdbc.properties"/>

@@ -11,13 +11,14 @@ import org.apache.log4j.Logger;
 /**
  * Created by LiuBin on 2017/7/4.
  */
-public class WorkNoteOperator extends BaseOperation {
+public class WorkNoteOperator extends BaseOperator {
     static Logger logger = Logger.getLogger(WorkNoteOperator.class);
     public static final int SUBMIT_WORK_NOTE = 0;
     public static final int SET_WORK_NOTE = 1;
     private XMLDTO xmldto;
 
     /**
+     * 此构造函数用于 设置工单状态 操作
      * 设置工单状态为结束。需要先判断是否存在与工单关联的在线操作会话（session）
      * 如果存在，需要先结束这些session
      *
@@ -28,10 +29,12 @@ public class WorkNoteOperator extends BaseOperation {
         WorkNoteXMLDataFactory workNoteXMLDataFactory =
                 new WorkNoteXMLDataFactory(SET_WORK_NOTE, workNoteNumber);
         xmldto.setXmlData(workNoteXMLDataFactory.getXMLData());
-        xmldto = XMLTransmitter.trans(xmldto);
+
     }
 
     /**
+     * 此构造函数用于  提交工单 操作
+     *
      * @param operator
      * @param workNoteNumber
      * @param startTime
@@ -45,11 +48,12 @@ public class WorkNoteOperator extends BaseOperation {
                 new WorkNoteXMLDataFactory(SUBMIT_WORK_NOTE
                         , operator, workNoteNumber, startTime, endTime, reason, port);
         xmldto.setXmlData(workNoteXMLDataFactory.getXMLData());
-        xmldto = XMLTransmitter.trans(xmldto);
+
     }
 
     @Override
     public XMLDTO getXmldtoBack() {
+        xmldto = XMLTransmitter.trans(xmldto);
         return xmldto;
     }
 //    public XMLDTO setWorkNoteStatus() {

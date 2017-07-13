@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
- @Rollback
+@Rollback
 @ContextConfiguration(locations = {"classpath:applicationContext.xml", "classpath:spring-mybatis.xml"})
 public class TestDAO extends AbstractTransactionalJUnit4SpringContextTests{
     @Autowired
@@ -62,5 +63,20 @@ public class TestDAO extends AbstractTransactionalJUnit4SpringContextTests{
         Device d = new Device("abcdefg");
         int c = deviceMapper.update(d);
         Assert.assertEquals(1, c);
+    }
+
+
+    @Test
+    public void testInsertBatch(){
+        List<Device>list=new ArrayList<>();
+        Device d1 = new Device("dddd1");
+        Device d2 = new Device("dddd2");
+        Device d3 = new Device("dddd3");
+        list.add(d1);
+        list.add(d2);
+        list.add(d3);
+        int i=deviceMapper.insertBatch(list);
+        System.out.println("insert count:"+i);
+        Assert.assertEquals(i,3);
     }
 }

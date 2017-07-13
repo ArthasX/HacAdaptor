@@ -13,28 +13,23 @@
     <context:annotation-config/>
     <mvc:annotation-driven/>
     <context:component-scan base-package="com.openmind.hacadaptor.controller"/>
+
     <!--
         <mvc:resources location="/WEB-INF/static/js/" mapping="/js/**"/>
         <mvc:resources location="/WEB-INF/static/css/" mapping="/css/**"/>
         <mvc:resources location="/WEB-INF/static/image/" mapping="/image/**"/>
     -->
     <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
-    <bean id="mappingJacksonHttpMessageConverter"
+    <bean id="mappingJackson2HttpMessageConverter"
           class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
         <property name="supportedMediaTypes">
             <list>
                 <value>text/html;charset=UTF-8</value>
+                <value>application/json;charset=UTF-8</value>
             </list>
         </property>
     </bean>
-    <bean
-            class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-        <property name="messageConverters">
-            <list>
-                <ref bean="mappingJacksonHttpMessageConverter"/>    <!-- JSON转换器 -->
-            </list>
-        </property>
-    </bean>
+
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!-- 自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->
         <property name="prefix" value="/WEB-INF/views/"/>

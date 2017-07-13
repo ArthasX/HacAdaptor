@@ -33,18 +33,18 @@ public class BaseServiceImp<T extends Serializable, ID extends Serializable> imp
 
 
     @Override
-    public T delete(T t) {
-        return null;
+    public int delete(T t) {
+          return baseMapper.delete(t);
     }
 
     @Override
-    public T update(T t) {
-        return null;
+    public int update(T t) {
+        return baseMapper.update(t);
     }
 
     @Override
-    public T save(T t) {
-        return null;
+    public int insert(T t) {
+        return baseMapper.insert(t);
     }
 
     @Override
@@ -53,9 +53,8 @@ public class BaseServiceImp<T extends Serializable, ID extends Serializable> imp
     }
 
     @Override
-    public Page<T> pageSelect(T t) {
-        Page<T> page = new Page<T>();
-        page.setList(baseMapper.fuzzySelect(t));
+    public Page<T> pageSelect(Page<T> page) {
+        page.setList(baseMapper.fuzzySelect(page.getT()));
         return page;
     }
 

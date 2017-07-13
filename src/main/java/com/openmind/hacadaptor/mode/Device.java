@@ -1,6 +1,7 @@
 package com.openmind.hacadaptor.mode;
 
 import com.openmind.hacadaptor.sqlutil.Column;
+import com.openmind.hacadaptor.sqlutil.PK;
 import com.openmind.hacadaptor.sqlutil.Table;
 
 import java.io.Serializable;
@@ -9,7 +10,7 @@ import java.io.Serializable;
  * Created by LiuBin on 2017/6/22.
  */
 @Table("DEVICE")
-public class Device implements BaseMode{
+public class Device extends Identity {
 
     @Column("deviceid")
 //    private Identity deviceId;
@@ -21,20 +22,24 @@ public class Device implements BaseMode{
 
 
     public Device() {
-
     }
 
     public Device(String deviceId) {
         this.deviceId = deviceId;
     }
 
-    public Device(String id,String deviceId, String name, String ip) {
+    public Device(String deviceId, String name, String ip) {
         this.deviceId = deviceId;
         this.name = name;
         this.ip = ip;
-
     }
 
+    public Device(long id, String deviceId, String name, String ip) {
+        super(id);
+        this.deviceId = deviceId;
+        this.name = name;
+        this.ip = ip;
+    }
 
     public String getDeviceId() {
         return deviceId;
@@ -44,7 +49,7 @@ public class Device implements BaseMode{
         this.deviceId = deviceId;
     }
 
-//
+    //
 //    public Device(Identity deviceId, String name, String ip) {
 //        this.deviceId = deviceId;
 //        this.name = name;

@@ -17,15 +17,15 @@ public interface IBaseService<T, ID extends Serializable> {
 
     T select(T t);
 
-    T delete(T t);
+    int delete(T t);
 
-    T update(T t);
+    int update(T t);
 
-    T save(T t);
+    int insert(T t);
 
     List<T> selectAll(T t);
 
-    Page<T> pageSelect(T t);
+    Page<T> pageSelect(Page<T> t);
 
     int selectCount(T t);
 }

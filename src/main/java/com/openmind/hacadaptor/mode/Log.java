@@ -3,16 +3,14 @@ package com.openmind.hacadaptor.mode;
 import com.openmind.hacadaptor.sqlutil.Column;
 import com.openmind.hacadaptor.sqlutil.Table;
 
-import java.io.Serializable;
-
 /**
  * Created by LiuBin on 2017/6/27.
  */
 @Table("LOG")
-public class Log extends Identity implements BaseMode {
+public class Log extends Identity implements IBaseMode {
 
-    @Column("workorder")
-    private String workOrder;
+    @Column("worknote")
+    private String workNote;
     @Column("devicename")
     private String deviceName;
     @Column("ip")
@@ -23,36 +21,38 @@ public class Log extends Identity implements BaseMode {
     private String optDate;
     @Column("remark")
     private String remark;
+    @Column("startDate")
+    private String startDate;
+    @Column("endDate")
+    private String endDate;
+
+
 
     public Log() {
 
     }
 
-    public Log(String workOrder, String deviceName, String ip, String content, String optDate, String remark) {
-        this.workOrder = workOrder;
+    public Log(String workNote, String deviceName, String ip, String content, String optDate, String remark, String startDate, String endDate) {
+        this.workNote = workNote;
         this.deviceName = deviceName;
         this.ip = ip;
         this.content = content;
         this.optDate = optDate;
         this.remark = remark;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
-    public Log(String id, String workOrder, String deviceName, String ip, String content, String optDate, String remark) {
+    public Log(long id, String workNote, String deviceName, String ip, String content, String optDate, String remark, String startDate, String endDate) {
         super(id);
-        this.workOrder = workOrder;
+        this.workNote = workNote;
         this.deviceName = deviceName;
         this.ip = ip;
         this.content = content;
         this.optDate = optDate;
         this.remark = remark;
-    }
-
-    public String getWorkOrder() {
-        return workOrder;
-    }
-
-    public void setWorkOrder(String workOrder) {
-        this.workOrder = workOrder;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public String getDeviceName() {
@@ -93,5 +93,29 @@ public class Log extends Identity implements BaseMode {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getWorkNote() {
+        return workNote;
+    }
+
+    public void setWorkNote(String workNote) {
+        this.workNote = workNote;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 }

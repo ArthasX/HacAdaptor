@@ -6,13 +6,15 @@ import com.openmind.hacadaptor.socket.xml.mode.datafactory.DeviceXMLDataFactory;
 import com.openmind.hacadaptor.socket.xml.mode.devices.Device;
 import com.openmind.hacadaptor.socket.xml.mode.devices.DeviceDTO;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * Created by LiuBin on 2017/7/3.
  */
-public class DeviceOperator extends BaseOperation {
+@Component
+public class DeviceOperator extends BaseOperator {
     static Logger logger = Logger.getLogger(DeviceOperator.class);
     private XMLDTO xmldto;
 
@@ -20,7 +22,7 @@ public class DeviceOperator extends BaseOperation {
         xmldto = new DeviceDTO();
         DeviceXMLDataFactory deviceXMLDataFactory = new DeviceXMLDataFactory();
         xmldto.setXmlData(deviceXMLDataFactory.getXMLData());
-        xmldto = XMLTransmitter.trans(xmldto);
+
     }
 
     /**
@@ -33,6 +35,7 @@ public class DeviceOperator extends BaseOperation {
 
     @Override
     public XMLDTO getXmldtoBack() {
+        xmldto = XMLTransmitter.trans(xmldto);
         return xmldto;
     }
 }

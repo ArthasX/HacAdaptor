@@ -9,18 +9,20 @@ import org.apache.log4j.Logger;
 /**
  * Created by LiuBin on 2017/7/6.
  */
-public class SessionOperator extends BaseOperation {
+public class SessionOperator extends BaseOperator {
     static Logger logger = Logger.getLogger(SessionOperator.class);
     private XMLDTO xmldto;
 
-    public SessionOperator(String workNoteNumber){
-        xmldto=new SessionDTO();
+    public SessionOperator(String workNoteNumber) {
+        xmldto = new SessionDTO();
         SessionXMLDataFactory sessionXMLDataFactory = new SessionXMLDataFactory(workNoteNumber);
         xmldto.setXmlData(sessionXMLDataFactory.getXMLData());
-        xmldto= XMLTransmitter.trans(xmldto);
+
     }
+
     @Override
     public XMLDTO getXmldtoBack() {
+        xmldto = XMLTransmitter.trans(xmldto);
         return xmldto;
     }
 }

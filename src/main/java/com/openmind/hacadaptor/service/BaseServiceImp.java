@@ -1,6 +1,6 @@
 package com.openmind.hacadaptor.service;
 
-import com.openmind.hacadaptor.dao.BaseMapper;
+import com.openmind.hacadaptor.dao.IBaseMapper;
 import com.openmind.hacadaptor.sqlutil.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public class BaseServiceImp<T extends Serializable, ID extends Serializable> implements IBaseService<T, ID> {
 
     @Autowired
-    BaseMapper<T> baseMapper;
+    IBaseMapper<T> baseMapper;
 
     @Override
     public T selectById(Class<T> clz, ID id) {
@@ -34,7 +34,7 @@ public class BaseServiceImp<T extends Serializable, ID extends Serializable> imp
 
     @Override
     public int delete(T t) {
-          return baseMapper.delete(t);
+        return baseMapper.delete(t);
     }
 
     @Override
@@ -45,6 +45,11 @@ public class BaseServiceImp<T extends Serializable, ID extends Serializable> imp
     @Override
     public int insert(T t) {
         return baseMapper.insert(t);
+    }
+
+    @Override
+    public int insertBatch(List<T> list) {
+        return baseMapper.insertBatch(list);
     }
 
     @Override
@@ -63,11 +68,11 @@ public class BaseServiceImp<T extends Serializable, ID extends Serializable> imp
         return baseMapper.count(t);
     }
 
-    public BaseMapper<T> getBaseMapper() {
+    public IBaseMapper<T> getBaseMapper() {
         return baseMapper;
     }
 
-    public void setBaseMapper(BaseMapper<T> baseMapper) {
+    public void setBaseMapper(IBaseMapper<T> baseMapper) {
         this.baseMapper = baseMapper;
     }
 }

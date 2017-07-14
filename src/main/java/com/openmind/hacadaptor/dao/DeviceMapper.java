@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface DeviceMapper extends BaseMapper<Device> {
+public interface DeviceMapper extends IBaseMapper<Device> {
+
 
 }

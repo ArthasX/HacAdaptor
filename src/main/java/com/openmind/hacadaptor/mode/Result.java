@@ -9,7 +9,12 @@ public class Result {
     IBaseMode data;
     int errorCode;
     String errorMessage;
+    String message;
     boolean success;//用于 ajax
+
+    public Result() {
+        this.success=true;
+    }
 
     public IBaseMode getData() {
         return data;
@@ -41,5 +46,13 @@ public class Result {
 
     public void setSuccess(boolean success) {
         this.success = success;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

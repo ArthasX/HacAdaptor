@@ -12,8 +12,10 @@ import java.util.Map;
 
 
 /**
+ * This class is used to create the sql string according to parameters of each function.
  * Created by LiuBin on 2017/6/22.
- * TODO 以后改进用map包装参数传入， 就可以附带各种其他参数了。select方面还需要再改进。 目前主键id 没有用到 需要完善
+ * <p>
+ * TODO 以后改进用map包装参数传入， 就可以附带各种其他参数了。select方面还需要再改进。 目前主键id 没有用到 需要完善 one2many many2one
  */
 public class SqlProvider {
 
@@ -152,10 +154,12 @@ public class SqlProvider {
                     columnName = tableFormat.getColumnName(field.getName());
                 }
                 field.setAccessible(true);
-                Object beanValue = field.get(bean);
-                if (beanValue != null) {
-                    updateParaNames.add(columnName);
-                    updateParas.add("#{" + field.getName() + "}");
+                Object object = field.get(bean);
+                if (object != null) {
+                    if (!(object instanceof Long) || (object instanceof Long && 0 < (Long) object)) {
+                        updateParaNames.add(columnName);
+                        updateParas.add("#{" + field.getName() + "}");
+                    }
                 }
             }
         } catch (Exception e) {
@@ -194,10 +198,12 @@ public class SqlProvider {
                     columnName = tableFormat.getColumnName(field.getName());
                 }
                 field.setAccessible(true);
-                Object beanValue = field.get(bean);
-                if (beanValue != null) {
-                    deleteParaNames.add(columnName);
-                    deleteParas.add("#{" + field.getName() + "}");
+                Object object = field.get(bean);
+                if (object != null) {
+                    if (!(object instanceof Long) || (object instanceof Long && 0 < (Long) object)) {
+                        deleteParaNames.add(columnName);
+                        deleteParas.add("#{" + field.getName() + "}");
+                    }
                 }
             }
         } catch (Exception e) {

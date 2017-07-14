@@ -8,19 +8,19 @@ import java.util.List;
 /**
  * Created by LiuBin on 2017/6/30.
  */
-public class DeviceBackContext extends Context<List<Device>> {
-//    private List<Device> devices;
-    private List<Device> contextDetail;
+public class DeviceBackContext extends Context<List<SDevice>> {
+//    private List<SDevice> devices;
+    private List<SDevice> contextDetail;
 
-    public void setDevices(List<Device> devices) {
-        this.contextDetail = devices;
+    public void setDevices(List<SDevice> SDevices) {
+        this.contextDetail = SDevices;
     }
     @XmlElement(name = "Item")
-    public List<Device> getContextDetail(){
+    public List<SDevice> getContextDetail(){
         return contextDetail;
     }
 
-    public void setContextDetail(List<Device> contextDetail) {
+    public void setContextDetail(List<SDevice> contextDetail) {
         this.contextDetail = contextDetail;
     }
 }

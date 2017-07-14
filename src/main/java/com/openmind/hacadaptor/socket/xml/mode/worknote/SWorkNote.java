@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * Created by LiuBin on 2017/6/30.
  */
-public class WorkNote extends Context {
+public class SWorkNote extends Context {
     private String workNoteId;
     private String workNoteNumber;
 

@@ -9,23 +9,23 @@ import java.util.List;
 /**
  *
  */
-public class SessionBackContext extends Context<List<Session>> {
-    private List<Session> session;
+public class SessionBackContext extends Context<List<SSession>> {
+    private List<SSession> session;
 
     public SessionBackContext() {
-        this.session = new ArrayList<Session>();
+        this.session = new ArrayList<SSession>();
     }
 
     @XmlElement(name = "Session")
-    public List<Session> getContextDetail() {
+    public List<SSession> getContextDetail() {
         return session;
     }
 
-    public void setContextDetail(List<Session> session) {
+    public void setContextDetail(List<SSession> session) {
         this.session = session;
     }
 
-    public void addSession(Session s) {
+    public void addSession(SSession s) {
         session.add(s);
     }
 }

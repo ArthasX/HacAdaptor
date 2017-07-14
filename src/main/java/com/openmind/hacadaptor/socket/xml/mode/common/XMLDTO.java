@@ -52,7 +52,7 @@ public class XMLDTO<T, B> implements BaseDTO<T, B> {
         this.xmlBodyBytesBack = xmlBodyBytesBack;
         if (xmlBodyBytesBack != null && xmlBodyBytesBack.length > 0) {
             Class<B> tClass = (Class<B>) ClassUtil.getSuperClassGenricType(getClass(), 1);
-            logger.info("start to parse ["+tClass.getSimpleName()+"]"+"object to xml");
+            logger.info("start to parse xml to object ["+tClass.getSimpleName()+"]");
             try {
                 IXMLBody xmlBody = (IXMLBody) XMLParser.XML2Object(tClass, xmlBodyBytesBack);
                 String resultC = xmlBody.getDocumentProperties().getNumber();

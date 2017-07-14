@@ -5,7 +5,7 @@ import com.openmind.hacadaptor.socket.xml.mode.common.XMLBody;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLData;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLHeader;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLType;
-import com.openmind.hacadaptor.socket.xml.mode.devices.Port;
+import com.openmind.hacadaptor.socket.xml.mode.devices.SPort;
 import com.openmind.hacadaptor.socket.xml.mode.worknote.WorkNoteStatusSentContext;
 import com.openmind.hacadaptor.socket.xml.mode.worknote.WorkNoteStatusXMLBody;
 import com.openmind.hacadaptor.socket.xml.mode.worknote.WorkNoteSentContext;
@@ -31,10 +31,10 @@ public class WorkNoteXMLDataFactory extends XMLDataFactory {
 
     public WorkNoteXMLDataFactory(int operationType
             , String operator, String workNoteNumber
-            , String startTime, String endTime, String reason, Port... port) {
+            , String startTime, String endTime, String reason, SPort... SPort) {
         WorkNoteSentXMLBody workNoteSentXMLBody = new WorkNoteSentXMLBody();
         WorkNoteSentContext workNoteSentContext =
-                new WorkNoteSentContext(operator, workNoteNumber, startTime, endTime, reason, port);
+                new WorkNoteSentContext(operator, workNoteNumber, startTime, endTime, reason, SPort);
         workNoteSentXMLBody.setSentContext(workNoteSentContext);
         init(operationType, workNoteSentXMLBody);
     }

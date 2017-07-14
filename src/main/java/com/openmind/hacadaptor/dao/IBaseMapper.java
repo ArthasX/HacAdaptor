@@ -15,10 +15,9 @@ import java.util.List;
  */
 
 @Repository
-public interface BaseMapper<T extends Serializable> {
+public interface IBaseMapper<T extends Serializable> {
 
     @InsertProvider(type = SqlProvider.class, method = "insert")
-    @Options(useGeneratedKeys = true)
     int insert(T t);
 
     /**

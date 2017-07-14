@@ -1,6 +1,7 @@
 package com.openmind.hacadaptor.socket.util;
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 /**
  * Created by LiuBin on 2017/6/30.
@@ -26,6 +27,7 @@ public class ByteUtil {
                 (b[0] & 0xFF) << 24;
     }
 
+    //默认都是大端
     public static byte[] intToByteArray(int a) {
         return new byte[]{
                 (byte) ((a >> 24) & 0xFF),
@@ -66,13 +68,25 @@ public class ByteUtil {
     }
 
 
-    public static void main(String[] args){
-        byte b= -21;
-        System.out.println(b);
-        System.out.println((int)b);
-        int a =byteToInt(b);
-        System.out.println(a);
-        byte c=intToByte(a);
-        System.out.println(c);
+    public static void main(String[] args) {
+        byte[] b = new byte[]{0, 0, 0, (byte) 11};
+        System.out.println(byteArrayToInt(b));
+        System.out.println(intToByteArray(11));
+        int i = 0x12345678;
+        System.out.println(intToByteArray(i));
+        ByteBuffer byteBuffer = ByteBuffer.allocate(4);
+        byteBuffer.order(ByteOrder.BIG_ENDIAN);
+        byteBuffer.putInt(i);
+        byte[] bytes = byteBuffer.array();
+        for (byte bb : bytes)
+            System.out.print(bb + " ");
+        System.out.println("---");
+
+        ByteBuffer byteBuffer1 = ByteBuffer.allocate(4);
+        byteBuffer1.order(ByteOrder.LITTLE_ENDIAN);
+        byteBuffer1.putInt(i);
+        byte[] bytes1 = byteBuffer1.array();
+        for (byte bb : bytes1)
+            System.out.print(bb + " ");
     }
 }

@@ -3,7 +3,7 @@ package com.openmind.hacadaptor.socket.hacoperation;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLDTO;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLTransmitter;
 import com.openmind.hacadaptor.socket.xml.mode.datafactory.WorkNoteXMLDataFactory;
-import com.openmind.hacadaptor.socket.xml.mode.devices.Port;
+import com.openmind.hacadaptor.socket.xml.mode.devices.SPort;
 import com.openmind.hacadaptor.socket.xml.mode.worknote.WorkNoteStatusDTO;
 import com.openmind.hacadaptor.socket.xml.mode.worknote.WorkNoteDTO;
 import org.apache.log4j.Logger;
@@ -40,13 +40,13 @@ public class WorkNoteOperator extends BaseOperator {
      * @param startTime
      * @param endTime
      * @param reason
-     * @param port
+     * @param SPort
      */
-    public WorkNoteOperator(String operator, String workNoteNumber, String startTime, String endTime, String reason, Port... port) {
+    public WorkNoteOperator(String operator, String workNoteNumber, String startTime, String endTime, String reason, SPort... SPort) {
         xmldto = new WorkNoteDTO();
         WorkNoteXMLDataFactory workNoteXMLDataFactory =
                 new WorkNoteXMLDataFactory(SUBMIT_WORK_NOTE
-                        , operator, workNoteNumber, startTime, endTime, reason, port);
+                        , operator, workNoteNumber, startTime, endTime, reason, SPort);
         xmldto.setXmlData(workNoteXMLDataFactory.getXMLData());
 
     }

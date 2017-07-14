@@ -5,7 +5,7 @@ package com.openmind.hacadaptor.util;
  * @version Created on 2017/7/12
  */
 public class BeanUtil {
-    public<E,T> T copy(E source,T dest){
+    public static<E,T> T copy(E source,T dest){
 
 
         return dest;

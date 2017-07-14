@@ -24,7 +24,6 @@ public class WorkNoteCotroller {
     @ResponseBody
     public Result setWorkNote(@PathVariable String workNoteNumber){
         Result result=new Result();
-
         WorkNote w= new WorkNote();
         w.setWorkNoteNumber(workNoteNumber);
         String s = JSON.toJSONString(result);
@@ -51,7 +50,7 @@ public class WorkNoteCotroller {
 //            ,method = RequestMethod.POST
 //            )
 //    @ResponseBody
-//    public Result sentWorkNote1(@RequestBody WorkNote workNote){
+//    public Result sentWorkNote1(@RequestBody SWorkNote workNote){
 //        Result result=new Result();
 //        result.setData(workNote);
 //        return result;

@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
  * @version Created on 2017/7/10
  */
 @Repository
-public interface WorkNoteMapper extends BaseMapper<WorkNote>{
+public interface WorkNoteMapper extends IBaseMapper<WorkNote>{
 }

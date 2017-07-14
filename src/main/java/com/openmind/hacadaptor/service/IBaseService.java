@@ -23,6 +23,8 @@ public interface IBaseService<T, ID extends Serializable> {
 
     int insert(T t);
 
+    int insertBatch(List<T> list);
+
     List<T> selectAll(T t);
 
     Page<T> pageSelect(Page<T> t);

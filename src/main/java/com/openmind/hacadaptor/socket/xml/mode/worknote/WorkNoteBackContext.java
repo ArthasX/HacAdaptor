@@ -8,15 +8,15 @@ import java.util.List;
 /**
  * 提交变更工单,返回的结果
  */
-public class WorkNoteBackContext extends Context<List<WorkNote>> {
-    private List<WorkNote> workNoteList;
+public class WorkNoteBackContext extends Context<List<SWorkNote>> {
+    private List<SWorkNote> workNoteList;
 
     @XmlElement(name = "Item")
-    public List<WorkNote> getContextDetail() {
+    public List<SWorkNote> getContextDetail() {
         return workNoteList;
     }
 
-    public void setContextDetail(List<WorkNote> workNoteList) {
+    public void setContextDetail(List<SWorkNote> workNoteList) {
         this.workNoteList = workNoteList;
     }
 }

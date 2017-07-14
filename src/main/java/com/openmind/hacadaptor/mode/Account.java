@@ -1,6 +1,7 @@
 package com.openmind.hacadaptor.mode;
 
 import com.openmind.hacadaptor.sqlutil.Column;
+import com.openmind.hacadaptor.sqlutil.IdWorker;
 import com.openmind.hacadaptor.sqlutil.PK;
 import com.openmind.hacadaptor.sqlutil.Table;
 
@@ -23,7 +24,10 @@ public class Account extends Identity {
     private String deviceId;
 
     public Account() {
-        super();
+    }
+
+    public Account(long id) {
+        super(id);
     }
 
     public Account(String accountId) {

@@ -1,7 +1,7 @@
 package com.openmind.hacadaptor.socket.xml.mode.worknote;
 
 import com.openmind.hacadaptor.socket.xml.mode.common.Context;
-import com.openmind.hacadaptor.socket.xml.mode.devices.Port;
+import com.openmind.hacadaptor.socket.xml.mode.devices.SPort;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -14,18 +14,18 @@ public class WorkNoteSentContext extends Context {
     private String startTime;
     private String endTime;
     private String reason;
-    private Port[] port;
+    private SPort[] SPort;
 
     public WorkNoteSentContext() {
     }
 
-    public WorkNoteSentContext(String operator, String workNoteNumber, String startTime, String endTime, String reason, Port[] port) {
+    public WorkNoteSentContext(String operator, String workNoteNumber, String startTime, String endTime, String reason, SPort[] SPort) {
         this.operator = operator;
         this.workNoteNumber = workNoteNumber;
         this.startTime = startTime;
         this.endTime = endTime;
         this.reason = reason;
-        this.port = port;
+        this.SPort = SPort;
     }
 
     @XmlElement(name = "Operator")
@@ -54,8 +54,8 @@ public class WorkNoteSentContext extends Context {
     }
 
     @XmlElement(name = "Port")
-    public Port[] getPort() {
-        return port;
+    public SPort[] getPort() {
+        return SPort;
     }
 
     public void setOperator(String operator) {
@@ -78,7 +78,7 @@ public class WorkNoteSentContext extends Context {
         this.reason = reason;
     }
 
-    public void setPort(Port[] port) {
-        this.port = port;
+    public void setPort(SPort[] SPort) {
+        this.SPort = SPort;
     }
 }

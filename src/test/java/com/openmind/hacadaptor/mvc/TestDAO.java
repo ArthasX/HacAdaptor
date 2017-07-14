@@ -32,7 +32,7 @@ public class TestDAO extends AbstractTransactionalJUnit4SpringContextTests{
         Device d = new Device("1234");
         d = deviceMapper.select(d);
         System.out.println(JSON.toJSONString(d));
-        Assert.assertEquals("test device id ", "aaaa", d.getName());
+        Assert.assertEquals("test device id ", "aaaa", d.getDeviceName());
     }
 
     @Test
@@ -45,7 +45,7 @@ public class TestDAO extends AbstractTransactionalJUnit4SpringContextTests{
     @Test
     public void testFuzzySelect() {
         Device d1 = new Device();
-        d1.setName("b");
+        d1.setDeviceName("b");
         List<Device> list = deviceMapper.fuzzySelect(d1);
         System.out.println(JSON.toJSONString(list));
 //        Assert.assertEquals("test device id ","aaaa",d.getName());

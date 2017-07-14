@@ -49,7 +49,7 @@ public class TestController {
     }
 
     @Test
-    public void testDevicePost()throws Exception{
+    public void testDevicePost() throws Exception {
         Device device = new Device();
         device.setDeviceId("1234");
         String json = JSON.toJSONString(device);
@@ -61,6 +61,7 @@ public class TestController {
                 .param("device", json))
                 .andDo(print());
     }
+
     @Test
     public void testWorkNote() throws Exception {
         WorkNote workNote = new WorkNote();
@@ -77,17 +78,22 @@ public class TestController {
     }
 
     @Test
-    public void testWorkNoteStatus(){
-        String url="/worknote/wornotestatus/1234";
+    public void testWorkNoteStatus() throws Exception {
+        String url = "/worknote/wornotestatus/1234";
         System.out.println(url);
-        try {
-            mockMvc.perform(get(url))
-                    //.param("workNoteNumber", "12345"))
-                    .andExpect(status().isOk())
-                    .andDo(print());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        mockMvc.perform(get(url))
+                //.param("workNoteNumber", "12345"))
+                .andExpect(status().isOk())
+                .andDo(print());
 
+
+    }
+
+    @Test
+    public void testUpdateDeviceFromHac() throws Exception {
+        String url = "/devices/updateDevices";
+        mockMvc.perform(get(url))
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 }

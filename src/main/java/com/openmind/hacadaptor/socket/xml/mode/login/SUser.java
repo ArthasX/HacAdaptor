@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * 操作人员信息
  */
-public class User extends Context {
+public class SUser extends Context {
 
     private String groupId;
     private String groupName;

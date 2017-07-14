@@ -1,6 +1,7 @@
 package com.openmind.hacadaptor.mode;
 
 import com.openmind.hacadaptor.sqlutil.Column;
+import com.openmind.hacadaptor.sqlutil.IdWorker;
 import com.openmind.hacadaptor.sqlutil.Table;
 
 /**
@@ -17,8 +18,11 @@ public class Port extends Identity  {
     @Column("deviceid")
     private String deviceId;
 
-    public Port() {
-        super();
+    public Port(){
+
+    }
+    public Port(long id) {
+        super(id);
     }
 
     public Port(String portId) {

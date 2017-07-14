@@ -8,11 +8,17 @@ import java.util.List;
 /**
  * Created by LiuBin on 2017/6/28.
  */
-public class Device extends Context {
+public class SDevice extends Context {
+    private String deviceId;
     private String deviceName;
     private String ipAddress;
-    private List<Port> port;
-    private List<Account> account;
+    private List<SPort> SPort;
+    private List<SAccount> SAccount;
+
+    @XmlElement(name = "DeviceId")
+    public String getDeviceId() {
+        return deviceId;
+    }
 
     @XmlElement(name = "DeviceName")
     public String getDeviceName() {
@@ -25,13 +31,17 @@ public class Device extends Context {
     }
 
     @XmlElement(name = "Port")
-    public List<Port> getPort() {
-        return port;
+    public List<SPort> getPort() {
+        return SPort;
     }
 
     @XmlElement(name = "Account")
-    public List<Account> getAccount() {
-        return account;
+    public List<SAccount> getAccount() {
+        return SAccount;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 
     public void setDeviceName(String deviceName) {
@@ -42,11 +52,11 @@ public class Device extends Context {
         this.ipAddress = ipAddress;
     }
 
-    public void setPort(List<Port> port) {
-        this.port = port;
+    public void setPort(List<SPort> SPort) {
+        this.SPort = SPort;
     }
 
-    public void setAccount(List<Account> account) {
-        this.account = account;
+    public void setAccount(List<SAccount> SAccount) {
+        this.SAccount = SAccount;
     }
 }

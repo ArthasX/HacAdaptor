@@ -1,6 +1,7 @@
 package com.openmind.hacadaptor.mode;
 
 import com.openmind.hacadaptor.sqlutil.Column;
+import com.openmind.hacadaptor.sqlutil.IdWorker;
 import com.openmind.hacadaptor.sqlutil.Table;
 
 /**
@@ -27,9 +28,12 @@ public class Log extends Identity implements IBaseMode {
     private String endDate;
 
 
-
     public Log() {
 
+    }
+
+    public Log(long id) {
+        super(id);
     }
 
     public Log(String workNote, String deviceName, String ip, String content, String optDate, String remark, String startDate, String endDate) {

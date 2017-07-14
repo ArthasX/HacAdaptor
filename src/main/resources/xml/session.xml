@@ -6,7 +6,7 @@
     </DocumentProperties>
     <Context>
         <Session>
-            <SessionId>222</SessionId>
+            <SessionId>222222</SessionId>
             <Operator>user1</Operator>
             <ClientIpAddress>192.168.0.1</ClientIpAddress>
             <StartDateTime>2012-5-5D08:55:05</StartDateTime>
@@ -18,7 +18,7 @@
             <LogSize>15356</LogSize>
         </Session>
         <Session>
-            <SessionId>222</SessionId>
+            <SessionId>222333</SessionId>
             <Operator>user1</Operator>
             <ClientIpAddress>192.168.0.1</ClientIpAddress>
             <StartDateTime>2012-5-5D08:55:05</StartDateTime>

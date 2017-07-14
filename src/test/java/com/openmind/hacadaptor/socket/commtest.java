@@ -2,10 +2,10 @@ package com.openmind.hacadaptor.socket;
 
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLBody;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLParser;
-import com.openmind.hacadaptor.socket.xml.mode.devices.Device;
+import com.openmind.hacadaptor.socket.xml.mode.devices.SDevice;
 import com.openmind.hacadaptor.socket.xml.mode.devices.DeviceBackContext;
 import com.openmind.hacadaptor.socket.xml.mode.devices.DeviceXMLBody;
-import com.openmind.hacadaptor.socket.xml.mode.session.Session;
+import com.openmind.hacadaptor.socket.xml.mode.session.SSession;
 import com.openmind.hacadaptor.socket.xml.mode.session.SessionBackContext;
 import com.openmind.hacadaptor.socket.xml.mode.session.SessionSentContext;
 import com.openmind.hacadaptor.socket.xml.mode.worknote.WorkNoteSentContext;
@@ -31,7 +31,7 @@ public class commtest {
         WorkNoteSentContext workNoteSentContext = new WorkNoteSentContext();
         workNoteSentContext.setOperator("123");
         workNoteSentContext.setReason("rrrrrrrrrr");
-        Session session = new Session();
+        SSession session = new SSession();
         session.setAccount("12345");
         SessionBackContext workNoteSessionXMLBack = new SessionBackContext();
         workNoteSessionXMLBack.addSession(session);
@@ -41,10 +41,10 @@ public class commtest {
 //        XMLBody<SessionBackContext> xmlBody2 = new XMLBody<SessionBackContext>();
 //        xmlBody2.setBackContext(workNoteSessionXMLBack);
         DeviceXMLBody deviceXMLBody = new DeviceXMLBody();
-        Device device = new Device();
-        device.setDeviceName("123");
-        List<Device> list = new ArrayList<>();
-        list.add(device);
+        SDevice SDevice = new SDevice();
+        SDevice.setDeviceName("123");
+        List<SDevice> list = new ArrayList<>();
+        list.add(SDevice);
         DeviceBackContext devicesXML = new DeviceBackContext();
         devicesXML.setDevices(list);
         deviceXMLBody.setSentContext(devicesXML);
@@ -82,7 +82,7 @@ public class commtest {
         WorkNoteSentContext workNoteSentContext = new WorkNoteSentContext();
         workNoteSentContext.setOperator("123");
         workNoteSentContext.setReason("rrrrrrrrrr");
-        Session session = new Session();
+        SSession session = new SSession();
         session.setAccount("12345");
         SessionBackContext workNoteSessionXMLBack = new SessionBackContext();
         workNoteSessionXMLBack.addSession(session);

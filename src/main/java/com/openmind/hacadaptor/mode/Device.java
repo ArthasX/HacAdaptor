@@ -1,6 +1,7 @@
 package com.openmind.hacadaptor.mode;
 
 import com.openmind.hacadaptor.sqlutil.Column;
+import com.openmind.hacadaptor.sqlutil.IdWorker;
 import com.openmind.hacadaptor.sqlutil.PK;
 import com.openmind.hacadaptor.sqlutil.Table;
 
@@ -15,30 +16,33 @@ public class Device extends Identity {
     @Column("deviceid")
 //    private Identity deviceId;
     private String deviceId;
-    @Column("name")
-    private String name;
-    @Column("ip")
-    private String ip;
-
+    @Column("devicename")
+    private String deviceName;
+    @Column("ipaddress")
+    private String ipAddress;
 
     public Device() {
+    }
+
+    public Device(long id) {
+        super(id);
     }
 
     public Device(String deviceId) {
         this.deviceId = deviceId;
     }
 
-    public Device(String deviceId, String name, String ip) {
+    public Device(String deviceId, String deviceName, String ipAddress) {
         this.deviceId = deviceId;
-        this.name = name;
-        this.ip = ip;
+        this.deviceName = deviceName;
+        this.ipAddress = ipAddress;
     }
 
-    public Device(long id, String deviceId, String name, String ip) {
+    public Device(long id, String deviceId, String deviceName, String ipAddress) {
         super(id);
         this.deviceId = deviceId;
-        this.name = name;
-        this.ip = ip;
+        this.deviceName = deviceName;
+        this.ipAddress = ipAddress;
     }
 
     public String getDeviceId() {
@@ -50,7 +54,7 @@ public class Device extends Identity {
     }
 
     //
-//    public Device(Identity deviceId, String name, String ip) {
+//    public SDevice(Identity deviceId, String name, String ip) {
 //        this.deviceId = deviceId;
 //        this.name = name;
 //        this.ip = ip;
@@ -64,19 +68,20 @@ public class Device extends Identity {
 //        this.deviceId = deviceId;
 //    }
 //
-    public String getName() {
-        return name;
+
+    public String getDeviceName() {
+        return deviceName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
     }
 
-    public String getIp() {
-        return ip;
+    public String getIpAddress() {
+        return ipAddress;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
     }
 }

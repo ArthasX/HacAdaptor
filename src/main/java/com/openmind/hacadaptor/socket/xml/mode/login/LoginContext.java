@@ -8,15 +8,15 @@ import java.util.List;
 /**
  * 获取操作人员信息
  */
-public class LoginContext extends Context<List<User>> {
-    private List<User> users;
+public class LoginContext extends Context<List<SUser>> {
+    private List<SUser> users;
 
     @XmlElement(name = "Item")
-    public List<User> getContextDetail() {
+    public List<SUser> getContextDetail() {
         return users;
     }
 
-    public void setContextDetail(List<User> users) {
+    public void setContextDetail(List<SUser> users) {
         this.users = users;
     }
 }

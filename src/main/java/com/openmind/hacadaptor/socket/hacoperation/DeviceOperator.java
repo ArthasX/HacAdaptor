@@ -3,7 +3,7 @@ package com.openmind.hacadaptor.socket.hacoperation;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLDTO;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLTransmitter;
 import com.openmind.hacadaptor.socket.xml.mode.datafactory.DeviceXMLDataFactory;
-import com.openmind.hacadaptor.socket.xml.mode.devices.Device;
+import com.openmind.hacadaptor.socket.xml.mode.devices.SDevice;
 import com.openmind.hacadaptor.socket.xml.mode.devices.DeviceDTO;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
@@ -28,9 +28,9 @@ public class DeviceOperator extends BaseOperator {
     /**
      * get devices from hac
      */
-    public List<Device> getDevices() {
+    public List<SDevice> getDevices() {
         xmldto = getXmldtoBack();
-        return (List<Device>)xmldto.getResult().getBackContext().getContextDetail();
+        return (List<SDevice>)xmldto.getResult().getBackContext().getContextDetail();
     }
 
     @Override

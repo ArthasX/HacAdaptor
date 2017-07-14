@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * Created by LiuBin on 2017/6/28.
  */
-public class Account {
+public class SAccount {
     private String name;
     private String managerAccount;
     private String accountId;

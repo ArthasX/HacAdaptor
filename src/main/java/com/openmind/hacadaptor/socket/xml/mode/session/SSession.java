@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
  * 工单Session的具体内容
  */
 
-public class Session extends Context {
+public class SSession extends Context {
 
     private String sessionId;
     private String operator;
@@ -93,7 +93,7 @@ public class Session extends Context {
         this.protocol = protocol;
     }
 
-    @XmlElement(name = "Account")
+    @XmlElement(name = "SAccount")
     public String getAccount() {
         return account;
     }

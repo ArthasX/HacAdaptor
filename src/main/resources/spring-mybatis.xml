@@ -53,15 +53,17 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
     <!-- 事务传播特性配置 -->
-    <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="insert*" propagation="REQUIRED"
-                       rollback-for="Exception"/>
-            <tx:method name="delete*" propagation="REQUIRED"
-                       rollback-for="Exception"/>
-            <tx:method name="update*" propagation="REQUIRED"
-                       rollback-for="Exception"/>
-            <tx:method name="select*" read-only="true"/>
-        </tx:attributes>
-    </tx:advice>
+    <!--<tx:advice id="transactionAdvice" transaction-manager="transactionManager">-->
+        <!--<tx:attributes>-->
+            <!--<tx:method name="insert*" propagation="REQUIRED"-->
+                       <!--rollback-for="Exception"/>-->
+            <!--<tx:method name="delete*" propagation="REQUIRED"-->
+                       <!--rollback-for="Exception"/>-->
+            <!--<tx:method name="update*" propagation="REQUIRED"-->
+                       <!--rollback-for="Exception"/>-->
+            <!--<tx:method name="select*" read-only="true"/>-->
+        <!--</tx:attributes>-->
+    <!--</tx:advice>-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
 </beans>

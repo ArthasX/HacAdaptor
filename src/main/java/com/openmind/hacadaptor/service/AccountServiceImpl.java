@@ -9,5 +9,5 @@ import org.springframework.stereotype.Service;
  * @version Created on 2017/7/12
  */
 @Service
-public class AccountService extends BaseServiceImp<Account,Identity> {
+public class AccountServiceImpl extends BaseServiceImp<Account,Identity> implements IAccountSercice{
 }

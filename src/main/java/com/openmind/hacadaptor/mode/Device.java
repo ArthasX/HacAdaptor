@@ -20,6 +20,8 @@ public class Device extends Identity {
     private String deviceName;
     @Column("ipaddress")
     private String ipAddress;
+    @Column("groupId")
+    private String groupId;
 
     public Device() {
     }

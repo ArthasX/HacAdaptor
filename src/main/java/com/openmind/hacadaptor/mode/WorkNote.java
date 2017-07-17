@@ -12,6 +12,9 @@ public class WorkNote extends Identity {
     private String endTime;
     private String reason;
     private Port[] port;
+    private String workId;//HAC中对应的workId
+
+
 
     public WorkNote() {
     }
@@ -85,5 +88,13 @@ public class WorkNote extends Identity {
 
     public void setPort(Port[] port) {
         this.port = port;
+    }
+
+    public String getWorkId() {
+        return workId;
+    }
+
+    public void setWorkId(String workId) {
+        this.workId = workId;
     }
 }

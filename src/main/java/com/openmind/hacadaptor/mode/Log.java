@@ -8,7 +8,7 @@ import com.openmind.hacadaptor.sqlutil.Table;
  * Created by LiuBin on 2017/6/27.
  */
 @Table("LOG")
-public class Log extends Identity implements IBaseMode {
+public class Log extends Identity {
 
     @Column("worknote")
     private String workNote;
@@ -26,7 +26,10 @@ public class Log extends Identity implements IBaseMode {
     private String startDate;
     @Column("endDate")
     private String endDate;
-
+    @Column("status")
+    private String status;
+    @Column("closeDate")
+    private String closeDate;
 
     public Log() {
 
@@ -36,7 +39,7 @@ public class Log extends Identity implements IBaseMode {
         super(id);
     }
 
-    public Log(String workNote, String deviceName, String ip, String content, String optDate, String remark, String startDate, String endDate) {
+    public Log(String workNote, String deviceName, String ip, String content, String optDate, String remark, String startDate, String endDate, String status) {
         this.workNote = workNote;
         this.deviceName = deviceName;
         this.ip = ip;
@@ -45,9 +48,10 @@ public class Log extends Identity implements IBaseMode {
         this.remark = remark;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.status = status;
     }
 
-    public Log(long id, String workNote, String deviceName, String ip, String content, String optDate, String remark, String startDate, String endDate) {
+    public Log(long id, String workNote, String deviceName, String ip, String content, String optDate, String remark, String startDate, String endDate, String status) {
         super(id);
         this.workNote = workNote;
         this.deviceName = deviceName;
@@ -57,6 +61,7 @@ public class Log extends Identity implements IBaseMode {
         this.remark = remark;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.status = status;
     }
 
     public String getDeviceName() {
@@ -121,5 +126,21 @@ public class Log extends Identity implements IBaseMode {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getCloseDate() {
+        return closeDate;
+    }
+
+    public void setCloseDate(String closeDate) {
+        this.closeDate = closeDate;
     }
 }

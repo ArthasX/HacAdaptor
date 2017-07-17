@@ -6,6 +6,7 @@ import com.openmind.hacadaptor.socket.xml.mode.common.XMLType;
 import jdk.nashorn.internal.runtime.ECMAException;
 import org.apache.log4j.Logger;
 
+import javax.net.ssl.*;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +15,9 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ResourceBundle;
 
 /**
@@ -28,29 +32,48 @@ public class SocketUtil {
     private static SocketAddress socketAddress = new InetSocketAddress(ip, port);
     private static int timeout = Integer.parseInt(ResourceBundle.getBundle("setting").getString("timeout"));
 
-//
-//    public static void init() {
-//
-//        try {
-//            socket.setKeepAlive(true);
-//            socket.setSoTimeout(timeout);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
+
+    private static SSLSocket getSSLSocket() throws Exception {
+        X509TrustManager x =
+                new X509TrustManager() {
+                    public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+                    }
+
+                    public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+                    }
+
+                    public X509Certificate[] getAcceptedIssuers() {
+                        return null;
+                    }
+                };
+        TrustManager[] tm = new TrustManager[]{x};
+        SSLContext sslContext = SSLContext.getInstance("SSLv3");
+        sslContext.init(null, tm, new SecureRandom());
+        SSLEngine sslEngine = sslContext.createSSLEngine();
+        SSLSocketFactory ssf = sslContext.getSocketFactory();
+        logger.info("init sslsocket--- " + ip + ":" + port);
+        SSLSocket socket = (SSLSocket) ssf.createSocket(ip, port);
+        socket.setKeepAlive(true);
+        socket.setSoTimeout(timeout);
+        return socket;
+    }
+
+    private static Socket getSocket() throws Exception{
+        logger.info("init socket--- " + ip + ":" + port);
+        Socket socket = new Socket();
+        socket.setKeepAlive(true);
+        socket.setSoTimeout(timeout);
+        return socket;
+    }
 
     public static byte[] request(byte[] b) {
         byte[] header = new byte[20];//去掉头部 20 byte长度
         int index = 0;
-        int readLen = 0;    
+        int readLen = 0;
         int totalLen = 0;
         byte[] buffer = null;
         try {
-            logger.info("init socket--- " + ip + ":" + port);
-            Socket socket = new Socket();
-            socket.setKeepAlive(true);
-            socket.setSoTimeout(timeout);
+            SSLSocket socket = getSSLSocket();
             logger.info("connect to server...");
             socket.connect(socketAddress);
             logger.info("connected...");
@@ -75,9 +98,7 @@ public class SocketUtil {
             }
             os.close();
             socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (RuntimeException e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return buffer;
@@ -92,17 +113,13 @@ public class SocketUtil {
 
         byte[] header = new byte[20];//去掉头部 20 byte长度
         byte[] body = null;
-
         int index = 0;
         int readLen;
         int totalLen;
         int resultType;
         try {
-            logger.info(xmldto.getClass().getSimpleName());
-            logger.info("init socket--- " + ip + ":" + port);
-            Socket socket = new Socket();
-            socket.setKeepAlive(true);
-            socket.setSoTimeout(timeout);
+//            SSLSocket socket = getSSLSocket();
+            Socket socket=getSocket();
             logger.info("connect to server...");
             socket.connect(socketAddress);
             logger.info("connected...");
@@ -116,28 +133,15 @@ public class SocketUtil {
                 logger.info("reading data from hac server...");
                 is.read(header);
                 xmldto.setXmlHeaderBytesBack(header);
-                //resultType = ByteUtil.byteArrayToInt(ByteUtil.getSubBytes(header, 12, 4));
-                //xmldto.setResultType(resultType);
                 totalLen = ByteUtil.byteArrayToInt(ByteUtil.getSubBytes(header, 16, 4));
                 body = new byte[totalLen];
-//                while (index < totalLen) {
-//                    readLen = is.read(body, index, totalLen - index);
-//                    if (readLen > 0)
-//                        index = index + readLen;
-//                    else
-//                        break;
-//                }
-                StreamTool.readStream(is,body,index,totalLen);
+                StreamTool.readStream(is, body, index, totalLen);
                 is.close();
             }
             os.close();
             socket.close();
             logger.info("read finished...Socket closed...");
-        } catch (IOException e) {
-            e.printStackTrace();
-            xmldto.setErrorMessage(e.getMessage());
-            xmldto.setErrorCode(1);
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             xmldto.setErrorMessage(e.getMessage());
             xmldto.setErrorCode(1);

@@ -5,6 +5,7 @@ import com.openmind.hacadaptor.mode.Device;
 import com.openmind.hacadaptor.mode.Result;
 import com.openmind.hacadaptor.service.DeviceServiceImpl;
 
+import com.openmind.hacadaptor.service.IDeviceService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ import java.util.List;
 public class DeviceController {
     Logger logger = Logger.getLogger(DeviceController.class);
     @Autowired
-    DeviceServiceImpl deviceService;
+    private IDeviceService deviceService;
 
     @RequestMapping(value = "/{deviceId}", method = RequestMethod.GET)
     @ResponseBody
@@ -35,7 +36,7 @@ public class DeviceController {
     @ResponseBody
     public List<Device> getDevices() {
         Device d = new Device();
-        List<Device> list = deviceService.selectAll(d);
+        List<Device> list = deviceService.fuzzySelect(d);
         return list;
     }
 

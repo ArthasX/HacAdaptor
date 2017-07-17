@@ -53,7 +53,7 @@ public class BaseServiceImp<T extends Serializable, ID extends Serializable> imp
     }
 
     @Override
-    public List<T> selectAll(T t) {
+    public List<T> fuzzySelect(T t) {
         return baseMapper.fuzzySelect(t);
     }
 

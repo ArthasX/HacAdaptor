@@ -9,5 +9,5 @@ import org.springframework.stereotype.Service;
  * @version Created on 2017/7/12
  */
 @Service
-public class PortServiceImpl extends BaseServiceImp<Port,Identity> {
+public class PortServiceImpl extends BaseServiceImp<Port,Identity> implements IPortService{
 }

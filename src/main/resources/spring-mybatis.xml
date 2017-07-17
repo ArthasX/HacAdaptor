@@ -3,12 +3,15 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-4.0.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx.xsd">
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
     <context:component-scan base-package="com.openmind.hacadaptor.dao"/>
 
@@ -52,18 +55,25 @@
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
-    <!-- 事务传播特性配置 -->
-    <!--<tx:advice id="transactionAdvice" transaction-manager="transactionManager">-->
-        <!--<tx:attributes>-->
-            <!--<tx:method name="insert*" propagation="REQUIRED"-->
-                       <!--rollback-for="Exception"/>-->
-            <!--<tx:method name="delete*" propagation="REQUIRED"-->
-                       <!--rollback-for="Exception"/>-->
-            <!--<tx:method name="update*" propagation="REQUIRED"-->
-                       <!--rollback-for="Exception"/>-->
-            <!--<tx:method name="select*" read-only="true"/>-->
-        <!--</tx:attributes>-->
-    <!--</tx:advice>-->
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!--事务传播特性配置-->
+    <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="insert*" propagation="REQUIRED"
+                       rollback-for="Exception"/>
+            <tx:method name="delete*" propagation="REQUIRED"
+                       rollback-for="Exception"/>
+            <tx:method name="update*" propagation="REQUIRED"
+                       rollback-for="Exception"/>
+            <tx:method name="select*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config proxy-target-class="true">
+        <aop:pointcut id="transactionxPointcut"
+                      expression="execution(* com.openmind.hacadaptor.service..*.*(..))"/>
+        <aop:advisor advice-ref="transactionAdvice" pointcut-ref="transactionxPointcut"/>
+    </aop:config>
+
+    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
 
 </beans>

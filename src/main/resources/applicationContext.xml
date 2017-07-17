@@ -10,16 +10,19 @@
     http://www.springframework.org/schema/mvc
     http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <context:annotation-config/>
     <mvc:annotation-driven/>
+    <context:annotation-config/>
+    <!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />-->
     <context:component-scan base-package="com.openmind.hacadaptor.controller"/>
+    <!--<context:component-scan base-package="com.openmind.hacadaptor.dao"/>-->
+    <!--<context:component-scan base-package="com.openmind.hacadaptor.service"/>-->
+    <!--&lt;!&ndash; 就用来做依赖注入 &ndash;&gt;-->
+    <!--<context:component-scan base-package="com.openmind.hacadaptor.socket.hacoperation"/>-->
 
-    <!--
-        <mvc:resources location="/WEB-INF/static/js/" mapping="/js/**"/>
-        <mvc:resources location="/WEB-INF/static/css/" mapping="/css/**"/>
-        <mvc:resources location="/WEB-INF/static/image/" mapping="/image/**"/>
-    -->
-    <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
+    <!--<mvc:resources location="/WEB-INF/static/js/" mapping="/js/**"/>-->
+    <!--<mvc:resources location="/WEB-INF/static/css/" mapping="/css/**"/>-->
+    <!--<mvc:resources location="/WEB-INF/static/image/" mapping="/image/**"/>-->
+      <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
     <bean id="mappingJackson2HttpMessageConverter"
           class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
         <property name="supportedMediaTypes">

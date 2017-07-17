@@ -7,10 +7,14 @@ import com.openmind.hacadaptor.socket.xml.mode.devices.SPort;
 import com.openmind.hacadaptor.socket.xml.mode.worknote.WorkNoteStatusDTO;
 import com.openmind.hacadaptor.socket.xml.mode.worknote.WorkNoteDTO;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Created by LiuBin on 2017/7/4.
  */
+
 public class WorkNoteOperator extends BaseOperator {
     static Logger logger = Logger.getLogger(WorkNoteOperator.class);
     public static final int SUBMIT_WORK_NOTE = 0;
@@ -40,15 +44,24 @@ public class WorkNoteOperator extends BaseOperator {
      * @param startTime
      * @param endTime
      * @param reason
-     * @param SPort
+     * @param sPort
      */
-    public WorkNoteOperator(String operator, String workNoteNumber, String startTime, String endTime, String reason, SPort... SPort) {
+    public WorkNoteOperator(String operator, String workNoteNumber, String startTime, String endTime, String reason, SPort... sPort) {
         xmldto = new WorkNoteDTO();
         WorkNoteXMLDataFactory workNoteXMLDataFactory =
                 new WorkNoteXMLDataFactory(SUBMIT_WORK_NOTE
-                        , operator, workNoteNumber, startTime, endTime, reason, SPort);
+                        , operator, workNoteNumber, startTime, endTime, reason, sPort);
         xmldto.setXmlData(workNoteXMLDataFactory.getXMLData());
 
+    }
+
+    public WorkNoteOperator(String operator, String workNoteNumber, String startTime, String endTime, String reason, List<SPort> sPorts) {
+        SPort[] s=(SPort[])sPorts.toArray();
+        xmldto = new WorkNoteDTO();
+        WorkNoteXMLDataFactory workNoteXMLDataFactory =
+                new WorkNoteXMLDataFactory(SUBMIT_WORK_NOTE
+                        , operator, workNoteNumber, startTime, endTime, reason, s);
+        xmldto.setXmlData(workNoteXMLDataFactory.getXMLData());
     }
 
     @Override

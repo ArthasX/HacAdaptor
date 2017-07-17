@@ -1,12 +1,17 @@
 package com.openmind.hacadaptor.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.openmind.hacadaptor.mode.Account;
+import com.openmind.hacadaptor.mode.Port;
 import com.openmind.hacadaptor.mode.Result;
 import com.openmind.hacadaptor.mode.WorkNote;
 import com.openmind.hacadaptor.service.BaseServiceImp;
+import com.openmind.hacadaptor.service.IWorkNoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author LiuBin
@@ -17,32 +22,43 @@ import org.springframework.web.bind.annotation.*;
 public class WorkNoteCotroller {
 
     @Autowired
-    BaseServiceImp workNoteServiceImpl;
+    private IWorkNoteService workNoteServiceImpl;
 
     //设置工单状态
-    @RequestMapping(value = "/wornotestatus/{workNoteNumber}",method = RequestMethod.GET)
+    @RequestMapping(value = "/wornotestatus/{workNoteNumber}", method = RequestMethod.GET)
     @ResponseBody
-    public Result setWorkNote(@PathVariable String workNoteNumber){
-        Result result=new Result();
-        WorkNote w= new WorkNote();
-        w.setWorkNoteNumber(workNoteNumber);
-        String s = JSON.toJSONString(result);
+    public Result setWorkNote(@PathVariable String workNoteNumber) {
+        Result result = workNoteServiceImpl.setWorkNote(workNoteNumber);
         System.out.println(result);
         return result;
     }
 
     //提交工单
-    @RequestMapping(value = "/worknote"
-            ,method = RequestMethod.POST
+    @RequestMapping(value = "/normal"
+            , method = RequestMethod.POST
             , produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE
             , MediaType.APPLICATION_FORM_URLENCODED_VALUE}
-            ,consumes ={MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_JSON_UTF8_VALUE
-            ,MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_FORM_URLENCODED_VALUE} )
+            , consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE
+            , MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     @ResponseBody
-    public Result sentWorkNote(@RequestBody WorkNote workNote){
-        Result result=new Result();
-        WorkNote w= workNote;
-        result.setData(w);
+    public Result submitNormalWorkNote(@RequestBody WorkNote workNote,@RequestBody String groupId) {
+        System.out.println(workNote);
+        System.out.println(groupId);
+        Result result =new Result();//= workNoteServiceImpl.submitNormalWorkNote(workNote,groupId);
+        return result;
+    }
+
+    //提交工单
+    @RequestMapping(value = "/emergent"
+            , method = RequestMethod.POST
+            , produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE
+            , MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+            , consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE
+            , MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    @ResponseBody
+    public Result submitEmergentWorkNote(@RequestBody WorkNote workNote
+            , @RequestBody List<Port> ports, @RequestBody List<Account> accounts) {
+        Result result = workNoteServiceImpl.submitEmergentWorkNote(workNote, ports, accounts);
         return result;
     }
 //

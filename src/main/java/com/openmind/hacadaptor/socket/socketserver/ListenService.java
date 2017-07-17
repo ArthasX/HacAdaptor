@@ -5,6 +5,7 @@ import com.openmind.hacadaptor.socket.util.ByteUtil;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLHeader;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLType;
 
+import javax.net.ssl.SSLServerSocket;
 import java.io.*;
 import java.net.Socket;
 import java.nio.ByteBuffer;
@@ -20,6 +21,9 @@ public class ListenService implements Runnable {
         this.socket = socket;
     }
 
+    public ListenService(SSLServerSocket sslServerSocket){
+
+    }
     @Override
     public void run() {
         byte[] header = new byte[20];

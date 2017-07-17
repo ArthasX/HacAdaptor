@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by LiuBin on 2017/7/3.
  */
-@Component
+@Component(value = "deviceOperation")
 public class DeviceOperator extends BaseOperator {
     static Logger logger = Logger.getLogger(DeviceOperator.class);
     private XMLDTO xmldto;
@@ -28,6 +28,7 @@ public class DeviceOperator extends BaseOperator {
     /**
      * get devices from hac
      */
+    @SuppressWarnings("unchecked")
     public List<SDevice> getDevices() {
         xmldto = getXmldtoBack();
         return (List<SDevice>)xmldto.getResult().getBackContext().getContextDetail();

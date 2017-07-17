@@ -1,6 +1,7 @@
 package com.openmind.hacadaptor.mvc;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.openmind.hacadaptor.mode.Device;
 import com.openmind.hacadaptor.mode.WorkNote;
 import org.junit.Before;
@@ -94,6 +95,32 @@ public class TestController {
         String url = "/devices/updateDevices";
         mockMvc.perform(get(url))
                 .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+
+    @Test
+    public void testSubmitNormalWorkNote() throws Exception {
+        String url = "/worknote/normal";
+        WorkNote workNote = new WorkNote();
+        workNote.setOperator("slz");
+        workNote.setReason("fuck");
+        String json = JSON.toJSONString(workNote);
+        Object j = JSON.toJSON(workNote);
+        System.out.println(json);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("groupId","123456");
+        String groupId=jsonObject.toJSONString();
+//        String groupId="{\"groupId\":\"12345\"}";
+        JSONObject jjj=new JSONObject();
+        jjj.put("groupId","123455");
+        jjj.put("workNote",workNote);
+        System.out.println("test :"+groupId);
+        System.out.println(jjj.toString());
+        mockMvc.perform(post(url)
+                .contentType(MediaType.APPLICATION_JSON_VALUE).content(jjj.toJSONString())//.content(json).content(groupId)
+                .accept(MediaType.APPLICATION_JSON))
+                //.andExpect(status().isOk())
                 .andDo(print());
     }
 }

@@ -2,7 +2,6 @@ package com.openmind.hacadaptor.service;
 
 import com.openmind.hacadaptor.dao.AccountMapper;
 import com.openmind.hacadaptor.dao.DeviceMapper;
-import com.openmind.hacadaptor.dao.IBaseMapper;
 import com.openmind.hacadaptor.dao.PortMapper;
 import com.openmind.hacadaptor.mode.*;
 import com.openmind.hacadaptor.socket.hacoperation.IOperator;
@@ -11,14 +10,10 @@ import com.openmind.hacadaptor.socket.xml.mode.devices.SAccount;
 import com.openmind.hacadaptor.socket.xml.mode.devices.SDevice;
 import com.openmind.hacadaptor.socket.xml.mode.devices.SPort;
 import com.openmind.hacadaptor.sqlutil.IdWorker;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -28,7 +23,7 @@ import java.util.List;
  * Created by LiuBin on 2017/6/22.
  */
 @Service
-public class DeviceServiceImpl extends BaseServiceImp<Device, Identity> {
+public class DeviceServiceImpl extends BaseServiceImp<Device, Identity> implements IDeviceService {
     Logger logger = Logger.getLogger(DeviceServiceImpl.class);
     @Autowired
     private IOperator deviceOperation;
@@ -41,60 +36,64 @@ public class DeviceServiceImpl extends BaseServiceImp<Device, Identity> {
 
     @Transactional
     public Result updateDevicesFromHac() throws RuntimeException {
+        Result result;
         XMLDTO xmldto = deviceOperation.getXmldtoBack();
-        List<SDevice> list = (List<SDevice>) xmldto.getResult().getBackContext().getContextDetail();
-        List<Device> devices = new ArrayList<>();
-        List<Port> ports = new ArrayList<>();
-        List<Account> accounts = new ArrayList<>();
-        int totalDevice = 0, totalPort = 0, totalAccount = 0;
-        int countDevice = 0, countPort = 0, countAccount = 0;
-        StringBuilder sb = new StringBuilder();
-        Result result = new Result();
-        try {
-            if (list.size() > 0) {
-                for (SDevice sDevice : list) {
-                    Device device = new Device(IdWorker.getId());
+        result = Result.getResult(xmldto);
+        if (xmldto.getErrorCode() == 0) {
+            List<SDevice> list = (List<SDevice>) xmldto.getResult().getBackContext().getContextDetail();
+            List<Device> devices = new ArrayList<>();
+            List<Port> ports = new ArrayList<>();
+            List<Account> accounts = new ArrayList<>();
+            int totalDevice = 0, totalPort = 0, totalAccount = 0;
+            int countDevice = 0, countPort = 0, countAccount = 0;
+            StringBuilder sb = new StringBuilder();
 
-                    BeanUtils.copyProperties(sDevice, device);
-                    List<SPort> sPorts = sDevice.getPort();
-                    if (sPorts != null && sPorts.size() > 0)
-                        for (SPort sPort : sPorts) {
-                            Port port = new Port(IdWorker.getId());//Thread.sleep(1);
-                            port.setDeviceId(sDevice.getDeviceId());
-                            BeanUtils.copyProperties(sPort, port);
-                            ports.add(port);
-                        }
-                    List<SAccount> sAccounts = sDevice.getAccount();
-                    if (sAccounts != null && sAccounts.size() > 0)
-                        for (SAccount sAccount : sAccounts) {
-                            Account account = new Account(IdWorker.getId());//Thread.sleep(1);
-                            BeanUtils.copyProperties(sAccount, account);
-                            accounts.add(account);
-                        }
+            try {
+                if (list.size() > 0) {
+                    for (SDevice sDevice : list) {
+                        Device device = new Device(IdWorker.getId());
 
-                    devices.add(device);
+                        BeanUtils.copyProperties(sDevice, device);
+                        List<SPort> sPorts = sDevice.getPort();
+                        if (sPorts != null && sPorts.size() > 0)
+                            for (SPort sPort : sPorts) {
+                                Port port = new Port(IdWorker.getId());//Thread.sleep(1);
+                                port.setDeviceId(sDevice.getDeviceId());
+                                BeanUtils.copyProperties(sPort, port);
+                                ports.add(port);
+                            }
+                        List<SAccount> sAccounts = sDevice.getAccount();
+                        if (sAccounts != null && sAccounts.size() > 0)
+                            for (SAccount sAccount : sAccounts) {
+                                Account account = new Account(IdWorker.getId());//Thread.sleep(1);
+                                BeanUtils.copyProperties(sAccount, account);
+                                accounts.add(account);
+                            }
 
-                    countDevice = deviceMapper.insert(device);
-                    if (ports.size() > 0)
-                        countPort = portMapper.insertBatch(ports);
-                    if (accounts.size() > 0)
-                        countAccount = accountMapper.insertBatch(accounts);
-                    ports.clear();
-                    accounts.clear();
+                        devices.add(device);
+
+                        countDevice = deviceMapper.insert(device);
+                        if (ports.size() > 0)
+                            countPort = portMapper.insertBatch(ports);
+                        if (accounts.size() > 0)
+                            countAccount = accountMapper.insertBatch(accounts);
+                        ports.clear();
+                        accounts.clear();
+                    }
                 }
+
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            } finally {
+                totalDevice += countDevice;
+                totalPort += countPort;
+                totalAccount += countAccount;
+                sb.append("total device:").append(totalDevice).append("\n");
+                sb.append("total port:").append(totalPort).append("\n");
+                sb.append("total account:").append(totalAccount).append("\n");
+                result.setMessage(sb.toString());
+
             }
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            totalDevice += countDevice;
-            totalPort += countPort;
-            totalAccount += countAccount;
-            sb.append("total device:").append(totalDevice).append("\n");
-            sb.append("total port:").append(totalPort).append("\n");
-            sb.append("total account:").append(totalAccount).append("\n");
-            result.setMessage(sb.toString());
-
         }
         return result;
     }

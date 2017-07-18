@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 /**
  * Created by LiuBin on 2017/6/22.
  */
-public interface IDeviceService extends IBaseService<Device,Identity>  {
-    public Result updateDevicesFromHac() throws RuntimeException;
+public interface IDeviceService extends IBaseService<Device, Identity> {
+    Result updateDevicesFromHac() throws RuntimeException;
 }

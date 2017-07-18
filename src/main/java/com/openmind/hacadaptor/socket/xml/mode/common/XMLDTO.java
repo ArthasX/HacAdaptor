@@ -106,4 +106,12 @@ public class XMLDTO<T, B> implements BaseDTO<T, B> {
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
     }
+
+    public XMLData getXmlDataBack() {
+        return xmlDataBack;
+    }
+
+    public void setXmlDataBack(XMLData xmlDataBack) {
+        this.xmlDataBack = xmlDataBack;
+    }
 }

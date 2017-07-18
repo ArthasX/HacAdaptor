@@ -34,6 +34,11 @@ public class DeviceServiceImpl extends BaseServiceImp<Device, Identity> implemen
     @Autowired
     private DeviceMapper deviceMapper;
 
+    /**
+     *
+     * @return
+     * @throws RuntimeException to make sure the transaction will roll back
+     */
     @Transactional
     public Result updateDevicesFromHac() throws RuntimeException {
         Result result;
@@ -96,6 +101,15 @@ public class DeviceServiceImpl extends BaseServiceImp<Device, Identity> implemen
             }
         }
         return result;
+    }
+
+    /**
+     *
+     * @return All the devices in the certain group with ports and accounts
+     */
+    public Result getDevicesDetailsByGroupName(String groupName){
+
+        return null;
     }
 
     public IOperator getDeviceOperation() {

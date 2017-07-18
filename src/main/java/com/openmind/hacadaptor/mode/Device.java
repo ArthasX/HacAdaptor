@@ -34,17 +34,19 @@ public class Device extends Identity {
         this.deviceId = deviceId;
     }
 
-    public Device(String deviceId, String deviceName, String ipAddress) {
+    public Device(String deviceId, String deviceName, String ipAddress, String groupId) {
         this.deviceId = deviceId;
         this.deviceName = deviceName;
         this.ipAddress = ipAddress;
+        this.groupId = groupId;
     }
 
-    public Device(long id, String deviceId, String deviceName, String ipAddress) {
+    public Device(long id, String deviceId, String deviceName, String ipAddress, String groupId) {
         super(id);
         this.deviceId = deviceId;
         this.deviceName = deviceName;
         this.ipAddress = ipAddress;
+        this.groupId = groupId;
     }
 
     public String getDeviceId() {
@@ -85,5 +87,13 @@ public class Device extends Identity {
 
     public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 }

@@ -24,6 +24,10 @@ public class DeviceController {
     @Autowired
     private IDeviceService deviceService;
 
+    /**
+     * @param deviceId
+     * @return simple device with id
+     */
     @RequestMapping(value = "/{deviceId}", method = RequestMethod.GET)
     @ResponseBody
     public Device getByDeviceId(@PathVariable("deviceId") String deviceId) {
@@ -32,6 +36,9 @@ public class DeviceController {
         return d;
     }
 
+    /**
+     * @return all the devices
+     */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
     public List<Device> getDevices() {
@@ -40,30 +47,44 @@ public class DeviceController {
         return list;
     }
 
-    //PUT 对应Update
+    /**
+     * update a device
+     *
+     * @param deviceId
+     * @return
+     */
     @RequestMapping(value = "/{deviceId}", method = RequestMethod.PUT)
     @ResponseBody
-    public Device updateDevice(@PathVariable("deviceId") String deviceId) {
-
+    public Device updateDevice(@PathVariable("deviceId") String deviceId,@RequestBody Device device) {
+        //TODO update device
         return null;
     }
 
-    //POST对应insert
+    /**
+     * insert a device
+     *
+     * @param device
+     * @return
+     */
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
     public Result getDevices(@RequestBody Device device) {
         Result result = new Result();
-        result.setData(device);
+        //TODO insert device
         return result;
     }
 
-
-    @RequestMapping(value = "/updateDevices", method = RequestMethod.GET)
+    /**
+     * refresh devices from hac
+     *
+     * @return
+     */
+    @RequestMapping(value = "/refreshDevices", method = RequestMethod.GET)
     @ResponseBody
     public Result updateDevicesFromHac() {
         Result result = new Result();
         try {
-            result=deviceService.updateDevicesFromHac();
+            result = deviceService.updateDevicesFromHac();
         } catch (Exception e) {
             logger.error(e.getMessage());
             result.setErrorMessage(e.getMessage());

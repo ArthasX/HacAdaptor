@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.openmind.hacadaptor.dao.AccountMapper">
+    <resultMap id="account" type="com.openmind.hacadaptor.mode.Account">
+
+
+    </resultMap>
+    <select id="getAccountsByGroupName" parameterType="String" >
+        select a.* from account a,groups g,device d where g.groupname=#{groupName}
+        and g.id=d.deviceid and d.deviceid=a.deviceid
+    </select>
+</mapper>

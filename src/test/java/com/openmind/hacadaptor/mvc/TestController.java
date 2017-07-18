@@ -63,26 +63,12 @@ public class TestController {
                 .andDo(print());
     }
 
-    @Test
-    public void testWorkNote() throws Exception {
-        WorkNote workNote = new WorkNote();
-        workNote.setOperator("slz");
-        workNote.setReason("fuck");
-        String json = JSON.toJSONString(workNote);
-        Object j = JSON.toJSON(workNote);
-        System.out.println(json);
-        mockMvc.perform(post("/worknote/worknote")
-                .contentType(MediaType.APPLICATION_JSON_VALUE).content(json)
-                .accept(MediaType.APPLICATION_JSON))
-                //.andExpect(status().isOk())
-                .andDo(print());
-    }
 
     @Test
     public void testWorkNoteStatus() throws Exception {
-        String url = "/worknote/wornotestatus/1234";
+        String url = "/worknote/worknotestatus/1234";
         System.out.println(url);
-        mockMvc.perform(get(url))
+        mockMvc.perform(put(url))
                 //.param("workNoteNumber", "12345"))
                 .andExpect(status().isOk())
                 .andDo(print());
@@ -107,6 +93,7 @@ public class TestController {
         workNote.setReason("fuck");
         String json = JSON.toJSONString(workNote);
         Object j = JSON.toJSON(workNote);
+        String json1 = JSON.toJSONString("123456");
         System.out.println(json);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("groupId","123456");
@@ -116,9 +103,39 @@ public class TestController {
         jjj.put("groupId","123455");
         jjj.put("workNote",workNote);
         System.out.println("test :"+groupId);
-        System.out.println(jjj.toString());
+        System.out.println("test :"+jjj.toString());
         mockMvc.perform(post(url)
-                .contentType(MediaType.APPLICATION_JSON_VALUE).content(jjj.toJSONString())//.content(json).content(groupId)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(jjj.toJSONString())
+//                .content(groupId)
+                .accept(MediaType.APPLICATION_JSON))
+                //.andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @Test
+    public void testSubmiEmergentWorkNote() throws Exception {
+        String url = "/worknote/emergent";
+        WorkNote workNote = new WorkNote();
+        workNote.setOperator("slz");
+        workNote.setReason("fuck");
+        String json = JSON.toJSONString(workNote);
+        Object j = JSON.toJSON(workNote);
+        String json1 = JSON.toJSONString("123456");
+        System.out.println(json);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("groupId","123456");
+        String groupId=jsonObject.toJSONString();
+//        String groupId="{\"groupId\":\"12345\"}";
+        JSONObject jjj=new JSONObject();
+        jjj.put("groupId","123455");
+        jjj.put("workNote",workNote);
+        System.out.println("test :"+groupId);
+        System.out.println("test :"+jjj.toString());
+        mockMvc.perform(post(url)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(jjj.toJSONString())
+//                .content(groupId)
                 .accept(MediaType.APPLICATION_JSON))
                 //.andExpect(status().isOk())
                 .andDo(print());

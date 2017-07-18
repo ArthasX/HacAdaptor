@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.openmind.hacadaptor.dao.PortMapper">
+    <resultMap id="port" type="com.openmind.hacadaptor.mode.Port">
+
+
+    </resultMap>
+    <select id="getPortsByGroupName" parameterType="String" >
+        select p.* from port p,groups g,device d where g.groupname=#{groupName}
+        and g.id=d.deviceid and d.deviceid=p.deviceid
+    </select>
+</mapper>

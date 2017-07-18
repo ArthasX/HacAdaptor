@@ -10,26 +10,29 @@ import com.openmind.hacadaptor.sqlutil.Table;
 @Table("LOG")
 public class Log extends Identity {
 
-    @Column("worknote")
-    private String workNote;
-    @Column("devicename")
-    private String deviceName;
+    @Column("worknoteid")
+    private String workNoteId;
+    @Column("worknotenumber")
+    private String workNoteNumber;
+    @Column("groupname")
+    private String groupName;
     @Column("ip")
     private String ip;
     @Column("content")
     private String content;
-    @Column("optDate")
+    @Column("optdate")
     private String optDate;
     @Column("remark")
     private String remark;
-    @Column("startDate")
-    private String startDate;
-    @Column("endDate")
-    private String endDate;
+    @Column("starttime")
+    private String startTime;
+    @Column("endtime")
+    private String endTime;
     @Column("status")
     private String status;
     @Column("closeDate")
     private String closeDate;
+
 
     public Log() {
 
@@ -39,37 +42,33 @@ public class Log extends Identity {
         super(id);
     }
 
-    public Log(String workNote, String deviceName, String ip, String content, String optDate, String remark, String startDate, String endDate, String status) {
-        this.workNote = workNote;
-        this.deviceName = deviceName;
+    public Log(String workNoteId, String workNoteNumber, String groupName, String ip, String content, String optDate, String remark, String startTime, String endTime, String status, String closeDate) {
+        this.workNoteId = workNoteId;
+        this.workNoteNumber = workNoteNumber;
+        this.groupName = groupName;
         this.ip = ip;
         this.content = content;
         this.optDate = optDate;
         this.remark = remark;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.status = status;
+        this.closeDate = closeDate;
     }
 
-    public Log(long id, String workNote, String deviceName, String ip, String content, String optDate, String remark, String startDate, String endDate, String status) {
+    public Log(long id, String workNoteId, String workNoteNumber, String groupName, String ip, String content, String optDate, String remark, String startTime, String endTime, String status, String closeDate) {
         super(id);
-        this.workNote = workNote;
-        this.deviceName = deviceName;
+        this.workNoteId = workNoteId;
+        this.workNoteNumber = workNoteNumber;
+        this.groupName = groupName;
         this.ip = ip;
         this.content = content;
         this.optDate = optDate;
         this.remark = remark;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.status = status;
-    }
-
-    public String getDeviceName() {
-        return deviceName;
-    }
-
-    public void setDeviceName(String deviceName) {
-        this.deviceName = deviceName;
+        this.closeDate = closeDate;
     }
 
     public String getIp() {
@@ -78,6 +77,14 @@ public class Log extends Identity {
 
     public void setIp(String ip) {
         this.ip = ip;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
     public String getContent() {
@@ -104,28 +111,36 @@ public class Log extends Identity {
         this.remark = remark;
     }
 
-    public String getWorkNote() {
-        return workNote;
+    public String getWorkNoteId() {
+        return workNoteId;
     }
 
-    public void setWorkNote(String workNote) {
-        this.workNote = workNote;
+    public void setWorkNoteId(String workNoteId) {
+        this.workNoteId = workNoteId;
     }
 
-    public String getStartDate() {
-        return startDate;
+    public String getWorkNoteNumber() {
+        return workNoteNumber;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
+    public void setWorkNoteNumber(String workNoteNumber) {
+        this.workNoteNumber = workNoteNumber;
     }
 
-    public String getEndDate() {
-        return endDate;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public String getStatus() {

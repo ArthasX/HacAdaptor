@@ -9,8 +9,8 @@ import java.util.List;
  * @version Created on 2017/7/17
  */
 public interface IWorkNoteService extends IBaseService<WorkNote,Identity> {
-     Result submitEmergentWorkNote(WorkNote workNote, List<Port> ports, List<Account> accounts);
-     Result submitNormalWorkNote(WorkNote workNote,String group);
+     Result submitEmergentWorkNote(WorkNote workNote, List<Port> ports, List<Account> accounts,List<String> groupNames);
+     Result submitNormalWorkNote(WorkNote workNote,List<String> groupNames);
      Result setWorkNote(String workNoteNumber);
 
 }

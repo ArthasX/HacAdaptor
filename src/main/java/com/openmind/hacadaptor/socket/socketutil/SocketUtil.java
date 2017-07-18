@@ -58,7 +58,7 @@ public class SocketUtil {
         return socket;
     }
 
-    private static Socket getSocket() throws Exception{
+    private static Socket getSocket() throws Exception {
         logger.info("init socket--- " + ip + ":" + port);
         Socket socket = new Socket();
         socket.setKeepAlive(true);
@@ -110,16 +110,14 @@ public class SocketUtil {
 
     public static XMLDTO request(XMLDTO xmldto) {
         byte[] data = xmldto.getXmlData().getBytes();
-
-        byte[] header = new byte[20];//去掉头部 20 byte长度
+        int headLen = 20;
+        byte[] header = new byte[headLen];//去掉头部 20 byte长度
         byte[] body = null;
         int index = 0;
-        int readLen;
-        int totalLen;
-        int resultType;
+        int dataLen;
         try {
 //            SSLSocket socket = getSSLSocket();
-            Socket socket=getSocket();
+            Socket socket = getSocket();
             logger.info("connect to server...");
             socket.connect(socketAddress);
             logger.info("connected...");
@@ -133,14 +131,14 @@ public class SocketUtil {
                 logger.info("reading data from hac server...");
                 is.read(header);
                 xmldto.setXmlHeaderBytesBack(header);
-                totalLen = ByteUtil.byteArrayToInt(ByteUtil.getSubBytes(header, 16, 4));
-                body = new byte[totalLen];
-                StreamTool.readStream(is, body, index, totalLen);
+                dataLen = ByteUtil.byteArrayToInt(ByteUtil.getSubBytes(header, 16, 4));
+                body = new byte[dataLen];
+                StreamTool.readStream(is, body, index, dataLen);
                 is.close();
             }
             os.close();
             socket.close();
-            logger.info("read finished...Socket closed...");
+            logger.info("read finished...socket closed...");
         } catch (Exception e) {
             e.printStackTrace();
             xmldto.setErrorMessage(e.getMessage());

@@ -149,9 +149,9 @@ public class SqlProvider {
                     if (!column.required())
                         continue;
                     columnName = column.value();
-                }
-                if (StringUtils.isEmpty(columnName)) {
-                    columnName = tableFormat.getColumnName(field.getName());
+                    if (StringUtils.isEmpty(columnName)) {
+                        columnName = tableFormat.getColumnName(field.getName());
+                    }
                 }
                 field.setAccessible(true);
                 Object object = field.get(bean);
@@ -193,16 +193,16 @@ public class SqlProvider {
                     if (!column.required())
                         continue;
                     columnName = column.value();
-                }
-                if (StringUtils.isEmpty(columnName)) {
-                    columnName = tableFormat.getColumnName(field.getName());
-                }
-                field.setAccessible(true);
-                Object object = field.get(bean);
-                if (object != null) {
-                    if (!(object instanceof Long) || (object instanceof Long && 0 < (Long) object)) {
-                        deleteParaNames.add(columnName);
-                        deleteParas.add("#{" + field.getName() + "}");
+                    if (StringUtils.isEmpty(columnName)) {
+                        columnName = tableFormat.getColumnName(field.getName());
+                    }
+                    field.setAccessible(true);
+                    Object object = field.get(bean);
+                    if (object != null) {
+                        if (!(object instanceof Long) || (object instanceof Long && 0 < (Long) object)) {
+                            deleteParaNames.add(columnName);
+                            deleteParas.add("#{" + field.getName() + "}");
+                        }
                     }
                 }
             }
@@ -240,19 +240,19 @@ public class SqlProvider {
                     if (!column.required())
                         continue;
                     columnName = column.value();
+                    if (StringUtils.isEmpty(columnName)) {
+                        columnName = tableFormat.getColumnName(field.getName());
+                    }
+                    field.setAccessible(true);
+                    Object object = field.get(bean);
+                    selectSql.append(field.getName());
+                    if (object != null) {
+                        selectParaNames.add(columnName);
+                        selectParas.add("#{" + field.getName() + "}");
+                    }
+                    if (i != fields.length - 1)
+                        selectSql.append(",");
                 }
-                if (StringUtils.isEmpty(columnName)) {
-                    columnName = tableFormat.getColumnName(field.getName());
-                }
-                field.setAccessible(true);
-                Object object = field.get(bean);
-                selectSql.append(field.getName());
-                if (object != null) {
-                    selectParaNames.add(columnName);
-                    selectParas.add("#{" + field.getName() + "}");
-                }
-                if (i != fields.length - 1)
-                    selectSql.append(",");
             }
         } catch (Exception e) {
             new RuntimeException("get select sql is exceptoin:" + e);
@@ -292,21 +292,21 @@ public class SqlProvider {
                     if (!column.required())
                         continue;
                     columnName = column.value();
-                }
-                if (StringUtils.isEmpty(columnName)) {
-                    columnName = tableFormat.getColumnName(field.getName());
-                }
-                field.setAccessible(true);
-                Object object = field.get(bean);
-                selectSql.append(field.getName());
-                if (object != null) {
-                    if (!(object instanceof Long) || (object instanceof Long && 0 < (Long) object)) {
-                        selectParaNames.add(columnName);
-                        selectParas.add("#{" + field.getName() + "}");
+                    if (StringUtils.isEmpty(columnName)) {
+                        columnName = tableFormat.getColumnName(field.getName());
                     }
+                    field.setAccessible(true);
+                    Object object = field.get(bean);
+                    selectSql.append(field.getName());
+                    if (object != null) {
+                        if (!(object instanceof Long) || (object instanceof Long && 0 < (Long) object)) {
+                            selectParaNames.add(columnName);
+                            selectParas.add("#{" + field.getName() + "}");
+                        }
+                    }
+                    if (i != fields.length - 1)
+                        selectSql.append(",");
                 }
-                if (i != fields.length - 1)
-                    selectSql.append(",");
             }
         } catch (Exception e) {
             new RuntimeException("get fuzzy select sql is exceptoin:" + e);
@@ -341,19 +341,19 @@ public class SqlProvider {
                     if (!column.required())
                         continue;
                     columnName = column.value();
+                    if (StringUtils.isEmpty(columnName)) {
+                        columnName = tableFormat.getColumnName(field.getName());
+                    }
+                    field.setAccessible(true);
+                    Object object = field.get(bean);
+                    selectSql.append(field.getName());
+                    if (object != null) {
+                        selectParaNames.add(columnName);
+                        selectParas.add("#{" + field.getName() + "}");
+                    }
+                    if (i != fields.length - 1)
+                        selectSql.append(",");
                 }
-                if (StringUtils.isEmpty(columnName)) {
-                    columnName = tableFormat.getColumnName(field.getName());
-                }
-                field.setAccessible(true);
-                Object object = field.get(bean);
-                selectSql.append(field.getName());
-                if (object != null) {
-                    selectParaNames.add(columnName);
-                    selectParas.add("#{" + field.getName() + "}");
-                }
-                if (i != fields.length - 1)
-                    selectSql.append(",");
             }
         } catch (Exception e) {
             new RuntimeException("get select count sql is exceptoin:" + e);

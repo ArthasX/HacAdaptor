@@ -32,8 +32,10 @@ public class Result {
         if (xmldto.getErrorCode() != 0) {
             result.setSuccess(false);
             result.setErrorMessage(xmldto.getErrorMessage());
-        }else
-            result.setData(xmldto.getResult().getBackContext().getContextDetail());
+        } else {
+            if (xmldto.getXmlDataBack().getXmlHeader().getiXmlSize() > 0)
+                result.setData(xmldto.getResult().getBackContext().getContextDetail());
+        }
         return result;
     }
 

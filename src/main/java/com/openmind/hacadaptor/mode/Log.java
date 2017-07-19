@@ -32,7 +32,8 @@ public class Log extends Identity {
     private String status;
     @Column("closeDate")
     private String closeDate;
-
+    @Column("worknotetype")
+    private String worknotetype;
 
     public Log() {
 
@@ -42,7 +43,7 @@ public class Log extends Identity {
         super(id);
     }
 
-    public Log(String workNoteId, String workNoteNumber, String groupName, String ip, String content, String optDate, String remark, String startTime, String endTime, String status, String closeDate) {
+    public Log(String workNoteId, String workNoteNumber, String groupName, String ip, String content, String optDate, String remark, String startTime, String endTime, String status, String closeDate, String worknotetype) {
         this.workNoteId = workNoteId;
         this.workNoteNumber = workNoteNumber;
         this.groupName = groupName;
@@ -54,9 +55,10 @@ public class Log extends Identity {
         this.endTime = endTime;
         this.status = status;
         this.closeDate = closeDate;
+        this.worknotetype = worknotetype;
     }
 
-    public Log(long id, String workNoteId, String workNoteNumber, String groupName, String ip, String content, String optDate, String remark, String startTime, String endTime, String status, String closeDate) {
+    public Log(long id, String workNoteId, String workNoteNumber, String groupName, String ip, String content, String optDate, String remark, String startTime, String endTime, String status, String closeDate, String worknotetype) {
         super(id);
         this.workNoteId = workNoteId;
         this.workNoteNumber = workNoteNumber;
@@ -69,6 +71,7 @@ public class Log extends Identity {
         this.endTime = endTime;
         this.status = status;
         this.closeDate = closeDate;
+        this.worknotetype = worknotetype;
     }
 
     public String getIp() {
@@ -157,5 +160,13 @@ public class Log extends Identity {
 
     public void setCloseDate(String closeDate) {
         this.closeDate = closeDate;
+    }
+
+    public String getWorknotetype() {
+        return worknotetype;
+    }
+
+    public void setWorknotetype(String worknotetype) {
+        this.worknotetype = worknotetype;
     }
 }

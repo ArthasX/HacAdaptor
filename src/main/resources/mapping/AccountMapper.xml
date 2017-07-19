@@ -8,7 +8,7 @@
 
 
     </resultMap>
-    <select id="getAccountsByGroupName" parameterType="String" >
+    <select id="getAccountsByGroupName" parameterType="String" resultType="com.openmind.hacadaptor.mode.Account">
         select a.* from account a,groups g,device d where g.groupname=#{groupName}
         and g.id=d.deviceid and d.deviceid=a.deviceid
     </select>

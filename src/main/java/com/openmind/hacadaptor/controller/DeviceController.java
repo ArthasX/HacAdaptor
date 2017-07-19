@@ -68,7 +68,7 @@ public class DeviceController {
      */
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
-    public Result getDevices(@RequestBody Device device) {
+    public Result insertDevice(@RequestBody Device device) {
         Result result = new Result();
         //TODO insert device
         return result;

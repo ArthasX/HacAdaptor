@@ -17,11 +17,10 @@ public class SSLSocketServer {
         try {
             SSLServerSocketFactory factory = (SSLServerSocketFactory) SSLServerSocketFactory
                     .getDefault();
-
+            SSLServerSocket server = (SSLServerSocket) factory.createServerSocket(9999);
             while (isRunning) {
-                SSLServerSocket server = (SSLServerSocket) factory.createServerSocket(9999);
-                server.accept();
-                new Thread(new ListenService(server)).start();
+                Socket socket=server.accept();
+                new Thread(new ListenService(socket)).start();
             }
         } catch (IOException e) {
             e.printStackTrace();

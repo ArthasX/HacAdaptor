@@ -21,9 +21,6 @@ public class ListenService implements Runnable {
         this.socket = socket;
     }
 
-    public ListenService(SSLServerSocket sslServerSocket){
-
-    }
     @Override
     public void run() {
         byte[] header = new byte[20];

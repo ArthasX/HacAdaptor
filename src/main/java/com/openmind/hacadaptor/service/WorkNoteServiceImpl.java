@@ -59,6 +59,26 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
         return accountIds;
     }
 
+    private Result checkPortAccount(List<Port> ports, List<Account> accounts, String groupName) {
+        Result result = new Result();
+        boolean checkAccount = true, checkPort = true;
+        if (ports.size() == 0)
+            checkPort = false;
+        if (accounts.size() == 0)
+            checkAccount = false;
+        if (!checkAccount || !checkPort) {
+            result.setErrorCode(1);
+            result.setSuccess(false);
+            if (!checkAccount && !checkPort)
+                result.setErrorMessage("account、port都为空，请检查对应的系统[" + groupName + "]面设备资源是否齐全");
+            else if (!checkPort)
+                result.setErrorMessage("port为空，请检查对应的系统[" + groupName + "]面设备资源是否齐全");
+            else
+                result.setErrorMessage("account为空，请检查对应的系统[" + groupName + "]面设备资源是否齐全");
+        }
+        return result;
+    }
+
     /**
      * 提交紧急变更 通过传入的具体的prot account来提单子
      *
@@ -69,12 +89,17 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
      */
     @Override
     public Result submitEmergentWorkNote(WorkNote workNote, List<Port> ports, List<Account> accounts, List<String> groupNames) {
-        logger.info("紧急变更数据准备：");
+        logger.info("##紧急变更数据准备##：");
+        Result result;
+
         StringBuilder sb = new StringBuilder();
         for (String name : groupNames) {
             sb.append(name).append("|");
         }
-        return submitWorkNote(workNote, ports, accounts, sb.toString());
+        result = checkPortAccount(ports, accounts, sb.toString());
+        if (!result.isSuccess())
+            return result;
+        return submitWorkNote(workNote, ports, accounts, sb.toString(),"紧急");
     }
 
 
@@ -87,6 +112,7 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
      */
     @Override
     public Result submitNormalWorkNote(WorkNote workNote, List<String> groupNames) {
+        logger.info("##常规变更数据准备##：");
         Result result;
         List<Port> ports = new ArrayList<>();
         List<Account> accounts = new ArrayList<>();
@@ -94,14 +120,16 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
         for (String name : groupNames) {
             ports.addAll(portMapper.getPortsByGroupName(name));
             accounts.addAll(accountMapper.getAccountsByGroupName(name));
+            result = checkPortAccount(ports, accounts, name);
+            if (!result.isSuccess())
+                return result;
             sb.append(name).append("|");
         }
-        result = submitWorkNote(workNote, ports, accounts, sb.toString());
-        return result;
+        return submitWorkNote(workNote, ports, accounts, sb.toString(),"常规");
     }
 
 
-    private Result submitWorkNote(WorkNote workNote, List<Port> ports, List<Account> accounts, String groupName) {
+    private Result submitWorkNote(WorkNote workNote, List<Port> ports, List<Account> accounts, String groupName,String type) {
         Result result;
         String operator = workNote.getOperator();
         String workNoteNumber = workNote.getWorkNoteNumber();
@@ -111,6 +139,13 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
         List<String> accountId = new ArrayList<>();
         List<SPort> sports = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        boolean checkAccount = true, checkPort = true;
+//        if (ports.size() == 0)
+//            checkPort = false;
+//        if (accounts.size() == 0)
+//            checkAccount = false;
+//        if (checkAccount && checkPort) {
+        //TODO 逻辑有问题
         for (Account account : accounts) {
             accountId.add(account.getAccountId());
         }
@@ -120,6 +155,7 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
             sPort.setAccountId(accountId);
             sports.add(sPort);
         }
+
         logger.info("准备提交工单: " + workNoteNumber + " 内容:" + reason);
         WorkNoteOperator workNoteOperator =
                 new WorkNoteOperator(operator, workNoteNumber, startTime, endTime, reason, sports);
@@ -134,7 +170,7 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
                 w.setWorkNoteNumber(sWorkNote.getWorkNoteNumber());
                 w.setWorkId(sWorkNote.getWorkNoteId());
                 //更新返回的WORKID到workNote表
-                //TODO 需要修改update的代码，因为没有ID，需要一个update 方法带有 condition参数
+                //TODO 需要修改update的代码，因为没有ID，需要一个update 方法带有 condition参数 ??
 //                baseMapper.update(w);
                 Log log = new Log(IdWorker.getId());
                 log.setGroupName(groupName);
@@ -144,16 +180,32 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
                 log.setEndTime(endTime);
                 log.setContent(reason);
                 log.setOptDate(sdf.format(new Date()));
-
+                log.setStatus("open");
+                log.setWorknotetype(type);
                 try {
                     logMapper.insert(log);
                 }
                 //捕捉以事务后不会回滚
                 catch (RuntimeException e) {
-                    logger.error("提交工单成功，但是log表写入失败: [deviceId]" + "deviceId" + "[]" + workNoteNumber);
+                    result.setMessage("提交工单成功，但是log表写入失败: [workNoteNumber]" + workNoteNumber + "[cause]" + e.getMessage());
+                    logger.error("提交工单成功，但是log表写入失败: [workNoteNumber]" + workNoteNumber);
+                    logger.equals(e.getMessage());
                 }
             }
         }
+//        }
+//        else {
+//            result = new Result();
+//            result.setSuccess(false);
+//            result.setErrorCode(1);
+//            if (!checkAccount && !checkPort)
+//                result.setErrorMessage("account、port都为空，请检查对应的系统[" + groupName + "]面设备资源是否齐全");
+//            else if (!checkPort)
+//                result.setErrorMessage("port为空，请检查对应的系统[" + groupName + "]面设备资源是否齐全");
+//            else
+//                result.setErrorMessage("account为空，请检查对应的系统[" + groupName + "]面设备资源是否齐全");
+//        }
+        logger.info(result.toJsonString());
         return result;
     }
 
@@ -178,6 +230,9 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
         } else {
             WorkNoteOperator workNoteOperator = new WorkNoteOperator(workNoteNumber);
             XMLDTO xmldto = workNoteOperator.getXmldtoBack();
+            if (xmldto.getErrorCode() == 0)
+                //TODO 设置log表中对应工单的status为close 到时候重构代码 用service层调用logService.updateStatus()...
+                ;
             result = Result.getResult(xmldto);
         }
         return result;

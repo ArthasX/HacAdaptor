@@ -323,7 +323,6 @@ public class SqlProvider {
         return selectSql.toString();
     }
 
-
     public String selectCount(Object bean) {
         Class<?> beanClass = bean.getClass();
         String tableName = getTableName(beanClass);
@@ -369,6 +368,17 @@ public class SqlProvider {
         logger.info("##select count sql##" + selectSql.toString());
         return selectSql.toString();
     }
+
+    //TODO selectByCond
+    public String selectByCond(Map map) {
+        return null;
+    }
+
+    //TODO updateByCond
+    public String updateByCond(Map map) {
+        return null;
+    }
+
 
     private String getTableName(Class<?> beanClass) {
         String tableName = "";

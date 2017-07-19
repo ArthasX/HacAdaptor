@@ -1,5 +1,6 @@
 package com.openmind.hacadaptor.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.openmind.hacadaptor.mode.Account;
 import com.openmind.hacadaptor.mode.Port;
@@ -78,8 +79,10 @@ public class WorkNoteController {
     @ResponseBody
     public Result submitEmergentWorkNote(@RequestBody JSONObject jsonObject) {
         WorkNote workNote = jsonObject.getJSONObject("workNote").toJavaObject(WorkNote.class);
-        List<Port> ports = jsonObject.getObject("port", ArrayList.class);
-        List<Account> accounts = jsonObject.getObject("account", ArrayList.class);
+        JSONArray accountArray = jsonObject.getJSONArray("account");
+        List<Account> accounts = accountArray.toJavaList(Account.class);
+        JSONArray portArray = jsonObject.getJSONArray("port");
+        List<Port> ports = portArray.toJavaList(Port.class);
         List<String> groupNames = jsonObject.getObject("groupname", ArrayList.class);
         Result result = workNoteServiceImpl.submitEmergentWorkNote(workNote, ports, accounts, groupNames);
         return result;

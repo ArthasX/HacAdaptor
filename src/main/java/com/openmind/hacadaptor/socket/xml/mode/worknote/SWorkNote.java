@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * Created by LiuBin on 2017/6/30.
  */
-public class SWorkNote extends Context {
+public class SWorkNote extends Context {//这里的继承可以去掉
     private String workNoteId;
     private String workNoteNumber;
 

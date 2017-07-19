@@ -8,7 +8,7 @@
 
 
     </resultMap>
-    <select id="getPortsByGroupName" parameterType="String" >
+    <select id="getPortsByGroupName" parameterType="String" resultType="com.openmind.hacadaptor.mode.Port">
         select p.* from port p,groups g,device d where g.groupname=#{groupName}
         and g.id=d.deviceid and d.deviceid=p.deviceid
     </select>

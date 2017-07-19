@@ -1,5 +1,6 @@
 package com.openmind.hacadaptor.mode;
 
+import com.alibaba.fastjson.JSON;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLDTO;
 
 /**
@@ -26,6 +27,10 @@ public class Result {
 //    public void setData(IBaseMode data) {
 //        this.data = data;
 //    }
+    public String toJsonString() {
+        return JSON.toJSONString(this);
+    }
+
     public static Result getResult(XMLDTO xmldto) {
         Result result = new Result();
         result.setErrorCode(result.getErrorCode());
@@ -38,6 +43,14 @@ public class Result {
         }
         return result;
     }
+
+    public static Result getErrResult(Exception e) {
+        Result result = new Result();
+        result.setErrorCode(1);
+        result.setErrorMessage(e.getMessage());
+        return result;
+    }
+
 
     public Object getData() {
         return data;

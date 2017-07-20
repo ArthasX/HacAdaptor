@@ -1,8 +1,6 @@
 package com.openmind.hacadaptor.service;
 
-import com.openmind.hacadaptor.dao.AccountMapper;
 import com.openmind.hacadaptor.dao.LogMapper;
-import com.openmind.hacadaptor.dao.PortMapper;
 import com.openmind.hacadaptor.mode.*;
 import com.openmind.hacadaptor.socket.hacoperation.SessionOperator;
 import com.openmind.hacadaptor.socket.hacoperation.WorkNoteOperator;
@@ -10,6 +8,7 @@ import com.openmind.hacadaptor.socket.xml.mode.common.XMLDTO;
 import com.openmind.hacadaptor.socket.xml.mode.devices.SPort;
 import com.openmind.hacadaptor.socket.xml.mode.worknote.SWorkNote;
 import com.openmind.hacadaptor.sqlutil.IdWorker;
+import com.openmind.hacadaptor.util.DateUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +28,17 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
     Logger logger = Logger.getLogger(WorkNoteServiceImpl.class);
 
     @Autowired
-    LogMapper logMapper;
+    private LogServiceImpl logService;
+
     @Autowired
-    PortMapper portMapper;
+    private PortServiceImpl portService;
     @Autowired
-    AccountMapper accountMapper;
+    private AccountServiceImpl accountService;
 
     private List<SPort> getSPorts(String deviceId) {
         Port p = new Port();
         p.setDeviceId(deviceId);
-        List<Port> list = portMapper.fuzzySelect(p);
+        List<Port> list = portService.fuzzySelect(p);
         List<SPort> sPorts = new ArrayList<>();
         for (Port port : list) {
             SPort sPort = new SPort();
@@ -51,7 +51,7 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
     private List<String> getAccountIds(String deviceId) {
         Account a = new Account();
         a.setDeviceId(deviceId);
-        List<Account> list = accountMapper.fuzzySelect(a);
+        List<Account> list = accountService.fuzzySelect(a);
         List<String> accountIds = new ArrayList<>();
         for (Account account : list) {
             accountIds.add(account.getAccountId());
@@ -99,7 +99,7 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
         result = checkPortAccount(ports, accounts, sb.toString());
         if (!result.isSuccess())
             return result;
-        return submitWorkNote(workNote, ports, accounts, sb.toString(),"紧急");
+        return submitWorkNote(workNote, ports, accounts, sb.toString(), "紧急");
     }
 
 
@@ -118,18 +118,18 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
         List<Account> accounts = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         for (String name : groupNames) {
-            ports.addAll(portMapper.getPortsByGroupName(name));
-            accounts.addAll(accountMapper.getAccountsByGroupName(name));
+            ports.addAll(portService.getPortsByGroupName(name));
+            accounts.addAll(accountService.getAccountsByGroupName(name));
             result = checkPortAccount(ports, accounts, name);
             if (!result.isSuccess())
                 return result;
             sb.append(name).append("|");
         }
-        return submitWorkNote(workNote, ports, accounts, sb.toString(),"常规");
+        return submitWorkNote(workNote, ports, accounts, sb.toString(), "常规");
     }
 
 
-    private Result submitWorkNote(WorkNote workNote, List<Port> ports, List<Account> accounts, String groupName,String type) {
+    private Result submitWorkNote(WorkNote workNote, List<Port> ports, List<Account> accounts, String groupName, String type) {
         Result result;
         String operator = workNote.getOperator();
         String workNoteNumber = workNote.getWorkNoteNumber();
@@ -138,7 +138,6 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
         String reason = workNote.getReason();
         List<String> accountId = new ArrayList<>();
         List<SPort> sports = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 //        boolean checkAccount = true, checkPort = true;
 //        if (ports.size() == 0)
 //            checkPort = false;
@@ -166,11 +165,11 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
             List<SWorkNote> list = (List<SWorkNote>) xmldto.getResult().getBackContext().getContextDetail();
             for (int i = 0; i < xmldto.getResultCount(); i++) {
                 SWorkNote sWorkNote = list.get(i);
-                WorkNote w = new WorkNote();
-                w.setWorkNoteNumber(sWorkNote.getWorkNoteNumber());
-                w.setWorkId(sWorkNote.getWorkNoteId());
-                //更新返回的WORKID到workNote表
-                //TODO 需要修改update的代码，因为没有ID，需要一个update 方法带有 condition参数 ??
+//                WorkNote w = new WorkNote();
+//                w.setWorkNoteNumber(sWorkNote.getWorkNoteNumber());
+//                w.setWorkId(sWorkNote.getWorkNoteId());
+//                //更新返回的WORKID到workNote表
+//                //TODO 后续新增一个update的代码，因为没有ID，需要一个update 方法带有 condition参数 ??
 //                baseMapper.update(w);
                 Log log = new Log(IdWorker.getId());
                 log.setGroupName(groupName);
@@ -179,11 +178,11 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
                 log.setStartTime(startTime);
                 log.setEndTime(endTime);
                 log.setContent(reason);
-                log.setOptDate(sdf.format(new Date()));
+                log.setOptDate(DateUtil.getYYYMMDD());
                 log.setStatus("open");
                 log.setWorknotetype(type);
                 try {
-                    logMapper.insert(log);
+                    logService.insert(log);
                 }
                 //捕捉以事务后不会回滚
                 catch (RuntimeException e) {
@@ -193,18 +192,6 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
                 }
             }
         }
-//        }
-//        else {
-//            result = new Result();
-//            result.setSuccess(false);
-//            result.setErrorCode(1);
-//            if (!checkAccount && !checkPort)
-//                result.setErrorMessage("account、port都为空，请检查对应的系统[" + groupName + "]面设备资源是否齐全");
-//            else if (!checkPort)
-//                result.setErrorMessage("port为空，请检查对应的系统[" + groupName + "]面设备资源是否齐全");
-//            else
-//                result.setErrorMessage("account为空，请检查对应的系统[" + groupName + "]面设备资源是否齐全");
-//        }
         logger.info(result.toJsonString());
         return result;
     }
@@ -230,27 +217,15 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
         } else {
             WorkNoteOperator workNoteOperator = new WorkNoteOperator(workNoteNumber);
             XMLDTO xmldto = workNoteOperator.getXmldtoBack();
-            if (xmldto.getErrorCode() == 0)
-                //TODO 设置log表中对应工单的status为close 到时候重构代码 用service层调用logService.updateStatus()...
-                ;
             result = Result.getResult(xmldto);
+            if (xmldto.getErrorCode() == 0)
+                if (logService.setWorkNoteStatusClosed(workNoteNumber, DateUtil.getYYYMMDD()) == 0)
+                    result.setMessage("[workNoteNumber]" + workNoteNumber + "HAC关闭成功，但LOG表工单状态未更新。"
+                            + "可能原因为提交工单时LOG写入失败导致LOG表中无改工单记录");
+
         }
         return result;
     }
 
-    public Logger getLogger() {
-        return logger;
-    }
 
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
-
-    public LogMapper getLogMapper() {
-        return logMapper;
-    }
-
-    public void setLogMapper(LogMapper logMapper) {
-        this.logMapper = logMapper;
-    }
 }

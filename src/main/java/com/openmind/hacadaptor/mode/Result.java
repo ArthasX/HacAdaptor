@@ -2,6 +2,7 @@ package com.openmind.hacadaptor.mode;
 
 import com.alibaba.fastjson.JSON;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLDTO;
+import com.openmind.hacadaptor.sqlutil.MysqlErrTranslator;
 
 /**
  * controller的返回值
@@ -20,13 +21,6 @@ public class Result {
         this.success = true;
     }
 
-    //    public IBaseMode getData() {
-//        return data;
-//    }
-//
-//    public void setData(IBaseMode data) {
-//        this.data = data;
-//    }
     public String toJsonString() {
         return JSON.toJSONString(this);
     }
@@ -47,7 +41,8 @@ public class Result {
     public static Result getErrResult(Exception e) {
         Result result = new Result();
         result.setErrorCode(1);
-        result.setErrorMessage(e.getMessage());
+        result.setErrorMessage(MysqlErrTranslator.getErrorInfo(e));
+        result.setSuccess(false);
         return result;
     }
 

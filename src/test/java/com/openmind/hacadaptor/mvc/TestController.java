@@ -75,7 +75,7 @@ public class TestController {
 
     @Test
     public void testWorkNoteStatus() throws Exception {
-        String url = "/worknote/worknotestatus/1234";
+        String url = "/worknote/worknotestatus/CXXXXXXXX1";
         System.out.println(url);
         mockMvc.perform(put(url))
                 //.param("workNoteNumber", "12345"))
@@ -186,5 +186,14 @@ public class TestController {
         List<Account> accounts2 = jsonArray.toJavaList(Account.class);
         List<Account> accounts1 = JSONObject.parseArray(jsonArray.toJSONString(), Account.class);
         System.out.println();
+    }
+
+    @Test
+    public void testDeviceWithPortAccount() throws Exception {
+        String url = "/devices/group/核心系统";
+        mockMvc.perform(get(url).characterEncoding("UTF-8"))
+
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 }

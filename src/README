@@ -1,3 +1,0 @@
-为了减少编码，同时项目规模不大
-目前通过在service层调用其他dao来进行数据的获取而不是通过service调用service
-后去不排除换成service层调用

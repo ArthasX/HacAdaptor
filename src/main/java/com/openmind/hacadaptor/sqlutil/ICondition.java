@@ -6,4 +6,5 @@ package com.openmind.hacadaptor.sqlutil;
  * @version Created on 2017/7/7
  */
 public interface ICondition {
+    String getCondString();
 }

@@ -8,11 +8,16 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * You can change the parameters of the functions in this class
- * TODO use @Param to make the function more effective,feasible
+ * You can write new functions with different parameters in this class.
+ * <p>
+ * Use @Param to make the function more effective,feasible.
+ * <p>
+ * Notice:the @Param's name should be the same with the key
+ * in the map of parameters of the function of  {@link SqlProvider }
  * <p>
  * Created by LiuBin on 2017/6/22.
  */
+
 
 @Repository
 public interface IBaseMapper<T extends Serializable> {
@@ -28,7 +33,7 @@ public interface IBaseMapper<T extends Serializable> {
      * insert into tablename (column1,c2,c3...)
      * values (key[0].column1,key[0].column2,...),(key[1].column1,key[1].column2,...)
      * <p>
-     * See:SqlProvider.insertBatch
+     * See:{@link SqlProvider }
      *
      * @param list The list of the entity that you want to insert into the DB one-time.
      * @return

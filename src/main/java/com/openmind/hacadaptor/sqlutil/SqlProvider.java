@@ -371,6 +371,8 @@ public class SqlProvider {
 
     //TODO selectByCond
     public String selectByCond(Map map) {
+        Object bean =map.get("obj");
+
         return null;
     }
 

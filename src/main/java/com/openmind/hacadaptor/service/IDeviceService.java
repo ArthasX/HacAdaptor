@@ -10,4 +10,5 @@ import org.springframework.stereotype.Service;
  */
 public interface IDeviceService extends IBaseService<Device, Identity> {
     Result updateDevicesFromHac() throws RuntimeException;
+    Result getDeviceWithPortAccount(String groupName);
 }

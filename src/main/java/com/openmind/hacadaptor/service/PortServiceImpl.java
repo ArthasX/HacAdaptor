@@ -1,7 +1,9 @@
 package com.openmind.hacadaptor.service;
 
+import com.openmind.hacadaptor.dao.PortMapper;
 import com.openmind.hacadaptor.mode.Identity;
 import com.openmind.hacadaptor.mode.Port;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,8 +14,10 @@ import java.util.List;
  */
 @Service
 public class PortServiceImpl extends BaseServiceImp<Port,Identity> implements IPortService{
+    @Autowired
+    PortMapper portMapper;
     @Override
     public List<Port> getPortsByGroupName(String groupName) {
-        return null;
+        return portMapper.getPortsByGroupName(groupName);
     }
 }

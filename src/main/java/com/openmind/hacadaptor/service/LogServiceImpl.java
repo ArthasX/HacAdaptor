@@ -1,11 +1,22 @@
 package com.openmind.hacadaptor.service;
 
+import com.openmind.hacadaptor.dao.LogMapper;
 import com.openmind.hacadaptor.mode.Identity;
 import com.openmind.hacadaptor.mode.Log;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author LiuBin
  * @version Created on 2017/7/17
  */
-public class LogServiceImpl extends BaseServiceImp<Log,Identity>implements ILogService {
+@Service
+public class LogServiceImpl extends BaseServiceImp<Log, Identity> implements ILogService {
+    @Autowired
+    LogMapper logMapper;
+
+    @Override
+    public int setWorkNoteStatusClosed(String workNoteNumber,String closeDate) {
+        return logMapper.setWorkNoteStatusClosed(workNoteNumber,closeDate);
+    }
 }

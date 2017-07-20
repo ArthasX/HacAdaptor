@@ -32,8 +32,13 @@ public class DeviceController {
     @ResponseBody
     public Device getByDeviceId(@PathVariable("deviceId") String deviceId) {
         Device d = new Device(deviceId);
-        d = deviceService.select(d);
-        return d;
+        return deviceService.select(d);
+    }
+
+    @RequestMapping(value = "/group/{groupName}", method = RequestMethod.GET)
+    @ResponseBody
+    public Result getDeviceWithPortAccount(@PathVariable("groupName") String groupName) {
+        return deviceService.getDeviceWithPortAccount(groupName);
     }
 
     /**
@@ -55,9 +60,16 @@ public class DeviceController {
      */
     @RequestMapping(value = "/{deviceId}", method = RequestMethod.PUT)
     @ResponseBody
-    public Device updateDevice(@PathVariable("deviceId") String deviceId,@RequestBody Device device) {
-        //TODO update device
-        return null;
+    public Result updateDevice(@PathVariable("deviceId") String deviceId, @RequestBody Device device) {
+        Result result = new Result();
+        try {
+            device.setDeviceId(deviceId);
+            if (deviceService.update(device) <= 0)
+                result.setSuccess(false);
+        } catch (Exception e) {
+            result = Result.getErrResult(e);
+        }
+        return result;
     }
 
     /**
@@ -70,7 +82,12 @@ public class DeviceController {
     @ResponseBody
     public Result insertDevice(@RequestBody Device device) {
         Result result = new Result();
-        //TODO insert device
+        try {
+            if (deviceService.insert(device) <= 0)
+                result.setSuccess(false);
+        } catch (Exception e) {
+            result = Result.getErrResult(e);
+        }
         return result;
     }
 

@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface LogMapper extends IBaseMapper<Log> {
+    int setWorkNoteStatusClosed(String workNoteNumber,String closeDate);
 }

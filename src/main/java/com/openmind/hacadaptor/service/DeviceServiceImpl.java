@@ -1,8 +1,6 @@
 package com.openmind.hacadaptor.service;
 
-import com.openmind.hacadaptor.dao.AccountMapper;
 import com.openmind.hacadaptor.dao.DeviceMapper;
-import com.openmind.hacadaptor.dao.PortMapper;
 import com.openmind.hacadaptor.mode.*;
 import com.openmind.hacadaptor.socket.hacoperation.IOperator;
 import com.openmind.hacadaptor.socket.xml.mode.common.XMLDTO;
@@ -28,14 +26,13 @@ public class DeviceServiceImpl extends BaseServiceImp<Device, Identity> implemen
     @Autowired
     private IOperator deviceOperation;
     @Autowired
-    private PortMapper portMapper;
+    private PortServiceImpl portService;
     @Autowired
-    private AccountMapper accountMapper;
+    private AccountServiceImpl accountService;
     @Autowired
     private DeviceMapper deviceMapper;
 
     /**
-     *
      * @return
      * @throws RuntimeException to make sure the transaction will roll back
      */
@@ -79,9 +76,9 @@ public class DeviceServiceImpl extends BaseServiceImp<Device, Identity> implemen
 
                         countDevice = deviceMapper.insert(device);
                         if (ports.size() > 0)
-                            countPort = portMapper.insertBatch(ports);
+                            countPort = portService.insertBatch(ports);
                         if (accounts.size() > 0)
-                            countAccount = accountMapper.insertBatch(accounts);
+                            countAccount = accountService.insertBatch(accounts);
                         ports.clear();
                         accounts.clear();
                     }
@@ -104,43 +101,13 @@ public class DeviceServiceImpl extends BaseServiceImp<Device, Identity> implemen
     }
 
     /**
-     *
      * @return All the devices in the certain group with ports and accounts
      */
-    public Result getDevicesDetailsByGroupName(String groupName){
+    public Result getDeviceWithPortAccount(String groupName) {
+        Result result = new Result();
+        result.setData(deviceMapper.getDeviceWithPortAccount(groupName));
 
-        return null;
+        return result;
     }
 
-    public IOperator getDeviceOperation() {
-        return deviceOperation;
-    }
-
-    public void setDeviceOperation(IOperator deviceOperation) {
-        this.deviceOperation = deviceOperation;
-    }
-
-    public PortMapper getPortMapper() {
-        return portMapper;
-    }
-
-    public void setPortMapper(PortMapper portMapper) {
-        this.portMapper = portMapper;
-    }
-
-    public AccountMapper getAccountMapper() {
-        return accountMapper;
-    }
-
-    public void setAccountMapper(AccountMapper accountMapper) {
-        this.accountMapper = accountMapper;
-    }
-
-    public DeviceMapper getDeviceMapper() {
-        return deviceMapper;
-    }
-
-    public void setDeviceMapper(DeviceMapper deviceMapper) {
-        this.deviceMapper = deviceMapper;
-    }
 }

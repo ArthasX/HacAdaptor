@@ -1,11 +1,8 @@
 package com.openmind.hacadaptor.mode;
 
 import com.openmind.hacadaptor.sqlutil.Column;
-import com.openmind.hacadaptor.sqlutil.IdWorker;
-import com.openmind.hacadaptor.sqlutil.PK;
 import com.openmind.hacadaptor.sqlutil.Table;
-
-import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by LiuBin on 2017/6/22.
@@ -22,6 +19,9 @@ public class Device extends Identity {
     private String ipAddress;
     @Column("groupId")
     private String groupId;
+
+    private List<Port> portId;
+    private List<Account> accountId;
 
     public Device() {
     }
@@ -95,5 +95,21 @@ public class Device extends Identity {
 
     public void setGroupId(String groupId) {
         this.groupId = groupId;
+    }
+
+    public List<Port> getPortId() {
+        return portId;
+    }
+
+    public void setPortId(List<Port> portId) {
+        this.portId = portId;
+    }
+
+    public List<Account> getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(List<Account> accountId) {
+        this.accountId = accountId;
     }
 }

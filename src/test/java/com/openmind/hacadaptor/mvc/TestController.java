@@ -3,11 +3,11 @@ package com.openmind.hacadaptor.mvc;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.openmind.hacadaptor.mode.Account;
-import com.openmind.hacadaptor.mode.Device;
-import com.openmind.hacadaptor.mode.Port;
-import com.openmind.hacadaptor.mode.WorkNote;
-import com.openmind.hacadaptor.socket.xml.mode.devices.SPort;
+import com.openmind.hacadaptor.model.Account;
+import com.openmind.hacadaptor.model.Device;
+import com.openmind.hacadaptor.model.Port;
+import com.openmind.hacadaptor.model.WorkNote;
+import com.openmind.hacadaptor.socket.xml.model.devices.SPort;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,8 +18,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
-
-import javax.servlet.ServletContext;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -99,7 +97,7 @@ public class TestController {
         String url = "/worknote/normal";
         WorkNote workNote = new WorkNote();
         workNote.setWorkNoteNumber("CXXXXXXXX");
-        workNote.setOperator("hxc");
+        workNote.setOperator("001064");
         workNote.setReason("fuck");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'D'HH:mm:ss'T'");
         workNote.setStartTime(sdf.format(new Date()));
@@ -123,26 +121,25 @@ public class TestController {
         String url = "/worknote/emergent";
         WorkNote workNote = new WorkNote();
         workNote.setWorkNoteNumber("CXXXXXXXX");
-        workNote.setOperator("slz");
+        workNote.setOperator("001064");
         workNote.setReason("fuck");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'D'HH:mm:ss'T'");
         workNote.setStartTime(sdf.format(new Date()));
         workNote.setEndTime(sdf.format(new Date()));
         List<String> groupNames = new ArrayList<>();
         groupNames.add("核心系统");
-        List<Account> accounts = new ArrayList<>();
-        Account account = new Account();
-        account.setAccountId("1");
-        accounts.add(account);
-        Port port = new Port();
-        port.setPortId("1");
-        List<Port> ports = new ArrayList<>();
-        ports.add(port);
+        List<String> accountId = new ArrayList<>();
+        accountId.add("12345");
+        SPort sPort = new SPort();
+        sPort.setPortId("1");
+//        sPort.setAccountId(accountId);
+        List<SPort> ports = new ArrayList<>();
+        ports.add(sPort);
+
 //        JSON json = JSON.parseObject();
         JSONObject jjj = new JSONObject();
         jjj.put("groupname", groupNames);
         jjj.put("workNote", workNote);
-        jjj.put("account", accounts);
         jjj.put("port", ports);
         mockMvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

@@ -2,10 +2,9 @@ package com.openmind.hacadaptor.socket.socketserver;
 
 import com.openmind.hacadaptor.socket.socketutil.StreamTool;
 import com.openmind.hacadaptor.socket.util.ByteUtil;
-import com.openmind.hacadaptor.socket.xml.mode.common.XMLHeader;
-import com.openmind.hacadaptor.socket.xml.mode.common.XMLType;
+import com.openmind.hacadaptor.socket.xml.model.common.XMLHeader;
+import com.openmind.hacadaptor.socket.xml.model.common.XMLType;
 
-import javax.net.ssl.SSLServerSocket;
 import java.io.*;
 import java.net.Socket;
 import java.nio.ByteBuffer;

@@ -10,7 +10,7 @@ import java.util.List;
  * Created by LiuBin on 2017/6/27.
  */
 @Service("baseService")
-public interface IBaseService<T, ID extends Serializable> {
+public interface IBaseService<T extends Serializable, ID extends Serializable> {
     T selectById(Class<T> clz, ID id);
 
     T deleteById(Class<T> clz, ID id);

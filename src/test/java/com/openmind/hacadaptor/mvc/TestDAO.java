@@ -2,7 +2,7 @@ package com.openmind.hacadaptor.mvc;
 
 import com.alibaba.fastjson.JSON;
 import com.openmind.hacadaptor.dao.DeviceMapper;
-import com.openmind.hacadaptor.mode.Device;
+import com.openmind.hacadaptor.model.Device;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

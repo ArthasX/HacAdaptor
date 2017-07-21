@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd">
 <!--
-    <bean name="deviceOperation" class="com.openmind.hacadaptor.socket.hacoperation.DeviceOperator"/>
+    <bean name="deviceOperation" class="com.openmind.hacadaptor.socket.hacoperation.DeviceOperationn"/>
     <bean name="deviceServiceImpl" class="com.openmind.hacadaptor.service.DeviceServiceImpl">
         <property name="deviceOperation" ref="deviceOperation"/>
     </bean>-->

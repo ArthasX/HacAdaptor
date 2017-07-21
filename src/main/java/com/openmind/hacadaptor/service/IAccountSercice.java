@@ -1,7 +1,7 @@
 package com.openmind.hacadaptor.service;
 
-import com.openmind.hacadaptor.mode.Account;
-import com.openmind.hacadaptor.mode.Identity;
+import com.openmind.hacadaptor.model.Account;
+import com.openmind.hacadaptor.model.Identity;
 
 import java.util.List;
 

@@ -2,11 +2,12 @@ package com.openmind.hacadaptor.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.openmind.hacadaptor.mode.Account;
-import com.openmind.hacadaptor.mode.Port;
-import com.openmind.hacadaptor.mode.Result;
-import com.openmind.hacadaptor.mode.WorkNote;
+import com.openmind.hacadaptor.model.Account;
+import com.openmind.hacadaptor.model.Port;
+import com.openmind.hacadaptor.model.Result;
+import com.openmind.hacadaptor.model.WorkNote;
 import com.openmind.hacadaptor.service.IWorkNoteService;
+import com.openmind.hacadaptor.socket.xml.model.devices.SPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -67,7 +68,8 @@ public class WorkNoteController {
      * Submit the emergent work note. 紧急变更
      *
      * @param jsonObject should be like this :
-     *                   {"workNote":{xxx},"prot":[xxx,xxx],"account":[yy,yyy],"groupname":["xxx"]}
+     *                   {"workNote":{xxx},"prot":[{"portId":"xx","protocol":"yy","accountId":["aa","bb"]},....]
+     *                   ,"groupname":["xxx","yyy"]}
      * @return Result
      */
     @RequestMapping(value = "/emergent"
@@ -79,22 +81,11 @@ public class WorkNoteController {
     @ResponseBody
     public Result submitEmergentWorkNote(@RequestBody JSONObject jsonObject) {
         WorkNote workNote = jsonObject.getJSONObject("workNote").toJavaObject(WorkNote.class);
-        JSONArray accountArray = jsonObject.getJSONArray("account");
-        List<Account> accounts = accountArray.toJavaList(Account.class);
         JSONArray portArray = jsonObject.getJSONArray("port");
-        List<Port> ports = portArray.toJavaList(Port.class);
+        List<SPort> sPorts = portArray.toJavaList(SPort.class);
         List<String> groupNames = jsonObject.getObject("groupname", ArrayList.class);
-        Result result = workNoteServiceImpl.submitEmergentWorkNote(workNote, ports, accounts, groupNames);
+        Result result = workNoteServiceImpl.submitEmergentWorkNote(workNote, sPorts, groupNames);
         return result;
     }
-//
-//    @RequestMapping(value = "/worknote1"
-//            ,method = RequestMethod.POST
-//            )
-//    @ResponseBody
-//    public Result sentWorkNote1(@RequestBody SWorkNote workNote){
-//        Result result=new Result();
-//        result.setData(workNote);
-//        return result;
-//    }
+
 }

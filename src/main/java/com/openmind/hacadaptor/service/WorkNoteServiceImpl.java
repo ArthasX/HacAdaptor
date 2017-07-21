@@ -1,12 +1,11 @@
 package com.openmind.hacadaptor.service;
 
-import com.openmind.hacadaptor.dao.LogMapper;
-import com.openmind.hacadaptor.mode.*;
-import com.openmind.hacadaptor.socket.hacoperation.SessionOperator;
-import com.openmind.hacadaptor.socket.hacoperation.WorkNoteOperator;
-import com.openmind.hacadaptor.socket.xml.mode.common.XMLDTO;
-import com.openmind.hacadaptor.socket.xml.mode.devices.SPort;
-import com.openmind.hacadaptor.socket.xml.mode.worknote.SWorkNote;
+import com.openmind.hacadaptor.model.*;
+import com.openmind.hacadaptor.socket.hacoperation.SessionOperation;
+import com.openmind.hacadaptor.socket.hacoperation.WorkNoteOperation;
+import com.openmind.hacadaptor.socket.xml.model.common.XMLDTO;
+import com.openmind.hacadaptor.socket.xml.model.devices.SPort;
+import com.openmind.hacadaptor.socket.xml.model.worknote.SWorkNote;
 import com.openmind.hacadaptor.sqlutil.IdWorker;
 import com.openmind.hacadaptor.util.DateUtil;
 import org.apache.log4j.Logger;
@@ -14,9 +13,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,6 +31,9 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
     private PortServiceImpl portService;
     @Autowired
     private AccountServiceImpl accountService;
+
+    @Autowired
+    private UserMappingServiceImpl userMappingService;
 
     private List<SPort> getSPorts(String deviceId) {
         Port p = new Port();
@@ -79,16 +79,36 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
         return result;
     }
 
+    private Result checkPortAccount(List<SPort> sPorts, String groupName) {
+        Result result = new Result();
+        if (sPorts.size() == 0) {
+            result.setErrorCode(1);
+            result.setSuccess(false);
+            result.setErrorMessage("port为空，请检查对应的系统[" + groupName + "]面设备资源是否齐全");
+            return result;
+        } else {
+            for (SPort sPort : sPorts) {
+                if (sPort.getAccountId() == null || sPort.getAccountId().size() == 0) {
+                    result.setErrorMessage("[portId]:"
+                            + sPort.getPortId() + " 对应的account为空，请检查对应的系统["
+                            + groupName + "]设备资源是否齐全");
+                    result.setErrorCode(1);
+                    result.setSuccess(false);
+                }
+            }
+        }
+        return result;
+    }
+
     /**
      * 提交紧急变更 通过传入的具体的prot account来提单子
      *
      * @param workNote
-     * @param ports
-     * @param accounts
+     * @param sPorts
      * @return
      */
     @Override
-    public Result submitEmergentWorkNote(WorkNote workNote, List<Port> ports, List<Account> accounts, List<String> groupNames) {
+    public Result submitEmergentWorkNote(WorkNote workNote, List<SPort> sPorts, List<String> groupNames) {
         logger.info("##紧急变更数据准备##：");
         Result result;
 
@@ -96,10 +116,10 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
         for (String name : groupNames) {
             sb.append(name).append("|");
         }
-        result = checkPortAccount(ports, accounts, sb.toString());
+        result = checkPortAccount(sPorts, sb.toString());
         if (!result.isSuccess())
             return result;
-        return submitWorkNote(workNote, ports, accounts, sb.toString(), "紧急");
+        return submitWorkNote(workNote, sPorts, sb.toString(), "紧急");
     }
 
 
@@ -114,50 +134,51 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
     public Result submitNormalWorkNote(WorkNote workNote, List<String> groupNames) {
         logger.info("##常规变更数据准备##：");
         Result result;
+        List<SPort> sPorts = new ArrayList<>();
         List<Port> ports = new ArrayList<>();
         List<Account> accounts = new ArrayList<>();
+        List<String> accountId = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         for (String name : groupNames) {
-            ports.addAll(portService.getPortsByGroupName(name));
-            accounts.addAll(accountService.getAccountsByGroupName(name));
+            //读取ports
+            ports = portService.getPortsByGroupName(name);
+            //读取accounts
+            accounts = accountService.getAccountsByGroupName(name);
+
             result = checkPortAccount(ports, accounts, name);
             if (!result.isSuccess())
                 return result;
+            //将accountId加入list
+            for (Account account : accounts) {
+                accountId.add(account.getAccountId());
+            }
+            //将accountId加到每一个sport中,将sport加入list
+            for (Port port : ports) {
+                SPort sport = new SPort();
+                BeanUtils.copyProperties(port, sport);
+                sport.setAccountId(accountId);
+                sPorts.add(sport);
+            }
+            //清空accountid，以便重新使用。不能用.clear() 否则会导致sport中对应的都是空。。
+            accountId = new ArrayList<>();
+
             sb.append(name).append("|");
         }
-        return submitWorkNote(workNote, ports, accounts, sb.toString(), "常规");
+        return submitWorkNote(workNote, sPorts, sb.toString(), "常规");
     }
 
 
-    private Result submitWorkNote(WorkNote workNote, List<Port> ports, List<Account> accounts, String groupName, String type) {
+    private Result submitWorkNote(WorkNote workNote, List<SPort> sPorts, String groupName, String type) {
         Result result;
-        String operator = workNote.getOperator();
+        //TODO 这个要根据 工号和HAC中的操作员号码的映射关系获得了
+        String operator = userMappingService.getOperatorById(workNote.getOperator());
         String workNoteNumber = workNote.getWorkNoteNumber();
         String startTime = workNote.getStartTime();
         String endTime = workNote.getEndTime();
         String reason = workNote.getReason();
-        List<String> accountId = new ArrayList<>();
-        List<SPort> sports = new ArrayList<>();
-//        boolean checkAccount = true, checkPort = true;
-//        if (ports.size() == 0)
-//            checkPort = false;
-//        if (accounts.size() == 0)
-//            checkAccount = false;
-//        if (checkAccount && checkPort) {
-        //TODO 逻辑有问题
-        for (Account account : accounts) {
-            accountId.add(account.getAccountId());
-        }
-        for (Port p : ports) {
-            SPort sPort = new SPort();
-            BeanUtils.copyProperties(p, sPort);
-            sPort.setAccountId(accountId);
-            sports.add(sPort);
-        }
-
-        logger.info("准备提交工单: " + workNoteNumber + " 内容:" + reason);
-        WorkNoteOperator workNoteOperator =
-                new WorkNoteOperator(operator, workNoteNumber, startTime, endTime, reason, sports);
+        logger.info("准备提交【"+type+"】变更工单: " + workNoteNumber + " 内容:" + reason);
+        WorkNoteOperation workNoteOperator =
+                new WorkNoteOperation(operator, workNoteNumber, startTime, endTime, reason, sPorts);
         //获取返回结果
         XMLDTO xmldto = workNoteOperator.getXmldtoBack();
         result = Result.getResult(xmldto);
@@ -165,12 +186,6 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
             List<SWorkNote> list = (List<SWorkNote>) xmldto.getResult().getBackContext().getContextDetail();
             for (int i = 0; i < xmldto.getResultCount(); i++) {
                 SWorkNote sWorkNote = list.get(i);
-//                WorkNote w = new WorkNote();
-//                w.setWorkNoteNumber(sWorkNote.getWorkNoteNumber());
-//                w.setWorkId(sWorkNote.getWorkNoteId());
-//                //更新返回的WORKID到workNote表
-//                //TODO 后续新增一个update的代码，因为没有ID，需要一个update 方法带有 condition参数 ??
-//                baseMapper.update(w);
                 Log log = new Log(IdWorker.getId());
                 log.setGroupName(groupName);
                 log.setWorkNoteNumber(workNoteNumber);
@@ -181,6 +196,7 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
                 log.setOptDate(DateUtil.getYYYMMDD());
                 log.setStatus("open");
                 log.setWorknotetype(type);
+                log.setRemark(operator);
                 try {
                     logService.insert(log);
                 }
@@ -206,16 +222,16 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
     public Result setWorkNote(String workNoteNumber) {
         logger.info("开始关闭工单:" + workNoteNumber);
         Result result;
-        SessionOperator sessionOperator = new SessionOperator(workNoteNumber);
+        SessionOperation sessionOperator = new SessionOperation(workNoteNumber);
         boolean closeable = sessionOperator.closeable();
         logger.info("工单是否可关闭：" + closeable);
         if (!closeable) {
             result = new Result();
             result.setErrorCode(1);
-            result.setErrorMessage("无法关闭工单:" + workNoteNumber);
-            logger.info("无法关闭工单:" + workNoteNumber);
+            result.setErrorMessage("无法关闭工单:" + workNoteNumber + "原因:" + sessionOperator.getCause());
+            logger.info("无法关闭工单:" + workNoteNumber + "原因:" + sessionOperator.getCause());
         } else {
-            WorkNoteOperator workNoteOperator = new WorkNoteOperator(workNoteNumber);
+            WorkNoteOperation workNoteOperator = new WorkNoteOperation(workNoteNumber);
             XMLDTO xmldto = workNoteOperator.getXmldtoBack();
             result = Result.getResult(xmldto);
             if (xmldto.getErrorCode() == 0)

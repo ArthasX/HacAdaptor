@@ -1,6 +1,6 @@
 package com.openmind.hacadaptor.dao;
 
-import com.openmind.hacadaptor.mode.Port;
+import com.openmind.hacadaptor.model.Port;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

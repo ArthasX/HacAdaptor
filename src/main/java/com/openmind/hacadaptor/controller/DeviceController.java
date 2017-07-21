@@ -1,9 +1,8 @@
 package com.openmind.hacadaptor.controller;
 
 
-import com.openmind.hacadaptor.mode.Device;
-import com.openmind.hacadaptor.mode.Result;
-import com.openmind.hacadaptor.service.DeviceServiceImpl;
+import com.openmind.hacadaptor.model.Device;
+import com.openmind.hacadaptor.model.Result;
 
 import com.openmind.hacadaptor.service.IDeviceService;
 import org.apache.log4j.Logger;

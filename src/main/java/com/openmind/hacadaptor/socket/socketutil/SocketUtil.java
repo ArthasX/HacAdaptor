@@ -1,20 +1,15 @@
 package com.openmind.hacadaptor.socket.socketutil;
 
 import com.openmind.hacadaptor.socket.util.ByteUtil;
-import com.openmind.hacadaptor.socket.xml.mode.common.XMLDTO;
-import com.openmind.hacadaptor.socket.xml.mode.common.XMLType;
-import jdk.nashorn.internal.runtime.ECMAException;
+import com.openmind.hacadaptor.socket.xml.model.common.XMLDTO;
 import org.apache.log4j.Logger;
 
 import javax.net.ssl.*;
-import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
-import java.nio.ByteBuffer;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;

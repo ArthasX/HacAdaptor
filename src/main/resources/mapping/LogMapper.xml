@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.openmind.hacadaptor.dao.LogMapper">
-    <!--<resultMap id="details" type="com.openmind.hacadaptor.mode.Device">-->
+    <!--<resultMap id="details" type="com.openmind.hacadaptor.modell.Device">-->
 
 
     <!--</resultMap>-->

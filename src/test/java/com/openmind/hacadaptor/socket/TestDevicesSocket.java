@@ -1,8 +1,8 @@
 package com.openmind.hacadaptor.socket;
 
-import com.openmind.hacadaptor.socket.hacoperation.BaseOperator;
-import com.openmind.hacadaptor.socket.hacoperation.DeviceOperator;
-import com.openmind.hacadaptor.socket.xml.mode.devices.SDevice;
+import com.openmind.hacadaptor.socket.hacoperation.BaseOperation;
+import com.openmind.hacadaptor.socket.hacoperation.DeviceOperation;
+import com.openmind.hacadaptor.socket.xml.model.devices.SDevice;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public class TestDevicesSocket {
     @Test
     public void getDevices(){
-        BaseOperator deviceOperator= new DeviceOperator();
+        BaseOperation deviceOperator= new DeviceOperation();
         List<SDevice> list =(List<SDevice>) deviceOperator.getXmldtoBack().getResult().getBackContext().getContextDetail();
         Assert.assertNotNull(list);
         Assert.assertEquals(33,list.size());

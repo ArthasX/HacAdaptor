@@ -1,7 +1,7 @@
 package com.openmind.hacadaptor.dao;
 
 
-import com.openmind.hacadaptor.mode.Account;
+import com.openmind.hacadaptor.model.Account;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

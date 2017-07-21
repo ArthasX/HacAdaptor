@@ -1,8 +1,8 @@
 package com.openmind.hacadaptor.socket;
 
 import com.openmind.hacadaptor.socket.hacoperation.IOperator;
-import com.openmind.hacadaptor.socket.hacoperation.LoginOperator;
-import com.openmind.hacadaptor.socket.xml.mode.common.XMLDTO;
+import com.openmind.hacadaptor.socket.hacoperation.LoginOperation;
+import com.openmind.hacadaptor.socket.xml.model.common.XMLDTO;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ import org.junit.Test;
 public class TestLoginSocket {
     @Test
     public void testLogin(){
-        IOperator iOperator =new LoginOperator();
+        IOperator iOperator =new LoginOperation();
         iOperator.getXmldtoBack().getResult().getBackContext().getContextDetail();
         XMLDTO xmldto= iOperator.getXmldtoBack();
         Class c= xmldto.getResult().getClass();

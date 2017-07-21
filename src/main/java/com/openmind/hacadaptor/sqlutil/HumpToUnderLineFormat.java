@@ -1,6 +1,5 @@
 package com.openmind.hacadaptor.sqlutil;
 
-import com.openmind.hacadaptor.mode.Device;
 import com.openmind.hacadaptor.socket.util.ClassUtil;
 
 import java.lang.reflect.Field;

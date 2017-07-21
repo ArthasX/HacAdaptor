@@ -1,12 +1,12 @@
 package com.openmind.hacadaptor.service;
 
 import com.openmind.hacadaptor.dao.DeviceMapper;
-import com.openmind.hacadaptor.mode.*;
+import com.openmind.hacadaptor.model.*;
 import com.openmind.hacadaptor.socket.hacoperation.IOperator;
-import com.openmind.hacadaptor.socket.xml.mode.common.XMLDTO;
-import com.openmind.hacadaptor.socket.xml.mode.devices.SAccount;
-import com.openmind.hacadaptor.socket.xml.mode.devices.SDevice;
-import com.openmind.hacadaptor.socket.xml.mode.devices.SPort;
+import com.openmind.hacadaptor.socket.xml.model.common.XMLDTO;
+import com.openmind.hacadaptor.socket.xml.model.devices.SAccount;
+import com.openmind.hacadaptor.socket.xml.model.devices.SDevice;
+import com.openmind.hacadaptor.socket.xml.model.devices.SPort;
 import com.openmind.hacadaptor.sqlutil.IdWorker;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
@@ -106,7 +106,6 @@ public class DeviceServiceImpl extends BaseServiceImp<Device, Identity> implemen
     public Result getDeviceWithPortAccount(String groupName) {
         Result result = new Result();
         result.setData(deviceMapper.getDeviceWithPortAccount(groupName));
-
         return result;
     }
 

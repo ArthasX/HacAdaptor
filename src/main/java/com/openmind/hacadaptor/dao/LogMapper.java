@@ -1,6 +1,7 @@
 package com.openmind.hacadaptor.dao;
 
-import com.openmind.hacadaptor.mode.Log;
+import com.openmind.hacadaptor.model.Log;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -9,5 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface LogMapper extends IBaseMapper<Log> {
-    int setWorkNoteStatusClosed(String workNoteNumber,String closeDate);
+    int setWorkNoteStatusClosed(@Param("workNoteNumber") String workNoteNumber, @Param("closeDate") String closeDate);
 }

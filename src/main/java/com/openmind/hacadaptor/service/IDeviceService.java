@@ -1,9 +1,8 @@
 package com.openmind.hacadaptor.service;
 
-import com.openmind.hacadaptor.mode.Device;
-import com.openmind.hacadaptor.mode.Identity;
-import com.openmind.hacadaptor.mode.Result;
-import org.springframework.stereotype.Service;
+import com.openmind.hacadaptor.model.Device;
+import com.openmind.hacadaptor.model.Identity;
+import com.openmind.hacadaptor.model.Result;
 
 /**
  * Created by LiuBin on 2017/6/22.

@@ -1,10 +1,9 @@
 package com.openmind.hacadaptor.mvc;
 
 import com.alibaba.fastjson.JSON;
-import com.openmind.hacadaptor.mode.WorkNote;
+import com.openmind.hacadaptor.model.WorkNote;
 import com.openmind.hacadaptor.util.ComUtil;
 import org.junit.Test;
-import org.springframework.http.MediaType;
 
 /**
  * @author LiuBin

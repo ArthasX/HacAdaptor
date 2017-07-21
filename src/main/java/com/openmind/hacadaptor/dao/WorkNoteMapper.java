@@ -1,6 +1,6 @@
 package com.openmind.hacadaptor.dao;
 
-import com.openmind.hacadaptor.mode.WorkNote;
+import com.openmind.hacadaptor.model.WorkNote;
 import org.springframework.stereotype.Repository;
 
 /**

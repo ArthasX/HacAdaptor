@@ -1,15 +1,15 @@
 package com.openmind.hacadaptor.socket;
 
-import com.openmind.hacadaptor.socket.xml.mode.common.XMLBody;
-import com.openmind.hacadaptor.socket.xml.mode.common.XMLParser;
-import com.openmind.hacadaptor.socket.xml.mode.devices.SDevice;
-import com.openmind.hacadaptor.socket.xml.mode.devices.DeviceBackContext;
-import com.openmind.hacadaptor.socket.xml.mode.devices.DeviceXMLBody;
-import com.openmind.hacadaptor.socket.xml.mode.session.SSession;
-import com.openmind.hacadaptor.socket.xml.mode.session.SessionBackContext;
-import com.openmind.hacadaptor.socket.xml.mode.session.SessionSentContext;
-import com.openmind.hacadaptor.socket.xml.mode.worknote.WorkNoteSentContext;
-import com.openmind.hacadaptor.socket.xml.mode.worknote.WorkNoteSentXMLBody;
+import com.openmind.hacadaptor.socket.xml.model.common.XMLBody;
+import com.openmind.hacadaptor.socket.xml.model.common.XMLParser;
+import com.openmind.hacadaptor.socket.xml.model.devices.SDevice;
+import com.openmind.hacadaptor.socket.xml.model.devices.DeviceBackContext;
+import com.openmind.hacadaptor.socket.xml.model.devices.DeviceXMLBody;
+import com.openmind.hacadaptor.socket.xml.model.session.SSession;
+import com.openmind.hacadaptor.socket.xml.model.session.SessionBackContext;
+import com.openmind.hacadaptor.socket.xml.model.session.SessionSentContext;
+import com.openmind.hacadaptor.socket.xml.model.worknote.WorkNoteSentContext;
+import com.openmind.hacadaptor.socket.xml.model.worknote.WorkNoteSentXMLBody;
 import org.junit.Test;
 
 import javax.xml.bind.JAXBException;

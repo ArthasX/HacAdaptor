@@ -1,8 +1,8 @@
 package com.openmind.hacadaptor.service;
 
 import com.openmind.hacadaptor.dao.LogMapper;
-import com.openmind.hacadaptor.mode.Identity;
-import com.openmind.hacadaptor.mode.Log;
+import com.openmind.hacadaptor.model.Identity;
+import com.openmind.hacadaptor.model.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

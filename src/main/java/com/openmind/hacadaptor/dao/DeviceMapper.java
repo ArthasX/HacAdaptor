@@ -1,6 +1,6 @@
 package com.openmind.hacadaptor.dao;
 
-import com.openmind.hacadaptor.mode.Device;
+import com.openmind.hacadaptor.model.Device;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

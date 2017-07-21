@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.openmind.hacadaptor.dao.DeviceMapper">
-    <resultMap id="details" type="com.openmind.hacadaptor.mode.Device">
+    <resultMap id="details" type="com.openmind.hacadaptor.model.Device">
         <id property="id" column="id"/>
         <result property="deviceId" column="deviceid"/>
         <result property="deviceName" column="devicename"/>
@@ -13,7 +13,7 @@
         <collection property="portId" resultMap="ports"/>
         <collection property="accountId" resultMap="accounts"/>
     </resultMap>
-    <resultMap id="ports" type="com.openmind.hacadaptor.mode.Port">
+    <resultMap id="ports" type="com.openmind.hacadaptor.model.Port">
         <id property="id" column="deviceid"/>
         <result property="portId" column="portid"/>
         <result property="name" column="portname"/>
@@ -21,7 +21,7 @@
         <result property="deviceId" column="deviceid"/>
     </resultMap>
 
-    <resultMap id="accounts" type="com.openmind.hacadaptor.mode.Account">
+    <resultMap id="accounts" type="com.openmind.hacadaptor.model.Account">
         <id property="id" column="deviceid"/>
         <result property="accountId" column="accountid"/>
         <result property="name" column="accountname"/>

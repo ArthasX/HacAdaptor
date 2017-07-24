@@ -166,7 +166,7 @@ public class SqlProvider {
             new RuntimeException("get update sql is exceptoin:" + e);
         }
         for (int i = 0; i < updateParaNames.size(); i++) {
-            updateSql.append(updateParaNames.get(i)).append(updateParas.get(i));
+            updateSql.append(updateParaNames.get(i)).append("=").append(updateParas.get(i));
             if (i != updateParaNames.size() - 1) {
                 updateSql.append(",");
             }
@@ -371,7 +371,7 @@ public class SqlProvider {
 
     //TODO selectByCond
     public String selectByCond(Map map) {
-        Object bean =map.get("obj");
+        Object bean = map.get("obj");
 
         return null;
     }
@@ -394,9 +394,15 @@ public class SqlProvider {
     }
 
     private Field[] getFields(Class<?> beanClass) {
+        Field[] re;
         Field[] beanFields = beanClass.getDeclaredFields();
+        re = beanFields;
         Class<?> beanSuperClass = beanClass.getSuperclass();
-        Field[] beanSuperFields = beanSuperClass.getDeclaredFields();
-        return ArrayUtils.addAll(beanFields, beanSuperFields);
+        while (!beanSuperClass.getTypeName().equals("java.lang.Object")) {
+            Field[] beanSuperFields = beanSuperClass.getDeclaredFields();
+            re = ArrayUtils.addAll(re, beanSuperFields);
+            beanSuperClass=beanSuperClass.getSuperclass();
+        }
+        return re;
     }
 }

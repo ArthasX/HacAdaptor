@@ -193,4 +193,23 @@ public class TestController {
                 .andExpect(status().isOk())
                 .andDo(print());
     }
+
+
+    @Test
+    public void testGetNewDevices()throws Exception {
+        String url = "/devices/3/group/1";
+        mockMvc.perform(put(url).characterEncoding("UTF-8"))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @Test
+    public void testSetGroup() throws  Exception{
+        String url = "/devices/new";
+        mockMvc.perform(put(url)
+                .characterEncoding("UTF-8")
+        )
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
 }

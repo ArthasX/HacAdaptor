@@ -5,6 +5,7 @@ import com.openmind.hacadaptor.model.Device;
 import com.openmind.hacadaptor.model.Result;
 
 import com.openmind.hacadaptor.service.IDeviceService;
+import com.openmind.hacadaptor.service.IDeviceTmpService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,8 @@ public class DeviceController {
     Logger logger = Logger.getLogger(DeviceController.class);
     @Autowired
     private IDeviceService deviceService;
+    @Autowired
+    private IDeviceTmpService deviceTmpService;
 
     /**
      * @param deviceId
@@ -66,6 +69,7 @@ public class DeviceController {
             if (deviceService.update(device) <= 0)
                 result.setSuccess(false);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             result = Result.getErrResult(e);
         }
         return result;
@@ -85,6 +89,7 @@ public class DeviceController {
             if (deviceService.insert(device) <= 0)
                 result.setSuccess(false);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             result = Result.getErrResult(e);
         }
         return result;
@@ -100,12 +105,44 @@ public class DeviceController {
     public Result updateDevicesFromHac() {
         Result result = new Result();
         try {
-            result = deviceService.updateDevicesFromHac();
+            result = deviceTmpService.updateDevicesFromHac();
         } catch (Exception e) {
             logger.error(e.getMessage());
-            result.setErrorMessage(e.getMessage());
-            result.setSuccess(false);
-            result.setErrorCode(1);
+            result = Result.getErrResult(e);
+        }
+        return result;
+    }
+
+    /**
+     * Use updateDevice may be better
+     * @param id
+     * @param groupId
+     * @return
+     */
+    @RequestMapping(value = "/{id}/group/{groupId}", method = RequestMethod.PUT)
+    @ResponseBody
+    public Result setNewDeviceGroup(@PathVariable("id") long id, @PathVariable("groupId") String groupId) {
+        Result result = new Result();
+        try {
+            if (deviceService.setNewDeviceGroup(id, groupId) <= 0) {
+                result.setSuccess(false);
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            result = Result.getErrResult(e);
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    @ResponseBody
+    public Result getNewDevices() {
+        Result result = new Result();
+        try {
+            result.setData(deviceTmpService.getNewDevices());
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            result = Result.getErrResult(e);
         }
         return result;
     }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.openmind.hacadaptor.dao.DeviceTmpMapper">
+    <!--返回device 包含 对应的 account 和  port -->
+    <select id="getNewDevices" resultType="com.openmind.hacadaptor.model.Device" parameterType="String">
+        select dt.* from DEVICETMP  dt
+          LEFT JOIN device d on d.deviceid=dt.deviceid
+          where d.deviceid is NULL
+    </select>
+</mapper>

@@ -6,5 +6,9 @@ package com.openmind.hacadaptor.sqlutil;
  * @version Created on 2017/7/7
  */
 public interface ICondition {
+    ICondition asc();
+    ICondition desc();
+    ICondition groupBy();
+    ICondition orderBy();
     String getCondString();
 }

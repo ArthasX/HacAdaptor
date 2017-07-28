@@ -11,6 +11,7 @@ import java.util.List;
  * @version Created on 2017/7/24
  */
 public interface IDeviceTmpService extends IBaseService<DeviceTmp,Identity> {
-    Result updateDevicesFromHac() throws RuntimeException;
+    Result updateDeviceTmpFromHac() throws RuntimeException;
     List<DeviceTmp> getNewDevices() ;
+    int deleteAllDeviceTmp();
 }

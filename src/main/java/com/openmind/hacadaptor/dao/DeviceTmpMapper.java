@@ -12,4 +12,5 @@ import java.util.List;
 @Repository
 public interface DeviceTmpMapper extends IBaseMapper<DeviceTmp> {
     List<DeviceTmp> getNewDevices();
+    int deleteAllDeviceTmp();
 }

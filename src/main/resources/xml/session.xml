@@ -10,7 +10,7 @@
             <Operator>user1</Operator>
             <ClientIpAddress>192.168.0.1</ClientIpAddress>
             <StartDateTime>2012-5-5D08:55:05</StartDateTime>
-            <EndDateTime>2012-5-5D09:15:15</EndDateTime>
+            <EndDateTime></EndDateTime>
             <DestIpAddress>172.15.12.11</DestIpAddress>
             <DestPort>23</DestPort>
             <Protocol>telnet</Protocol>

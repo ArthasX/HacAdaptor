@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 
@@ -37,10 +38,21 @@ public class DeviceController {
         return deviceService.select(d);
     }
 
+    /**
+     *
+     * @param groupName
+     * @return
+     */
     @RequestMapping(value = "/group/{groupName}", method = RequestMethod.GET)
     @ResponseBody
     public Result getDeviceWithPortAccount(@PathVariable("groupName") String groupName) {
-        return deviceService.getDeviceWithPortAccount(groupName);
+        try {
+            String s = new String(groupName.getBytes("ISO-8859-1"), "UTF-8");
+            return deviceService.getDeviceWithPortAccount(s);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return Result.getErrResult(e);
+        }
     }
 
     /**
@@ -96,16 +108,38 @@ public class DeviceController {
     }
 
     /**
-     * refresh devices from hac
+     * refresh devices tmp from hac
      *
      * @return
      */
     @RequestMapping(value = "/refreshDevices", method = RequestMethod.GET)
     @ResponseBody
-    public Result updateDevicesFromHac() {
+    public Result updateDeviceTmpFromHac() {
+        Result result;
+        try {
+            result = deviceTmpService.updateDeviceTmpFromHac();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            result = Result.getErrResult(e);
+        }
+        return result;
+    }
+
+    /**
+     * First invoke the updateDeviceTmpFromHac() function.
+     * <p>
+     * Then invoke this one to filter the new devices which haven't been set up GroupId.
+     * <p>
+     * Finally,choose one device and invoke insertDevice() function to add a new device to DEVICE table.
+     *
+     * @return
+     */
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    @ResponseBody
+    public Result getNewDevices() {
         Result result = new Result();
         try {
-            result = deviceTmpService.updateDevicesFromHac();
+            result.setData(deviceTmpService.getNewDevices());
         } catch (Exception e) {
             logger.error(e.getMessage());
             result = Result.getErrResult(e);
@@ -115,6 +149,7 @@ public class DeviceController {
 
     /**
      * Use updateDevice may be better
+     *
      * @param id
      * @param groupId
      * @return
@@ -134,16 +169,4 @@ public class DeviceController {
         return result;
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
-    @ResponseBody
-    public Result getNewDevices() {
-        Result result = new Result();
-        try {
-            result.setData(deviceTmpService.getNewDevices());
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            result = Result.getErrResult(e);
-        }
-        return result;
-    }
 }

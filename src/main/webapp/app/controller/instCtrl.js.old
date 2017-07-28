@@ -1,0 +1,133 @@
+Ext.define('BudgetMS.controller.instCtrl', {
+	extend : 'Ext.app.Controller',
+	stores : [ 'instStore' ],
+	views : [ 'inst.list', 'inst.edit', 'inst.add', 'inst.instTbarForm','ux.button' ],
+	models : [ 'inst' ],
+	init : function() {
+		this.control({
+			// 根据方法名，能看懂吧？
+//			'instTbarForm button[name=showAddInst]' : {
+//				click : this.showAddInstBtnClick
+//			},
+			'instAdd button[name=insertInst]' : {
+				click : this.doAdd
+			},
+			'instList' : {
+				itemdblclick : this.showUpdateInstGridDblClick
+			},
+			'instTbarForm button[name=showUpdateInst]' : {
+				click : this.showUpdateInstBtnClick
+			},
+			'instEdit button[name=updateInst]' : {
+				click : this.doUpdate
+			},
+			'instTbarForm button[name=deleteInst]' : {
+				click : this.confirmDelete
+			},
+			'instTbarForm button[name=findInst]' : {
+				click : this.doFind
+			}
+		});
+	},
+	showUpdateInstBtnClick : function(btn, e) {
+		// 使用tabpanel.getActiveTab()。down('gridview')
+		// 通过btn获取组件 减少hardcode 实现重用
+		// debugger;
+		var tabpanel = Ext.getCmp('mainTabpanel');
+		var tab = tabpanel.getActiveTab();
+		var grid = tab.down('gridview');
+		var record = grid.getSelectionModel().getLastSelected();
+		if (!record) {
+			Ext.Msg.alert('注意', '请选择一条数据');
+			return;
+		}
+		this.showUpdateInstGridDblClick(grid, record);
+	},
+	showUpdateInstGridDblClick : function(grid, record) {
+		console.log('Double clicked on ' + record.get(0));
+		var view = Ext.widget(grid.ownerCt.name + 'Edit');
+		view.down('form').loadRecord(record);
+	},
+
+	showAddInstBtnClick : function(btn, e) {
+		debugger;
+		var tabpanel = Ext.getCmp('mainTabpanel');
+		var tab = tabpanel.getActiveTab();		
+		var view = Ext.widget(tab.name + 'Add');
+		// var view = Ext.create('BudgetMS.view.inst.add');// = Ext.widget
+		// var grid = tab.down('gridview');
+	},
+
+	doAdd : function(btn, e, eOpts) {
+		var record = btn.up('window').down('form').getForm().getFieldValues();
+		console.log(record);
+		var tabpanel = Ext.getCmp('mainTabpanel');
+		var tab = tabpanel.getActiveTab();
+		var grid = tab.down('gridview');
+		var url = btn.action;
+		doCRUDAjax(record, url, grid);
+	},
+	/**
+	 * 等待提取到公共方法
+	 */
+	confirmDelete : function(btn, e, eOpts) {
+		var btnName = btn.name;// 根据button的name来确定他的ownerCt的类型
+		var fieldName;// 字段名称 instId contId invoId
+		// var tableName;
+		var grid;// grid组件对象
+		// grid=btn.ownerCt.ownerCt.ownerCt.ownerCt; 也可以得到grid
+		// btn-panel-instTbarForm-instList
+		if (btnName == 'deleteInst') {
+			grid = Ext.getCmp('instList');
+			fieldName = 'instId';
+			// tableName='insturction';
+		}
+		if (btnName == 'deleteCont') {
+			grid = Ext.getCmp('contList');
+			fieldName = 'contId';
+			// tableName='contract';
+		}
+		if (btnName == 'deleteInvo') {
+			grid = Ext.getCmp('invoList');
+			fieldName = 'invoId';
+			// tableName='invoice';
+		}
+
+		var record = grid.getSelectionModel().getLastSelected();
+		if (!record) {
+			Ext.MessageBox.alert('注意', '请选中一条记录!');
+			return;
+		}
+		// debugger;
+		var id = record.data[fieldName];
+		var params = {
+			id : id
+		};
+		var url = btn.action;
+		debugger;
+		var confirm = Ext.Msg.confirm('确认', '是否删除编号为:' + id + '的记录?', function(
+				btn) {
+			if (btn == 'yes') {
+				doCRUDAjax(params, url, grid);
+			}
+		});
+	},
+
+	doUpdate : function(btn, e) {
+		debugger;
+		var record = btn.up('window').down('form').getForm().getFieldValues();
+		var tabpanel = Ext.getCmp('mainTabpanel');
+		var tab = tabpanel.getActiveTab();
+		var url = btn.action;// btn action 传参数 inst invo cont?
+		var grid = tab.down('gridview');
+		doCRUDAjax(record, url, grid);
+	},
+
+	doFind : function(btn, e) {
+		debugger;
+		var tabpanel = Ext.getCmp('mainTabpanel');
+		var tab = tabpanel.getActiveTab();
+		var grid = tab.down('gridview');
+		grid.store.reload();
+	}
+});

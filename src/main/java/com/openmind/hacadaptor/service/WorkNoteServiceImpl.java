@@ -195,7 +195,7 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
                 log.setContent(reason);
                 log.setOptDate(DateUtil.getYYYMMDD());
                 log.setStatus("open");
-                log.setWorknotetype(type);
+                log.setWorkNoteType(type);
                 log.setRemark(operator);
                 try {
                     logService.insert(log);
@@ -226,8 +226,9 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
         boolean closeable = sessionOperator.closeable();
         logger.info("工单是否可关闭：" + closeable);
         if (!closeable) {
-            result = new Result();
+            result =new Result();
             result.setErrorCode(1);
+            result.setSuccess(false);
             result.setErrorMessage("无法关闭工单:" + workNoteNumber + "原因:" + sessionOperator.getCause());
             logger.info("无法关闭工单:" + workNoteNumber + "原因:" + sessionOperator.getCause());
         } else {

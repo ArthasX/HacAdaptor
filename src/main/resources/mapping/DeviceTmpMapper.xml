@@ -10,4 +10,8 @@
           LEFT JOIN device d on d.deviceid=dt.deviceid
           where d.deviceid is NULL
     </select>
+
+    <delete id="deleteAllDeviceTmp" >
+        DELETE from DEVICETMP
+    </delete>
 </mapper>

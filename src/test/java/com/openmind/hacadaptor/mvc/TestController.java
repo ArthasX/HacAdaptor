@@ -103,7 +103,7 @@ public class TestController {
         workNote.setStartTime(sdf.format(new Date()));
         workNote.setEndTime(sdf.format(new Date()));
         List<String> groupNames = new ArrayList<>();
-        groupNames.add("核心系统");
+        groupNames.add("核心账务系统");
         JSONObject jjj = new JSONObject();
         jjj.put("groupname", groupNames);
         jjj.put("workNote", workNote);
@@ -127,12 +127,12 @@ public class TestController {
         workNote.setStartTime(sdf.format(new Date()));
         workNote.setEndTime(sdf.format(new Date()));
         List<String> groupNames = new ArrayList<>();
-        groupNames.add("核心系统");
+        groupNames.add("核心账务系统");
         List<String> accountId = new ArrayList<>();
         accountId.add("12345");
         SPort sPort = new SPort();
         sPort.setPortId("1");
-//        sPort.setAccountId(accountId);
+        sPort.setAccountId(accountId);
         List<SPort> ports = new ArrayList<>();
         ports.add(sPort);
 
@@ -187,16 +187,15 @@ public class TestController {
 
     @Test
     public void testDeviceWithPortAccount() throws Exception {
-        String url = "/devices/group/核心系统";
+        String url = "/devices/group/核心账务系统";
         mockMvc.perform(get(url).characterEncoding("UTF-8"))
-
                 .andExpect(status().isOk())
                 .andDo(print());
     }
 
 
     @Test
-    public void testGetNewDevices()throws Exception {
+    public void testGetNewDevices() throws Exception {
         String url = "/devices/3/group/1";
         mockMvc.perform(put(url).characterEncoding("UTF-8"))
                 .andExpect(status().isOk())
@@ -204,11 +203,10 @@ public class TestController {
     }
 
     @Test
-    public void testSetGroup() throws  Exception{
+    public void testSetGroup() throws Exception {
         String url = "/devices/new";
         mockMvc.perform(put(url)
-                .characterEncoding("UTF-8")
-        )
+                .characterEncoding("UTF-8"))
                 .andExpect(status().isOk())
                 .andDo(print());
     }

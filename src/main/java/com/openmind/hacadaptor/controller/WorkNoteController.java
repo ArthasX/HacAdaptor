@@ -88,4 +88,8 @@ public class WorkNoteController {
         return result;
     }
 
+//    public Result closeable(){
+//
+//        return null;
+//    }
 }

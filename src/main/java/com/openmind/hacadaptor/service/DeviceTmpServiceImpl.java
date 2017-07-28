@@ -38,7 +38,7 @@ public class DeviceTmpServiceImpl extends BaseServiceImp<DeviceTmp, Identity> im
      * @throws RuntimeException to make sure the transaction will roll back
      */
     @Transactional
-    public Result updateDevicesFromHac() throws RuntimeException {
+    public Result updateDeviceTmpFromHac() throws RuntimeException {
         Result result;
         XMLDTO xmldto = deviceOperation.getXmldtoBack();
         result = Result.getResult(xmldto);
@@ -73,6 +73,9 @@ public class DeviceTmpServiceImpl extends BaseServiceImp<DeviceTmp, Identity> im
                                 accounts.add(account);
                             }
 
+                            //TODO 更新前清空devicetmp表
+                        int deleteCount=deviceTmpMapper.deleteAllDeviceTmp();
+                        logger.info("[清空DEVICETMP表]:"+deleteCount+"条数据");
                         devices.add(device);
                         logger.info("[FromHAC]:deviceId->" + device.getDeviceId());
                         countDevice = deviceTmpMapper.insert(device);
@@ -108,5 +111,10 @@ public class DeviceTmpServiceImpl extends BaseServiceImp<DeviceTmp, Identity> im
     @Override
     public List<DeviceTmp> getNewDevices() {
         return deviceTmpMapper.getNewDevices();
+    }
+
+    @Override
+    public int deleteAllDeviceTmp() {
+        return deviceTmpMapper.deleteAllDeviceTmp();
     }
 }

@@ -31,8 +31,8 @@ public class Log extends Identity {
     private String status;
     @Column("closeDate")
     private String closeDate;
-    @Column("worknotetype")
-    private String worknotetype;
+    @Column("workNoteType")
+    private String workNoteType;
 
     public Log() {
 
@@ -42,7 +42,7 @@ public class Log extends Identity {
         super(id);
     }
 
-    public Log(String workNoteId, String workNoteNumber, String groupName, String ip, String content, String optDate, String remark, String startTime, String endTime, String status, String closeDate, String worknotetype) {
+    public Log(String workNoteId, String workNoteNumber, String groupName, String ip, String content, String optDate, String remark, String startTime, String endTime, String status, String closeDate, String workNoteType) {
         this.workNoteId = workNoteId;
         this.workNoteNumber = workNoteNumber;
         this.groupName = groupName;
@@ -54,10 +54,10 @@ public class Log extends Identity {
         this.endTime = endTime;
         this.status = status;
         this.closeDate = closeDate;
-        this.worknotetype = worknotetype;
+        this.workNoteType = workNoteType;
     }
 
-    public Log(long id, String workNoteId, String workNoteNumber, String groupName, String ip, String content, String optDate, String remark, String startTime, String endTime, String status, String closeDate, String worknotetype) {
+    public Log(long id, String workNoteId, String workNoteNumber, String groupName, String ip, String content, String optDate, String remark, String startTime, String endTime, String status, String closeDate, String workNoteType) {
         super(id);
         this.workNoteId = workNoteId;
         this.workNoteNumber = workNoteNumber;
@@ -70,7 +70,7 @@ public class Log extends Identity {
         this.endTime = endTime;
         this.status = status;
         this.closeDate = closeDate;
-        this.worknotetype = worknotetype;
+        this.workNoteType = workNoteType;
     }
 
     public String getIp() {
@@ -161,11 +161,11 @@ public class Log extends Identity {
         this.closeDate = closeDate;
     }
 
-    public String getWorknotetype() {
-        return worknotetype;
+    public String getWorkNoteType() {
+        return workNoteType;
     }
 
-    public void setWorknotetype(String worknotetype) {
-        this.worknotetype = worknotetype;
+    public void setWorkNoteType(String workNoteType) {
+        this.workNoteType = workNoteType;
     }
 }

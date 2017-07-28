@@ -42,7 +42,7 @@
         FROM DEVICE d
         LEFT JOIN PORT p on p.deviceid=d.deviceid
         LEFT JOIN ACCOUNT a on a.deviceid=d.deviceid
-        LEFT JOIN GROUPS g on g.id=d.deviceid
+        LEFT JOIN GROUPS g on g.id=d.groupid
         WHERE
         g.groupname=#{groupName}
     </select>

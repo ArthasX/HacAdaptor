@@ -10,6 +10,6 @@
     </resultMap>
     <select id="getAccountsByGroupName" parameterType="String" resultType="com.openmind.hacadaptor.model.Account">
         select a.* from account a,groups g,device d where g.groupname=#{groupName}
-        and g.id=d.deviceid and d.deviceid=a.deviceid
+        and g.id=d.groupid and d.deviceid=a.deviceid
     </select>
 </mapper>

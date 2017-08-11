@@ -8,6 +8,7 @@ import com.openmind.hacadaptor.model.Result;
 import com.openmind.hacadaptor.model.WorkNote;
 import com.openmind.hacadaptor.service.IWorkNoteService;
 import com.openmind.hacadaptor.socket.xml.model.devices.SPort;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/worknote")
 public class WorkNoteController {
-
+    static Logger  logger = Logger.getLogger(WorkNoteController.class);
     @Autowired
     private IWorkNoteService workNoteServiceImpl;
 
@@ -40,7 +41,13 @@ public class WorkNoteController {
     @RequestMapping(value = "/worknotestatus/{workNoteNumber}", method = RequestMethod.PUT)
     @ResponseBody
     public Result setWorkNote(@PathVariable String workNoteNumber) {
-        Result result = workNoteServiceImpl.setWorkNote(workNoteNumber);
+        Result result;
+        try {
+            result = workNoteServiceImpl.setWorkNote(workNoteNumber);
+        } catch (Throwable throwable) {
+            logger.error("关闭工单:"+workNoteNumber+"失败",throwable);
+            result=Result.getErrResult(throwable);
+        }
         return result;
     }
 
@@ -60,7 +67,13 @@ public class WorkNoteController {
     public Result submitNormalWorkNote(@RequestBody JSONObject jsonObject) {
         WorkNote workNote = jsonObject.getJSONObject("workNote").toJavaObject(WorkNote.class);
         List<String> groupNames = jsonObject.getObject("groupname", ArrayList.class);
-        Result result = workNoteServiceImpl.submitNormalWorkNote(workNote, groupNames);
+        Result result;
+        try {
+            result = workNoteServiceImpl.submitNormalWorkNote(workNote, groupNames);
+        } catch (Throwable throwable) {
+            logger.error("发起常规变更工单:"+workNote.getWorkNoteNumber()+"失败",throwable);
+            result=Result.getErrResult(throwable);
+        }
         return result;
     }
 
@@ -84,12 +97,26 @@ public class WorkNoteController {
         JSONArray portArray = jsonObject.getJSONArray("port");
         List<SPort> sPorts = portArray.toJavaList(SPort.class);
         List<String> groupNames = jsonObject.getObject("groupname", ArrayList.class);
-        Result result = workNoteServiceImpl.submitEmergentWorkNote(workNote, sPorts, groupNames);
+        Result result;
+        try {
+            result = workNoteServiceImpl.submitEmergentWorkNote(workNote, sPorts, groupNames);
+        } catch (Throwable throwable) {
+            logger.error("发起紧急变更工单:"+workNote.getWorkNoteNumber()+"失败",throwable);
+            result=Result.getErrResult(throwable);
+        }
         return result;
     }
 
-//    public Result closeable(){
-//
-//        return null;
-//    }
+    @RequestMapping(value = "/closeable/{workNoteNumber}", method = RequestMethod.GET)
+    @ResponseBody
+    public Result closeable(@PathVariable String workNoteNumber){
+        Result result;
+        try {
+           result= workNoteServiceImpl.closeable(workNoteNumber);
+        } catch (Throwable throwable) {
+            logger.error("查询变更工单是否可关闭:"+workNoteNumber+"失败",throwable);
+            result=Result.getErrResult(throwable);
+        }
+        return result;
+    }
 }

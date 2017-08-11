@@ -16,7 +16,7 @@ public class LogServiceImpl extends BaseServiceImp<Log, Identity> implements ILo
     LogMapper logMapper;
 
     @Override
-    public int setWorkNoteStatusClosed(String workNoteNumber,String closeDate) {
+    public int setWorkNoteStatusClosed (String workNoteNumber,String closeDate) throws Throwable{
         return logMapper.setWorkNoteStatusClosed(workNoteNumber,closeDate);
     }
 }

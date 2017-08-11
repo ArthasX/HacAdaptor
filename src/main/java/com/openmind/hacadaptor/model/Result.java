@@ -46,6 +46,21 @@ public class Result {
         return result;
     }
 
+    public static Result getErrResult(Throwable t) {
+        Result result = new Result();
+        result.setErrorCode(1);
+        result.setErrorMessage(t.getMessage());
+        result.setSuccess(false);
+        return result;
+    }
+
+    public static Result getFailureResult(String msg) {
+        Result result = new Result();
+        result.setErrorCode(1);
+        result.setErrorMessage(msg);
+        result.setSuccess(false);
+        return result;
+    }
 
     public Object getData() {
         return data;

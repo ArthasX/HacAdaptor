@@ -109,14 +109,15 @@ public class SocketUtil {
         byte[] header = new byte[headLen];//去掉头部 20 byte长度
         byte[] body = null;
         int index = 0;
-        int dataLen;
+        int readDataLen, writeDataLen = data.length;
         try {
-//            SSLSocket socket = getSSLSocket();
-            Socket socket = getSocket();
+            SSLSocket socket = getSSLSocket();
+//            Socket socket = getSocket();
             logger.info("connect to server...");
-            socket.connect(socketAddress);
+//            socket.connect(socketAddress);
             logger.info("connected...");
             OutputStream os = socket.getOutputStream();
+//            StreamTool.writeStream(os,data,0,writeDataLen);
             os.write(data);
             os.flush();
             logger.info("data pushed to hac server...");
@@ -126,11 +127,11 @@ public class SocketUtil {
                 logger.info("reading data from hac server...");
                 is.read(header);
                 xmldto.setXmlHeaderBytesBack(header);
-                dataLen = ByteUtil.byteArrayToInt(ByteUtil.getSubBytes(header, 16, 4));
-                body = new byte[dataLen];
-                StreamTool.readStream(is, body, index, dataLen);
-                is.close();
+                readDataLen = ByteUtil.byteArrayToInt(ByteUtil.getSubBytes(header, 16, 4));
+                body = new byte[readDataLen];
+                StreamTool.readStream(is, body, index);
             }
+            is.close();
             os.close();
             socket.close();
             logger.info("read finished...socket closed...");

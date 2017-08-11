@@ -12,6 +12,5 @@ import java.util.List;
  */
 public interface IDeviceTmpService extends IBaseService<DeviceTmp,Identity> {
     Result updateDeviceTmpFromHac() throws RuntimeException;
-    List<DeviceTmp> getNewDevices() ;
-    int deleteAllDeviceTmp();
+    List<DeviceTmp> getNewDevices() throws Throwable;
 }

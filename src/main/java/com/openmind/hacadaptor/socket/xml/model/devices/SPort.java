@@ -1,12 +1,14 @@
 package com.openmind.hacadaptor.socket.xml.model.devices;
 
+import com.openmind.hacadaptor.model.IBasePort;
+
 import javax.xml.bind.annotation.XmlElement;
 import java.util.List;
 
 /**
  * 提交的变更工单中包含的端口
  */
-public class SPort {
+public class SPort implements IBasePort {
     private String portId;
     private String name;
     private String protocol;
@@ -32,7 +34,7 @@ public class SPort {
         return portId;
     }
 
-    @XmlElement(name = "Account")
+    @XmlElement(name = "AccountId")
     public List<String> getAccountId() {
         return accountId;
     }

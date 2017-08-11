@@ -18,7 +18,7 @@ public class TestSession {
     public void testSession(){
         IOperator operation=new SessionOperation("123123123");
         List<SSession> sessions=(List<SSession>) operation.getXmldtoBack().getResult().getBackContext().getContextDetail();
-        System.out.println(sessions.get(0).getSessionId());
+//        System.out.println(sessions.get(0).getSessionId());
         Assert.assertEquals(2,sessions.size());
     }
 }

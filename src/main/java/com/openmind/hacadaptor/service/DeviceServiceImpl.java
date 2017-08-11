@@ -31,10 +31,8 @@ public class DeviceServiceImpl extends BaseServiceImp<Device, Identity> implemen
     /**
      * @return All the devices in the certain group with ports and accounts
      */
-    public Result getDeviceWithPortAccount(String groupName) {
-        Result result = new Result();
-        result.setData(deviceMapper.getDeviceWithPortAccount(groupName));
-        return result;
+    public List<Device> getDeviceWithPortAccount(String groupName) throws Throwable {
+        return deviceMapper.getDeviceWithPortAccount(groupName);
     }
 
     /**
@@ -42,7 +40,7 @@ public class DeviceServiceImpl extends BaseServiceImp<Device, Identity> implemen
      * @param groupId
      * @return
      */
-    public int setNewDeviceGroup(long id, String groupId) {
+    public int setNewDeviceGroup(long id, String groupId) throws Throwable {
         Device device = new Device(id);
         device.setGroupId(groupId);
         return deviceMapper.update(device);

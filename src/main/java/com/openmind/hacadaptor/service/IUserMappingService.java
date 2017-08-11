@@ -9,5 +9,5 @@ import com.openmind.hacadaptor.model.UserMapping;
  */
 //Identity 此处没什么用
 public interface IUserMappingService extends IBaseService<UserMapping,Identity>{
-    String getOperatorById(String id);
+    String getOperatorById(String id)throws Throwable;
 }

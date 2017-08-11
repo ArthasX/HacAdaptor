@@ -3,12 +3,10 @@ package com.openmind.hacadaptor.socket.xml.model.common;
 import com.openmind.hacadaptor.socket.util.ClassUtil;
 import org.apache.log4j.Logger;
 
-import javax.xml.bind.JAXBException;
-
 /**
  * @param <T> XMLDataBody
  */
-public class XMLDTO<T, B> implements BaseDTO<T, B> {
+public class XMLDTO<T, B> implements IBaseDTO<T, B> {
     static Logger logger = Logger.getLogger(XMLDTO.class);
     private XMLData xmlData;
     private XMLData xmlDataBack;
@@ -31,7 +29,7 @@ public class XMLDTO<T, B> implements BaseDTO<T, B> {
         this.resultType = resultType;
         if (resultType == XMLType.XML_WN_REQUEST_ERROR) {
             errorCode = 2;
-            errorMessage="HAC服务器端处理失败";
+            errorMessage = "HAC服务器端处理失败";
         }
     }
 
@@ -52,15 +50,18 @@ public class XMLDTO<T, B> implements BaseDTO<T, B> {
         this.xmlBodyBytesBack = xmlBodyBytesBack;
         if (xmlBodyBytesBack != null && xmlBodyBytesBack.length > 0) {
             Class<B> tClass = (Class<B>) ClassUtil.getSuperClassGenricType(getClass(), 1);
-            logger.info("start to parse xml to object ["+tClass.getSimpleName()+"]");
+            logger.info("start to parse xml to object [" + tClass.getSimpleName() + "]");
+
             try {
-                IXMLBody xmlBody = (IXMLBody) XMLParser.XML2Object(tClass, xmlBodyBytesBack);
+                String xml = new String(xmlBodyBytesBack, "GB2312");
+                logger.info("xmlbody:" + xml);
+                IXMLBody xmlBody = (IXMLBody) XMLParser.XML2Object(tClass, xml);
                 String resultC = xmlBody.getDocumentProperties().getNumber();
                 if (resultC != null || !"".equals(resultC))
                     this.resultCount = Integer.parseInt(resultC);
                 this.xmlDataBack.setXmlBody(xmlBody);
-                logger.info("result count:"+resultCount);
-            } catch (JAXBException e) {
+                logger.info("result count:" + resultCount);
+            } catch (Exception e) {
                 e.printStackTrace();
                 errorCode = 1;
                 errorMessage = "[" + this.getClass().getName() + "]XML to JavaBean error :" + tClass.getName();

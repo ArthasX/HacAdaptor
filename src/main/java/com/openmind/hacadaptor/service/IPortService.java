@@ -10,5 +10,6 @@ import java.util.List;
  * @version Created on 2017/7/17
  */
 public interface IPortService extends IBaseService<Port,Identity> {
-    List<Port> getPortsByGroupName(String groupName);
+    List<Port> getPortsByGroupName(String groupName) throws Throwable;
+    List<Port> getPortsAccountsByGroupName(String groupName) throws Throwable;
 }

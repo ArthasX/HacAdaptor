@@ -79,4 +79,11 @@ public class TestDAO extends AbstractTransactionalJUnit4SpringContextTests{
         System.out.println("insert count:"+i);
         Assert.assertEquals(i,3);
     }
+
+    @Test
+    public void testDeviceWithPortAccount(){
+        List<Device>list=deviceMapper.getDeviceWithPortAccount("核心账务系统");
+        System.out.println("  count:"+list.size());
+//        Assert.assertEquals(i,3);
+    }
 }

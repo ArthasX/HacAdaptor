@@ -5,32 +5,29 @@
 
 <mapper namespace="com.openmind.hacadaptor.dao.DeviceMapper">
     <resultMap id="details" type="com.openmind.hacadaptor.model.Device">
-        <id property="id" column="id"/>
-        <result property="deviceId" column="deviceid"/>
+        <id property="deviceId" column="deviceid"/>
         <result property="deviceName" column="devicename"/>
         <result property="ipAddress" column="ipaddress"/>
         <result property="groupId" column="groupid"/>
-        <collection property="portId" resultMap="ports"/>
-        <collection property="accountId" resultMap="accounts"/>
+        <collection property="ports"  resultMap="ports" javaType="ArrayList"/>
+        <collection property="accounts"  resultMap="accounts" javaType="ArrayList"/>
     </resultMap>
     <resultMap id="ports" type="com.openmind.hacadaptor.model.Port">
-        <id property="id" column="deviceid"/>
+        <id property="deviceId" column="deviceid_port"/>
         <result property="portId" column="portid"/>
         <result property="name" column="portname"/>
         <result property="protocol" column="protocol"/>
-        <result property="deviceId" column="deviceid"/>
     </resultMap>
 
     <resultMap id="accounts" type="com.openmind.hacadaptor.model.Account">
-        <id property="id" column="deviceid"/>
+        <id property="deviceId" column="deviceid_account"/>
         <result property="accountId" column="accountid"/>
         <result property="name" column="accountname"/>
         <result property="manageAccount" column="manageaccount"/>
         <result property="accountType" column="accounttype"/>
-        <result property="deviceId" column="deviceid"/>
     </resultMap>
     <!--返回device 包含 对应的 account 和  port -->
-    <select id="getDeviceWithPortAccount" resultMap="details" parameterType="String">
+    <select id="getDeviceWithPortAccount1" resultMap="details" parameterType="String">
         SELECT d.*
         ,p.portid
         ,p.name as portname
@@ -39,11 +36,63 @@
         ,a.name as accountname
         ,a.manageaccount
         ,a.accounttype
+        ,p.deviceid as deviceid_port
+        ,a.deviceid as deviceid_account
         FROM DEVICE d
         LEFT JOIN PORT p on p.deviceid=d.deviceid
         LEFT JOIN ACCOUNT a on a.deviceid=d.deviceid
         LEFT JOIN GROUPS g on g.id=d.groupid
         WHERE
         g.groupname=#{groupName}
+        order by d.deviceid,p.portid,a.accountid
+    </select>
+
+
+    <resultMap id="details1" type="com.openmind.hacadaptor.model.Device">
+        <id property="id" column="id"/>
+        <result property="deviceId" column="deviceid"/>
+        <result property="deviceName" column="devicename"/>
+        <result property="ipAddress" column="ipaddress"/>
+        <result property="groupId" column="groupid"/>
+        <collection property="ports"  resultMap="ports1" javaType="ArrayList" />
+        <collection property="accounts"  resultMap="accounts1" javaType="ArrayList" />
+    </resultMap>
+    <resultMap id="ports1" type="com.openmind.hacadaptor.model.Port">
+        <id property="id" column="pid"/>
+        <result property="deviceId" column="deviceid_port"/>
+        <result property="portId" column="portid"/>
+        <result property="name" column="portname"/>
+        <result property="protocol" column="protocol"/>
+    </resultMap>
+
+    <resultMap id="accounts1" type="com.openmind.hacadaptor.model.Account">
+        <id property="id" column="aid"/>
+        <result property="deviceId" column="deviceid_account"/>
+        <result property="accountId" column="accountid"/>
+        <result property="name" column="accountname"/>
+        <result property="manageAccount" column="manageaccount"/>
+        <result property="accountType" column="accounttype"/>
+    </resultMap>
+
+    <select id="getDeviceWithPortAccount" resultMap="details1" parameterType="String">
+        SELECT d.*
+        ,p.id as pid
+        ,p.portid
+        ,p.name as portname
+        ,p.protocol
+        ,a.id as aid
+        ,a.accountid
+        ,a.name as accountname
+        ,a.manageaccount
+        ,a.accounttype
+        ,p.deviceid as deviceid_port
+        ,a.deviceid as deviceid_account
+        FROM DEVICE d
+        LEFT JOIN PORT p on p.deviceid=d.deviceid
+        LEFT JOIN ACCOUNT a on a.deviceid=d.deviceid
+        LEFT JOIN GROUPS g on g.id=d.groupid
+        WHERE
+        g.groupname=#{groupName}
+        order by d.deviceid,p.portid,a.accountid
     </select>
 </mapper>

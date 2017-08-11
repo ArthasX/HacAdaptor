@@ -19,7 +19,7 @@ public class ComUtil {
     static Logger log = Logger.getLogger(ComUtil.class);
 
     /**
-     * 发送请求
+     * 发送HTTP请求
      *
      * @param requestUrl    请求地址
      * @param requestMethod 请求方法 POST GET ...
@@ -33,7 +33,7 @@ public class ComUtil {
 
     public static JSONObject httpRequest(String requestUrl, String requestMethod,String contentType, String output) {
         JSONObject jsonObject = null;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         OutputStream ops = null;
         InputStream ips = null;
         InputStreamReader ipr = null;
@@ -47,9 +47,8 @@ public class ComUtil {
             con.setDoInput(true);
             con.setUseCaches(false);
             con.setRequestMethod(requestMethod);
-//            con.setRequestProperty();
             con.setRequestProperty("content-type", contentType);
-            con.setRequestProperty("accept", "application/json");
+            con.setRequestProperty("accept","application/json");
             //
             if (output != null) {
                 ops = con.getOutputStream();
@@ -87,3 +86,9 @@ public class ComUtil {
         return jsonObject;
     }
 }
+
+//oWcZSW92eTQBtEVgV9y5efpBkOO-5QnIY7KxLzlo6vgdeW0gna2K4ZqtvRG6KCJI
+//oWcZSW92eTQBtEVgV9y5efpBkOO-5QnIY7KxLzlo6vgdeW0gna2K4ZqtvRG6KCJI
+//CvQQ8xnR80rY0qE6LPsW5QDX2ytqYTT6mm7nuwKLAm32M4IRJQ1XW6Gv0QxsWfok
+//dfSCcW5u9JIlahsyibFl3St4JQk542NL9bob2BpUv3cXHIRYTrRdYn9seB6iMPI8
+//dfSCcW5u9JIlahsyibFl3St4JQk542NL9bob2BpUv3cXHIRYTrRdYn9seB6iMPI8

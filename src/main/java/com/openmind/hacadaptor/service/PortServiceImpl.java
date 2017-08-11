@@ -17,7 +17,12 @@ public class PortServiceImpl extends BaseServiceImp<Port,Identity> implements IP
     @Autowired
     PortMapper portMapper;
     @Override
-    public List<Port> getPortsByGroupName(String groupName) {
+    public List<Port> getPortsByGroupName(String groupName)throws Throwable {
         return portMapper.getPortsByGroupName(groupName);
+    }
+
+    @Override
+    public List<Port> getPortsAccountsByGroupName(String groupName)throws Throwable {
+        return portMapper.getPortsAccountsByGroupName(groupName);
     }
 }

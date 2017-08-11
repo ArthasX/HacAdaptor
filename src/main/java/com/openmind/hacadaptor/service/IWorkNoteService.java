@@ -11,10 +11,11 @@ import java.util.List;
  * @version Created on 2017/7/17
  */
 public interface IWorkNoteService extends IBaseService<WorkNote, Identity> {
-    Result submitEmergentWorkNote(WorkNote workNote, List<SPort> sPorts, List<String> groupNames);
+    Result submitEmergentWorkNote(WorkNote workNote, List<SPort> sPorts, List<String> groupNames)throws Throwable;
 
-    Result submitNormalWorkNote(WorkNote workNote, List<String> groupNames);
+    Result submitNormalWorkNote(WorkNote workNote, List<String> groupNames)throws Throwable;
 
-    Result setWorkNote(String workNoteNumber);
+    Result setWorkNote(String workNoteNumber)throws Throwable;
 
+    Result closeable(String workNoteNumber)throws Throwable;
 }

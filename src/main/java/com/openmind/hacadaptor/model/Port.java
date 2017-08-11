@@ -3,11 +3,13 @@ package com.openmind.hacadaptor.model;
 import com.openmind.hacadaptor.sqlutil.Column;
 import com.openmind.hacadaptor.sqlutil.Table;
 
+import java.util.List;
+
 /**
  * Created by LiuBin on 2017/6/22.
  */
 @Table("PORT")
-public class Port extends Identity  {
+public class Port extends Identity implements IBasePort {
     @Column("portid")
     private String portId;
     @Column("name")
@@ -16,10 +18,12 @@ public class Port extends Identity  {
     private String protocol;
     @Column("deviceid")
     private String deviceId;
+    private List<String> accountId;
 
-    public Port(){
+    public Port() {
 
     }
+
     public Port(long id) {
         super(id);
     }
@@ -73,5 +77,13 @@ public class Port extends Identity  {
 
     public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
+    }
+
+    public List<String> getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(List<String> accountId) {
+        this.accountId = accountId;
     }
 }

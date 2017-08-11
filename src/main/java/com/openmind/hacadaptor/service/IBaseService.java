@@ -11,23 +11,23 @@ import java.util.List;
  */
 @Service("baseService")
 public interface IBaseService<T extends Serializable, ID extends Serializable> {
-    T selectById(Class<T> clz, ID id);
+    T selectById(Class<T> clz, ID id)throws Throwable;
 
-    T deleteById(Class<T> clz, ID id);
+    T deleteById(Class<T> clz, ID id)throws Throwable;
 
-    T select(T t);
+    T select(T t)throws Throwable;
 
-    int delete(T t);
+    int delete(T t)throws Throwable;
 
-    int update(T t);
+    int update(T t)throws Throwable;
 
-    int insert(T t);
+    int insert(T t)throws Throwable;
 
-    int insertBatch(List<T> list);
+    int insertBatch(List<T> list)throws Throwable;
 
-    List<T> fuzzySelect(T t);
+    List<T> fuzzySelect(T t)throws Throwable;
 
-    Page<T> pageSelect(Page<T> t);
+    Page<T> pageSelect(Page<T> t)throws Throwable;
 
-    int selectCount(T t);
+    int selectCount(T t)throws Throwable;
 }

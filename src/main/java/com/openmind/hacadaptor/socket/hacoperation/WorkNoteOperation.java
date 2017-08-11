@@ -54,7 +54,7 @@ public class WorkNoteOperation extends BaseOperation {
 
     }
 
-    public WorkNoteOperation(String operator, String workNoteNumber, String startTime, String endTime, String reason, List<SPort> sPorts) {
+    public WorkNoteOperation(List<String> operator, String workNoteNumber, String startTime, String endTime, String reason, List<SPort> sPorts) {
         SPort[] s= new SPort[sPorts.size()];
         sPorts.toArray(s);
         xmldto = new WorkNoteDTO();

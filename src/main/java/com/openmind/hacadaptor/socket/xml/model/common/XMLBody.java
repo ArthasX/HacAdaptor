@@ -59,15 +59,6 @@ public abstract class XMLBody<T extends IContext, B extends IContext> implements
 
     @Override
     public byte[] getBytes() {
-//        Field[] fields=this.getClass().getDeclaredFields();
-//        for(Field f:fields){
-//            try {
-//                f.get
-//                f.getInt(this);
-//            } catch (IllegalAccessException e) {
-//                e.printStackTrace();
-//            }
-//        }
         byte[] bytes = null;
         try {
             bytes = XMLParser.Object2XML(this).getBytes();

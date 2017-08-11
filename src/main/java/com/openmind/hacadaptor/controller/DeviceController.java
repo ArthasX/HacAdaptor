@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by LiuBin on 2017/6/22.
  */
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/devices")
 public class DeviceController {
@@ -33,37 +33,55 @@ public class DeviceController {
      */
     @RequestMapping(value = "/{deviceId}", method = RequestMethod.GET)
     @ResponseBody
-    public Device getByDeviceId(@PathVariable("deviceId") String deviceId) {
+    public Result getByDeviceId(@PathVariable("deviceId") String deviceId) {
+        Result result;
         Device d = new Device(deviceId);
-        return deviceService.select(d);
+        try {
+            result = new Result();
+            result.setData(deviceService.select(d));
+        } catch (Throwable throwable) {
+            logger.error("获取deviceId为[" + deviceId + "]的信息失败", throwable);
+            result = Result.getErrResult(throwable);
+        }
+        return result;
     }
 
     /**
-     *
      * @param groupName
      * @return
      */
     @RequestMapping(value = "/group/{groupName}", method = RequestMethod.GET)
     @ResponseBody
     public Result getDeviceWithPortAccount(@PathVariable("groupName") String groupName) {
+        Result result;
         try {
+            result = new Result();
             String s = new String(groupName.getBytes("ISO-8859-1"), "UTF-8");
-            return deviceService.getDeviceWithPortAccount(s);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return Result.getErrResult(e);
+            result.setData(deviceService.getDeviceWithPortAccount(s));
+        } catch (Throwable throwable) {
+            logger.error("获取[" + groupName + "]所包含的device、account、port信息失败", throwable);
+            result = Result.getErrResult(throwable);
         }
+        return result;
     }
 
     /**
      * @return all the devices
      */
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
-    public List<Device> getDevices() {
+    public Result getDevices() {
+        Result result;
         Device d = new Device();
-        List<Device> list = deviceService.fuzzySelect(d);
-        return list;
+        try {
+            result = new Result();
+            result.setData(deviceService.fuzzySelect(d));
+        } catch (Throwable throwable) {
+            logger.error("获取完整的device信息失败", throwable);
+            result = Result.getErrResult(throwable);
+        }
+        return result;
     }
 
     /**
@@ -78,9 +96,11 @@ public class DeviceController {
         Result result = new Result();
         try {
             device.setDeviceId(deviceId);
-            if (deviceService.update(device) <= 0)
+            if (deviceService.update(device) <= 0) {
                 result.setSuccess(false);
-        } catch (Exception e) {
+                result.setMessage("更新0条数据");
+            }
+        } catch (Throwable e) {
             logger.error(e.getMessage());
             result = Result.getErrResult(e);
         }
@@ -98,9 +118,11 @@ public class DeviceController {
     public Result insertDevice(@RequestBody Device device) {
         Result result = new Result();
         try {
-            if (deviceService.insert(device) <= 0)
+            if (deviceService.insert(device) <= 0) {
                 result.setSuccess(false);
-        } catch (Exception e) {
+                result.setMessage("更新0条数据");
+            }
+        } catch (Throwable e) {
             logger.error(e.getMessage());
             result = Result.getErrResult(e);
         }
@@ -140,7 +162,7 @@ public class DeviceController {
         Result result = new Result();
         try {
             result.setData(deviceTmpService.getNewDevices());
-        } catch (Exception e) {
+        } catch (Throwable e) {
             logger.error(e.getMessage());
             result = Result.getErrResult(e);
         }
@@ -161,8 +183,9 @@ public class DeviceController {
         try {
             if (deviceService.setNewDeviceGroup(id, groupId) <= 0) {
                 result.setSuccess(false);
+                result.setMessage("更新0条数据");
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             logger.error(e.getMessage());
             result = Result.getErrResult(e);
         }

@@ -17,6 +17,6 @@ public class TestDevicesSocket {
         BaseOperation deviceOperator= new DeviceOperation();
         List<SDevice> list =(List<SDevice>) deviceOperator.getXmldtoBack().getResult().getBackContext().getContextDetail();
         Assert.assertNotNull(list);
-        Assert.assertEquals(33,list.size());
+        Assert.assertEquals(941,list.size());
     }
 }

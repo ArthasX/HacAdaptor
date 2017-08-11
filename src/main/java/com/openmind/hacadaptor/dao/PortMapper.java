@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface PortMapper extends IBaseMapper<Port> {
     List<Port> getPortsByGroupName(String groupName);
+    List<Port> getPortsAccountsByGroupName(String groupName);
 }

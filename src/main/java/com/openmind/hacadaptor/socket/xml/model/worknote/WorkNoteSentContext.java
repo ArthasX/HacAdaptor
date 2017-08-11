@@ -4,12 +4,14 @@ import com.openmind.hacadaptor.socket.xml.model.common.Context;
 import com.openmind.hacadaptor.socket.xml.model.devices.SPort;
 
 import javax.xml.bind.annotation.XmlElement;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 提交变更工单
  */
 public class WorkNoteSentContext extends Context {
-    private String operator;
+    private List<String> operator;
     private String workNoteNumber;
     private String startTime;
     private String endTime;
@@ -19,7 +21,7 @@ public class WorkNoteSentContext extends Context {
     public WorkNoteSentContext() {
     }
 
-    public WorkNoteSentContext(String operator, String workNoteNumber, String startTime, String endTime, String reason, SPort[] SPort) {
+    public WorkNoteSentContext(List<String> operator, String workNoteNumber, String startTime, String endTime, String reason, com.openmind.hacadaptor.socket.xml.model.devices.SPort[] SPort) {
         this.operator = operator;
         this.workNoteNumber = workNoteNumber;
         this.startTime = startTime;
@@ -28,8 +30,17 @@ public class WorkNoteSentContext extends Context {
         this.SPort = SPort;
     }
 
+    public WorkNoteSentContext(String operator, String workNoteNumber, String startTime, String endTime, String reason, com.openmind.hacadaptor.socket.xml.model.devices.SPort[] SPort) {
+        this.operator = Arrays.asList(operator.split(","));
+        this.workNoteNumber = workNoteNumber;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.reason = reason;
+        this.SPort = SPort;
+    }
+
     @XmlElement(name = "Operator")
-    public String getOperator() {
+    public List<String> getOperator() {
         return operator;
     }
 
@@ -58,10 +69,12 @@ public class WorkNoteSentContext extends Context {
         return SPort;
     }
 
-    public void setOperator(String operator) {
+    public void setOperator(List<String> operator) {
         this.operator = operator;
     }
-
+    public void setOperator(String operator) {
+        this.operator = Arrays.asList(operator.split("|"));
+    }
     public void setWorkNoteNumber(String workNoteNumber) {
         this.workNoteNumber = workNoteNumber;
     }
@@ -81,4 +94,5 @@ public class WorkNoteSentContext extends Context {
     public void setPort(SPort[] SPort) {
         this.SPort = SPort;
     }
+
 }

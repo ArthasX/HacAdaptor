@@ -18,9 +18,9 @@ public class TestWorkNoteSocket {
     @Test
     public void testWorkNote(){
         logger.info("【开始】提交工单信息操作【开始】");
-        SPort p = new SPort("4091",Arrays.asList("4123","4124"));
-        IOperator iOperator =new WorkNoteOperation("slz","S20170701001"
-                ,"2017-07-01D08:30:00T","2017-07-31D08:30:00T"
+        SPort p = new SPort("10326",Arrays.asList("14383"));
+        IOperator iOperator =new WorkNoteOperation("liubin,slz,hxc","S20170701017"
+                ,"2017-07-01D08:30:01T","2018-07-31D08:30:00T"
                 ,"what the fuck",p);
         XMLDTO xmldto= iOperator.getXmldtoBack();
         Assert.assertNotNull(xmldto.getResult().getBackContext());

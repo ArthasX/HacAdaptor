@@ -64,7 +64,7 @@ public class ListenService implements Runnable {
             os.write(byteBuffer.array());
             os.flush();
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

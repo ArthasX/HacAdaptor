@@ -19,7 +19,7 @@ public class AccountServiceImpl extends BaseServiceImp<Account, Identity> implem
     AccountMapper accountMapper;
 
     @Override
-    public List<Account> getAccountsByGroupName(String groupName) {
+    public List<Account> getAccountsByGroupName(String groupName)throws Throwable {
         return accountMapper.getAccountsByGroupName(groupName);
     }
 }

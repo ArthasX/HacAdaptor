@@ -35,62 +35,19 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
     @Autowired
     private UserMappingServiceImpl userMappingService;
 
-    private List<SPort> getSPorts(String deviceId) {
-        Port p = new Port();
-        p.setDeviceId(deviceId);
-        List<Port> list = portService.fuzzySelect(p);
-        List<SPort> sPorts = new ArrayList<>();
-        for (Port port : list) {
-            SPort sPort = new SPort();
-            BeanUtils.copyProperties(port, sPort);
-            sPorts.add(sPort);
-        }
-        return sPorts;
-    }
 
-    private List<String> getAccountIds(String deviceId) {
-        Account a = new Account();
-        a.setDeviceId(deviceId);
-        List<Account> list = accountService.fuzzySelect(a);
-        List<String> accountIds = new ArrayList<>();
-        for (Account account : list) {
-            accountIds.add(account.getAccountId());
-        }
-        return accountIds;
-    }
-
-    private Result checkPortAccount(List<Port> ports, List<Account> accounts, String groupName) {
+    private Result checkPortAccount(List<? extends IBasePort> ports, String groupName) {
         Result result = new Result();
-        boolean checkAccount = true, checkPort = true;
-        if (ports.size() == 0)
-            checkPort = false;
-        if (accounts.size() == 0)
-            checkAccount = false;
-        if (!checkAccount || !checkPort) {
+        if (ports.size() == 0) {
             result.setErrorCode(1);
             result.setSuccess(false);
-            if (!checkAccount && !checkPort)
-                result.setErrorMessage("account、port都为空，请检查对应的系统[" + groupName + "]面设备资源是否齐全");
-            else if (!checkPort)
-                result.setErrorMessage("port为空，请检查对应的系统[" + groupName + "]面设备资源是否齐全");
-            else
-                result.setErrorMessage("account为空，请检查对应的系统[" + groupName + "]面设备资源是否齐全");
-        }
-        return result;
-    }
-
-    private Result checkPortAccount(List<SPort> sPorts, String groupName) {
-        Result result = new Result();
-        if (sPorts.size() == 0) {
-            result.setErrorCode(1);
-            result.setSuccess(false);
-            result.setErrorMessage("port为空，请检查对应的系统[" + groupName + "]面设备资源是否齐全");
+            result.setErrorMessage("port为空，请检查对应的系统[" + groupName + "]设备资源是否齐全");
             return result;
         } else {
-            for (SPort sPort : sPorts) {
-                if (sPort.getAccountId() == null || sPort.getAccountId().size() == 0) {
+            for (IBasePort port : ports) {
+                if (port.getAccountId() == null || port.getAccountId().size() == 0) {
                     result.setErrorMessage("[portId]:"
-                            + sPort.getPortId() + " 对应的account为空，请检查对应的系统["
+                            + port.getPortId() + " 对应的account为空，请检查对应的系统["
                             + groupName + "]设备资源是否齐全");
                     result.setErrorCode(1);
                     result.setSuccess(false);
@@ -100,6 +57,27 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
         return result;
     }
 
+//    private Result checkPortAccount(List<SPort> sPorts, String groupName) {
+//        Result result = new Result();
+//        if (sPorts.size() == 0) {
+//            result.setErrorCode(1);
+//            result.setSuccess(false);
+//            result.setErrorMessage("port为空，请检查对应的系统[" + groupName + "]设备资源是否齐全");
+//            return result;
+//        } else {
+//            for (SPort sPort : sPorts) {
+//                if (sPort.getAccountId() == null || sPort.getAccountId().size() == 0) {
+//                    result.setErrorMessage("[portId]:"
+//                            + sPort.getPortId() + " 对应的account为空，请检查对应的系统["
+//                            + groupName + "]设备资源是否齐全");
+//                    result.setErrorCode(1);
+//                    result.setSuccess(false);
+//                }
+//            }
+//        }
+//        return result;
+//    }
+
     /**
      * 提交紧急变更 通过传入的具体的prot account来提单子
      *
@@ -108,7 +86,7 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
      * @return
      */
     @Override
-    public Result submitEmergentWorkNote(WorkNote workNote, List<SPort> sPorts, List<String> groupNames) {
+    public Result submitEmergentWorkNote(WorkNote workNote, List<SPort> sPorts, List<String> groupNames) throws Throwable {
         logger.info("##紧急变更数据准备##：");
         Result result;
 
@@ -131,57 +109,57 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
      * @return
      */
     @Override
-    public Result submitNormalWorkNote(WorkNote workNote, List<String> groupNames) {
+    public Result submitNormalWorkNote(WorkNote workNote, List<String> groupNames) throws Throwable {
         logger.info("##常规变更数据准备##：");
         Result result;
+        List<Port> ports;
         List<SPort> sPorts = new ArrayList<>();
-        List<Port> ports = new ArrayList<>();
-        List<Account> accounts = new ArrayList<>();
-        List<String> accountId = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         for (String name : groupNames) {
-            //读取ports
-            ports = portService.getPortsByGroupName(name);
-            //读取accounts
-            accounts = accountService.getAccountsByGroupName(name);
+            ports = portService.getPortsAccountsByGroupName(name);
 
-            result = checkPortAccount(ports, accounts, name);
-            if (!result.isSuccess())
-                return result;
-            //将accountId加入list
-            for (Account account : accounts) {
-                accountId.add(account.getAccountId());
-            }
-            //将accountId加到每一个sport中,将sport加入list
             for (Port port : ports) {
                 SPort sport = new SPort();
                 BeanUtils.copyProperties(port, sport);
-                sport.setAccountId(accountId);
                 sPorts.add(sport);
             }
-            //清空accountid，以便重新使用。不能用.clear() 否则会导致sport中对应的都是空。。
-            accountId = new ArrayList<>();
-
+            result = checkPortAccount(sPorts, name);
+            if (!result.isSuccess())
+                return result;
             sb.append(name).append("|");
         }
+
         return submitWorkNote(workNote, sPorts, sb.toString(), "常规");
     }
 
 
-    private Result submitWorkNote(WorkNote workNote, List<SPort> sPorts, String groupName, String type) {
+    private Result submitWorkNote(WorkNote workNote, List<SPort> sPorts, String groupName, String type) throws Throwable {
         Result result;
         //TODO 这个要根据 工号和HAC中的操作员号码的映射关系获得了
-        String operator = userMappingService.getOperatorById(workNote.getOperator());
+        String[] ops = workNote.getOperator().split(",");
+        int opsCount = ops.length;
+        List<String> operator = new ArrayList<>();
+        for (String op : ops) {
+            String s = userMappingService.getOperatorById(op);
+            if (s != null || !s.equals("")) {
+                operator.add(s);
+            }
+        }
+        if (operator.size() != opsCount) {
+            result = Result.getFailureResult("传入的Operator执行人数量[" + opsCount + "]和映射表中所查询的数量[" + operator.size() + "]不一致");
+            return result;
+        }
         String workNoteNumber = workNote.getWorkNoteNumber();
         String startTime = workNote.getStartTime();
         String endTime = workNote.getEndTime();
         String reason = workNote.getReason();
-        logger.info("准备提交【"+type+"】变更工单: " + workNoteNumber + " 内容:" + reason);
+        logger.info("准备提交【" + type + "】变更工单: " + workNoteNumber + " 内容:" + reason);
         WorkNoteOperation workNoteOperator =
                 new WorkNoteOperation(operator, workNoteNumber, startTime, endTime, reason, sPorts);
         //获取返回结果
         XMLDTO xmldto = workNoteOperator.getXmldtoBack();
         result = Result.getResult(xmldto);
+//        System.out.println(xmldto.getErrorCode());
         if (xmldto.getErrorCode() == 0) {
             List<SWorkNote> list = (List<SWorkNote>) xmldto.getResult().getBackContext().getContextDetail();
             for (int i = 0; i < xmldto.getResultCount(); i++) {
@@ -196,7 +174,7 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
                 log.setOptDate(DateUtil.getYYYMMDD());
                 log.setStatus("open");
                 log.setWorkNoteType(type);
-                log.setRemark(operator);
+                log.setRemark(workNote.getOperator());
                 try {
                     logService.insert(log);
                 }
@@ -206,6 +184,7 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
                     logger.error("提交工单成功，但是log表写入失败: [workNoteNumber]" + workNoteNumber);
                     logger.equals(e.getMessage());
                 }
+
             }
         }
         logger.info(result.toJsonString());
@@ -219,14 +198,14 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
      * @return
      */
     @Override
-    public Result setWorkNote(String workNoteNumber) {
+    public Result setWorkNote(String workNoteNumber) throws Throwable {
         logger.info("开始关闭工单:" + workNoteNumber);
         Result result;
         SessionOperation sessionOperator = new SessionOperation(workNoteNumber);
         boolean closeable = sessionOperator.closeable();
         logger.info("工单是否可关闭：" + closeable);
         if (!closeable) {
-            result =new Result();
+            result = new Result();
             result.setErrorCode(1);
             result.setSuccess(false);
             result.setErrorMessage("无法关闭工单:" + workNoteNumber + "原因:" + sessionOperator.getCause());
@@ -244,5 +223,25 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
         return result;
     }
 
+    /**
+     * If errorCode = 0 ,it means closeable.
+     *
+     * @param workNoteNumber
+     * @return
+     */
+    @Override
+    public Result closeable(String workNoteNumber) throws Throwable {
+        logger.info("查询工单是否可关闭:" + workNoteNumber);
+        Result result = new Result();
+        SessionOperation sessionOperator = new SessionOperation(workNoteNumber);
+        boolean closeable = sessionOperator.closeable();
+        if (!closeable) {
+            result.setErrorCode(1);
+            result.setSuccess(false);
+            result.setErrorMessage("无法关闭工单:" + workNoteNumber + "原因:" + sessionOperator.getCause());
+            logger.info("无法关闭工单:" + workNoteNumber + "原因:" + sessionOperator.getCause());
+        }
+        return result;
+    }
 
 }

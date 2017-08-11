@@ -3,7 +3,7 @@ package com.openmind.hacadaptor.socket.xml.model.common;
 import java.nio.ByteBuffer;
 
 /**
- * The completed xml data to be sent to HAC
+ * The completed xml data template to be sent to HAC
  */
 public class XMLData {
     protected XMLHeader xmlHeader;

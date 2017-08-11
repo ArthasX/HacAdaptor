@@ -2,6 +2,7 @@ package com.openmind.hacadaptor.model;
 
 import com.openmind.hacadaptor.sqlutil.Column;
 import com.openmind.hacadaptor.sqlutil.Table;
+
 import java.util.List;
 
 /**
@@ -20,8 +21,8 @@ public class Device extends Identity {
     @Column("groupId")
     private String groupId;
 
-    private List<Port> portId;
-    private List<Account> accountId;
+    private List<Port> ports;
+    private List<Account> accounts;
 
     public Device() {
     }
@@ -97,19 +98,19 @@ public class Device extends Identity {
         this.groupId = groupId;
     }
 
-    public List<Port> getPortId() {
-        return portId;
+    public List<Port> getPorts() {
+        return ports;
     }
 
-    public void setPortId(List<Port> portId) {
-        this.portId = portId;
+    public void setPorts(List<Port> ports) {
+        this.ports = ports;
     }
 
-    public List<Account> getAccountId() {
-        return accountId;
+    public List<Account> getAccounts() {
+        return accounts;
     }
 
-    public void setAccountId(List<Account> accountId) {
-        this.accountId = accountId;
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
     }
 }

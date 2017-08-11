@@ -4,12 +4,33 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.openmind.hacadaptor.dao.PortMapper">
-    <resultMap id="port" type="com.openmind.hacadaptor.model.Port">
-
-
+    <resultMap id="sport" type="com.openmind.hacadaptor.model.Port">
+        <result property="portId" column="portid"/>
+        <result property="name" column="name"/>
+        <result property="protocol" column="protocol"/>
+        <collection property="accountId" resultMap="account"/>
     </resultMap>
+    <resultMap id="account" type="String">
+        <result property="accountId" column="accountid"/>
+    </resultMap>
+     
     <select id="getPortsByGroupName" parameterType="String" resultType="com.openmind.hacadaptor.model.Port">
         select p.* from port p,groups g,device d where g.groupname=#{groupName}
         and g.id=d.groupid and d.deviceid=p.deviceid
+    </select>
+
+
+    <select id="getPortsAccountsByGroupName" parameterType="String" resultMap="sport">
+        SELECT
+         p.portid
+        ,p.name
+        ,p.protocol
+        ,a.accountid
+        FROM DEVICE d
+        LEFT JOIN PORT p on p.deviceid=d.deviceid
+        LEFT JOIN ACCOUNT a on a.deviceid=d.deviceid
+        LEFT JOIN GROUPS g on g.id=d.groupid
+        WHERE
+        g.groupname=#{groupName}
     </select>
 </mapper>

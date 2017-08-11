@@ -3,11 +3,11 @@ package com.openmind.hacadaptor.socket.xml.model.common;
 /**
  * Created by LiuBin on 2017/7/4.
  */
-public interface IXMLBody<T extends IContext,B extends IContext> {
+public interface IXMLBody<S extends IContext,B extends IContext> {
     DocumentProperties getDocumentProperties();
 
-    T getSentContext();
-    void setSentContext(T sentContext);
+    S getSentContext();
+    void setSentContext(S sentContext);
 
     B getBackContext();
     void setBackContext(B backContext);

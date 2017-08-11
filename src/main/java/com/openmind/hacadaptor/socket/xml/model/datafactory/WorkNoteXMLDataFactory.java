@@ -11,6 +11,8 @@ import com.openmind.hacadaptor.socket.xml.model.worknote.WorkNoteStatusXMLBody;
 import com.openmind.hacadaptor.socket.xml.model.worknote.WorkNoteSentContext;
 import com.openmind.hacadaptor.socket.xml.model.worknote.WorkNoteSentXMLBody;
 
+import java.util.List;
+
 /**
  * Created by LiuBin on 2017/7/4.
  */
@@ -21,12 +23,37 @@ public class WorkNoteXMLDataFactory extends XMLDataFactory {
         init(operationType, body);
     }
 
+    /**
+     * 关闭工单用
+     * @param operationType
+     * @param workNoteNumber
+     */
     public WorkNoteXMLDataFactory(int operationType, String workNoteNumber) {
         WorkNoteStatusXMLBody workNoteStatusXMLBody = new WorkNoteStatusXMLBody();
         WorkNoteStatusSentContext workNoteStatusSentContext = new WorkNoteStatusSentContext();
         workNoteStatusSentContext.setWorkNoteNumber(workNoteNumber);
         workNoteStatusXMLBody.setSentContext(workNoteStatusSentContext);
         init(operationType, workNoteStatusXMLBody);
+    }
+
+    /**
+     * 提交工单用
+     * @param operationType
+     * @param operator
+     * @param workNoteNumber
+     * @param startTime
+     * @param endTime
+     * @param reason
+     * @param SPort
+     */
+    public WorkNoteXMLDataFactory(int operationType
+            , List<String> operator, String workNoteNumber
+            , String startTime, String endTime, String reason, SPort... SPort) {
+        WorkNoteSentXMLBody workNoteSentXMLBody = new WorkNoteSentXMLBody();
+        WorkNoteSentContext workNoteSentContext =
+                new WorkNoteSentContext(operator, workNoteNumber, startTime, endTime, reason, SPort);
+        workNoteSentXMLBody.setSentContext(workNoteSentContext);
+        init(operationType, workNoteSentXMLBody);
     }
 
     public WorkNoteXMLDataFactory(int operationType

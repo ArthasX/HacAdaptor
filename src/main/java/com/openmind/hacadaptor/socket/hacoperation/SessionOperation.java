@@ -15,7 +15,7 @@ import java.util.List;
 public class SessionOperation extends BaseOperation {
     static Logger logger = Logger.getLogger(SessionOperation.class);
     private XMLDTO xmldto;
-    private StringBuilder sessionSb = new StringBuilder();
+    private StringBuilder sessionSb;
     private List<SSession> sSessions;
 
     public SessionOperation(String workNoteNumber) {
@@ -41,16 +41,19 @@ public class SessionOperation extends BaseOperation {
     }
 
     public String getCause() {
+        if (sessionSb == null)
+            return "";
         return sessionSb.toString();
     }
 
     /**
      * Whether a work note can be closed.
-     * If a end date time is null,it means there is at least one alive session and the work note can't be closed.
+     * If a end-datetime is null or "" ,it means there is at least one alive session and the work note can't be closed.
      *
      * @return
      */
     public boolean closeable() {
+        sessionSb = new StringBuilder();
         boolean flag = true;
         List<SSession> sSessions = getsSessions();
         for (SSession sSession : sSessions) {

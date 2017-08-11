@@ -73,9 +73,6 @@ public class DeviceTmpServiceImpl extends BaseServiceImp<DeviceTmp, Identity> im
                                 accounts.add(account);
                             }
 
-                            //TODO 更新前清空devicetmp表
-                        int deleteCount=deviceTmpMapper.deleteAllDeviceTmp();
-                        logger.info("[清空DEVICETMP表]:"+deleteCount+"条数据");
                         devices.add(device);
                         logger.info("[FromHAC]:deviceId->" + device.getDeviceId());
                         countDevice = deviceTmpMapper.insert(device);
@@ -92,7 +89,7 @@ public class DeviceTmpServiceImpl extends BaseServiceImp<DeviceTmp, Identity> im
                     }
                 }
 
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 throw new RuntimeException(e);
             } finally {
                 totalDevice += countDevice;
@@ -109,12 +106,7 @@ public class DeviceTmpServiceImpl extends BaseServiceImp<DeviceTmp, Identity> im
     }
 
     @Override
-    public List<DeviceTmp> getNewDevices() {
+    public List<DeviceTmp> getNewDevices()throws Throwable {
         return deviceTmpMapper.getNewDevices();
-    }
-
-    @Override
-    public int deleteAllDeviceTmp() {
-        return deviceTmpMapper.deleteAllDeviceTmp();
     }
 }

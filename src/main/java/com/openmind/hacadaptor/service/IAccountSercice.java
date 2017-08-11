@@ -10,5 +10,5 @@ import java.util.List;
  * @version Created on 2017/7/17
  */
 public interface IAccountSercice extends IBaseService<Account,Identity> {
-    List<Account> getAccountsByGroupName(String groupName);
+    List<Account> getAccountsByGroupName(String groupName)throws Throwable;
 }

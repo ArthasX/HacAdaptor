@@ -73,7 +73,7 @@ public class TestController {
 
     @Test
     public void testWorkNoteStatus() throws Exception {
-        String url = "/worknote/worknotestatus/CXXXXXXXX1";
+        String url = "/worknote/worknotestatus/S20170701002";
         System.out.println(url);
         mockMvc.perform(put(url))
                 //.param("workNoteNumber", "12345"))
@@ -96,14 +96,15 @@ public class TestController {
     public void testSubmitNormalWorkNote() throws Exception {
         String url = "/worknote/normal";
         WorkNote workNote = new WorkNote();
-        workNote.setWorkNoteNumber("CXXXXXXXX");
-        workNote.setOperator("001064");
+        workNote.setWorkNoteNumber("S201707010444");
+        workNote.setOperator("001064,001455");
         workNote.setReason("fuck");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'D'HH:mm:ss'T'");
         workNote.setStartTime(sdf.format(new Date()));
-        workNote.setEndTime(sdf.format(new Date()));
+        workNote.setEndTime("2018-01-01D00:00:00T");
         List<String> groupNames = new ArrayList<>();
         groupNames.add("核心账务系统");
+        groupNames.add("电子账户系统");
         JSONObject jjj = new JSONObject();
         jjj.put("groupname", groupNames);
         jjj.put("workNote", workNote);
@@ -120,18 +121,18 @@ public class TestController {
     public void testSubmiEmergentWorkNote() throws Exception {
         String url = "/worknote/emergent";
         WorkNote workNote = new WorkNote();
-        workNote.setWorkNoteNumber("CXXXXXXXX");
-        workNote.setOperator("001064");
+        workNote.setWorkNoteNumber("S2017070111111");
+        workNote.setOperator("001064,001455");
         workNote.setReason("fuck");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'D'HH:mm:ss'T'");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         workNote.setStartTime(sdf.format(new Date()));
-        workNote.setEndTime(sdf.format(new Date()));
+        workNote.setEndTime("2018-01-01 00:00:00");
         List<String> groupNames = new ArrayList<>();
-        groupNames.add("核心账务系统");
+        groupNames.add("核心系统");
         List<String> accountId = new ArrayList<>();
-        accountId.add("12345");
+        accountId.add("13358");
         SPort sPort = new SPort();
-        sPort.setPortId("1");
+        sPort.setPortId("8133");
         sPort.setAccountId(accountId);
         List<SPort> ports = new ArrayList<>();
         ports.add(sPort);
@@ -187,15 +188,16 @@ public class TestController {
 
     @Test
     public void testDeviceWithPortAccount() throws Exception {
-        String url = "/devices/group/核心账务系统";
-        mockMvc.perform(get(url).characterEncoding("UTF-8"))
+        String url = "/devices/group/电子账户系统";
+        mockMvc.perform(get(url))//.characterEncoding("UTF-8"))
+
                 .andExpect(status().isOk())
                 .andDo(print());
     }
 
 
     @Test
-    public void testGetNewDevices() throws Exception {
+    public void testGetNewDevices()throws Exception {
         String url = "/devices/3/group/1";
         mockMvc.perform(put(url).characterEncoding("UTF-8"))
                 .andExpect(status().isOk())
@@ -203,10 +205,21 @@ public class TestController {
     }
 
     @Test
-    public void testSetGroup() throws Exception {
+    public void testSetGroup() throws  Exception{
         String url = "/devices/new";
-        mockMvc.perform(put(url)
-                .characterEncoding("UTF-8"))
+        mockMvc.perform(get(url)
+                .characterEncoding("UTF-8")
+        )
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @Test
+    public void testCloseable() throws  Exception{
+        String url = "/worknote/closeable/S2017070111111";
+        mockMvc.perform(get(url)
+                .characterEncoding("UTF-8")
+        )
                 .andExpect(status().isOk())
                 .andDo(print());
     }

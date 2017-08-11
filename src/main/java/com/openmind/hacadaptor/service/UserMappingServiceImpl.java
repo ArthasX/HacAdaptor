@@ -19,7 +19,7 @@ public class UserMappingServiceImpl extends BaseServiceImp<UserMapping, Identity
     UMMapper umMapper;
 
     @Override
-    public String getOperatorById(String id) {
+    public String getOperatorById(String id)throws Throwable {
         return umMapper.getOperatorById(id);
     }
 }

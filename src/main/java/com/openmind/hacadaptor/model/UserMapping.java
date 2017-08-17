@@ -3,6 +3,7 @@ package com.openmind.hacadaptor.model;
 import com.openmind.hacadaptor.sqlutil.Column;
 import com.openmind.hacadaptor.sqlutil.Table;
 
+import java.awt.event.ItemEvent;
 import java.io.Serializable;
 
 /**
@@ -10,7 +11,7 @@ import java.io.Serializable;
  * @version Created on 2017/7/18
  */
 @Table("USERMAPPING")
-public class UserMapping implements Serializable{
+public class UserMapping  implements Serializable{
     @Column("operator")
     String operator;
     @Column("name")

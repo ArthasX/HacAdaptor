@@ -3,10 +3,7 @@ package com.openmind.hacadaptor.mvc;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.openmind.hacadaptor.model.Account;
-import com.openmind.hacadaptor.model.Device;
-import com.openmind.hacadaptor.model.Port;
-import com.openmind.hacadaptor.model.WorkNote;
+import com.openmind.hacadaptor.model.*;
 import com.openmind.hacadaptor.socket.xml.model.devices.SPort;
 import org.junit.Before;
 import org.junit.Test;
@@ -217,6 +214,33 @@ public class TestController {
     @Test
     public void testCloseable() throws  Exception{
         String url = "/worknote/closeable/S2017070111111";
+        mockMvc.perform(get(url)
+                .characterEncoding("UTF-8")
+        )
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+
+    @Test
+    public void testGroup() throws Exception{
+        String url="/groups/";
+        Group group = new Group();
+        group.setId(1111);
+        group.setGroupName("xxxxx");
+        String  s =JSON.toJSONString(group);
+        mockMvc.perform(post(url)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(s)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+
+    @Test
+    public void testLog() throws Exception{
+        String url="/logs/";
         mockMvc.perform(get(url)
                 .characterEncoding("UTF-8")
         )

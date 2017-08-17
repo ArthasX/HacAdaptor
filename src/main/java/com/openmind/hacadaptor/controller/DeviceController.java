@@ -68,7 +68,6 @@ public class DeviceController {
     /**
      * @return all the devices
      */
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
     public Result getDevices() {
@@ -120,7 +119,7 @@ public class DeviceController {
         try {
             if (deviceService.insert(device) <= 0) {
                 result.setSuccess(false);
-                result.setMessage("更新0条数据");
+                result.setMessage("插入0条数据");
             }
         } catch (Throwable e) {
             logger.error(e.getMessage());

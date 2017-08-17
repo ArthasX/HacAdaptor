@@ -27,7 +27,7 @@ public class Result {
 
     public static Result getResult(XMLDTO xmldto) {
         Result result = new Result();
-        result.setErrorCode(result.getErrorCode());
+        result.setErrorCode(xmldto.getErrorCode());
         if (xmldto.getErrorCode() != 0) {
             result.setSuccess(false);
             result.setErrorMessage(xmldto.getErrorMessage());
@@ -49,7 +49,7 @@ public class Result {
     public static Result getErrResult(Throwable t) {
         Result result = new Result();
         result.setErrorCode(1);
-        result.setErrorMessage(t.getMessage());
+        result.setErrorMessage(t.getClass().toString());
         result.setSuccess(false);
         return result;
     }

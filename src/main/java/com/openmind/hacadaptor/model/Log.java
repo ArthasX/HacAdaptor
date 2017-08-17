@@ -7,7 +7,7 @@ import com.openmind.hacadaptor.sqlutil.Table;
  * Created by LiuBin on 2017/6/27.
  */
 @Table("LOG")
-public class Log extends Identity {
+public class  Log extends Identity {
 
     @Column("worknoteid")
     private String workNoteId;

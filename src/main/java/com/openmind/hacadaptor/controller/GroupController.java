@@ -1,12 +1,11 @@
 package com.openmind.hacadaptor.controller;
 
-import com.openmind.hacadaptor.model.Device;
 import com.openmind.hacadaptor.model.Group;
-import com.openmind.hacadaptor.model.Result;
 import com.openmind.hacadaptor.service.IGroupService;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author LiuBin
@@ -15,9 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/groups")
-public class GroupController extends BaseController<IGroupService,Group> {
-
-    Logger logger = Logger.getLogger(GroupController.class);
+public class GroupController extends BaseController<IGroupService, Group> {
+//    Logger logger = Logger.getLogger(GroupController.class);
 //    @Autowired
 //    private IGroupService groupService;
 

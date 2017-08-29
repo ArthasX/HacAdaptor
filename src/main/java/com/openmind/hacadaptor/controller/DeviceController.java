@@ -84,17 +84,17 @@ public class DeviceController {
     }
 
     /**
-     * update a device
      *
-     * @param deviceId
+     * @param id
+     * @param device
      * @return
      */
-    @RequestMapping(value = "/{deviceId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public Result updateDevice(@PathVariable("deviceId") String deviceId, @RequestBody Device device) {
+    public Result updateDevice(@PathVariable("id") long id, @RequestBody Device device) {
         Result result = new Result();
         try {
-            device.setDeviceId(deviceId);
+            device.setId(id);
             if (deviceService.update(device) <= 0) {
                 result.setSuccess(false);
                 result.setMessage("更新0条数据");

@@ -1,7 +1,6 @@
 package com.openmind.hacadaptor.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.openmind.hacadaptor.model.Device;
 import com.openmind.hacadaptor.model.Identity;
 import com.openmind.hacadaptor.model.Result;
 import com.openmind.hacadaptor.service.IBaseService;
@@ -16,13 +15,16 @@ import java.lang.reflect.Type;
 /**
  * @author LiuBin
  * @version Created on 2017/8/14
+ *
+ * @param <S> service
+ * @param <M> model
  */
 @SuppressWarnings("unchecked")
-public class BaseController<S extends IBaseService,M extends Serializable>  {
+public class BaseController<S extends IBaseService,M extends Serializable> implements IBaseController {
     Logger logger = Logger.getLogger(BaseController.class);
 
     @Autowired
-    private S service;
+    protected S service;
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -64,10 +66,10 @@ public class BaseController<S extends IBaseService,M extends Serializable>  {
         Result result = new Result();
         try {
             Identity m =(Identity) object.toJavaObject(getModelClass());
-            m.setId(id);
+//            m.setId(id);
             if (service.update(m) <= 0) {
                 result.setSuccess(false);
-                result.setMessage("更新0条数据");
+                result.setErrorMessage("更新0条数据");
             }
         } catch (Throwable e) {
             logger.error(e.getMessage());
@@ -85,7 +87,7 @@ public class BaseController<S extends IBaseService,M extends Serializable>  {
             Serializable m =(Serializable) object.toJavaObject(getModelClass());
             if (service.insert(m) <= 0) {
                 result.setSuccess(false);
-                result.setMessage("插入0条数据");
+                result.setErrorMessage("插入0条数据");
             }
         } catch (Throwable e) {
             logger.error(e.getMessage());

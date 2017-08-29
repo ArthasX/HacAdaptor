@@ -1,0 +1,75 @@
+CREATE TABLE account
+(
+    id BIGINT(20) PRIMARY KEY NOT NULL,
+    accountid VARCHAR(10),
+    name VARCHAR(20),
+    manageaccount VARCHAR(10),
+    accounttype VARCHAR(1),
+    deviceid VARCHAR(10),
+    CONSTRAINT account_ibfk_2 FOREIGN KEY (accounttype) REFERENCES act_type (value),
+    CONSTRAINT account_ibfk_1 FOREIGN KEY (deviceid) REFERENCES devicetmp (deviceid)
+);
+CREATE INDEX fk_account_type_value ON account (accounttype);
+CREATE INDEX fk_device_id ON account (deviceid);
+CREATE TABLE act_type
+(
+    id BIGINT(20) PRIMARY KEY NOT NULL,
+    value VARCHAR(10),
+    name VARCHAR(10)
+);
+CREATE INDEX act_type_value_idx ON act_type (value);
+CREATE TABLE device
+(
+    id BIGINT(20) PRIMARY KEY NOT NULL,
+    deviceid VARCHAR(10),
+    devicename VARCHAR(50),
+    ipaddress VARCHAR(15),
+    groupid INT(11)
+);
+CREATE INDEX device_id_idx ON device (deviceid);
+CREATE TABLE devicetmp
+(
+    id BIGINT(20) PRIMARY KEY NOT NULL,
+    deviceid VARCHAR(10),
+    devicename VARCHAR(50),
+    ipaddress VARCHAR(15),
+    groupId INT(11)
+);
+CREATE INDEX device_id_idx ON devicetmp (deviceid);
+CREATE TABLE groups
+(
+    id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    groupname VARCHAR(50) COMMENT '系统名称'
+);
+CREATE TABLE log
+(
+    id BIGINT(20) PRIMARY KEY NOT NULL,
+    worknoteid VARCHAR(15),
+    worknotenumber VARCHAR(15),
+    groupname VARCHAR(500),
+    ip VARCHAR(15),
+    content VARCHAR(100),
+    optdate VARCHAR(10),
+    remark VARCHAR(100),
+    starttime VARCHAR(20),
+    endtime VARCHAR(20),
+    status VARCHAR(10),
+    closedate VARCHAR(10),
+    worknotetype VARCHAR(6)
+);
+CREATE TABLE port
+(
+    id BIGINT(20) PRIMARY KEY NOT NULL,
+    portid VARCHAR(10),
+    name VARCHAR(10),
+    protocol VARCHAR(10),
+    deviceid VARCHAR(10),
+    CONSTRAINT port_ibfk_1 FOREIGN KEY (deviceid) REFERENCES devicetmp (deviceid) ON UPDATE CASCADE
+);
+CREATE INDEX fk_device_id ON port (deviceid);
+CREATE TABLE usermapping
+(
+    id VARCHAR(6),
+    operator VARCHAR(20),
+    name VARCHAR(10)
+);

@@ -5,10 +5,11 @@ import com.openmind.hacadaptor.socket.xml.model.common.XMLDTO;
 import com.openmind.hacadaptor.sqlutil.MysqlErrTranslator;
 
 /**
- * controller的返回值
+ * The return value of controller. Work as DTO.
  *
  * @author LiuBin
  * @version Created on 2017/7/11
+ *
  */
 public class Result {
     Object data;

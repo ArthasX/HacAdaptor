@@ -1,0 +1,1113 @@
+{
+    "data": [
+        {
+            "id": 583470829954662400,
+            "deviceId": "11117",
+            "deviceName": "开发运维专用-核心组",
+            "ipAddress": "10.13.131.27",
+            "groupId": "1",
+            "ports": [
+                {
+                    "id": 584637312336396300,
+                    "portId": "11118",
+                    "name": "3389",
+                    "protocol": "RDP",
+                    "deviceId": "11117",
+                    "accountId": null
+                }
+            ],
+            "accounts": [
+                {
+                    "id": 584637312336396300,
+                    "accountId": "13741",
+                    "name": "hexin",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "11117"
+                }
+            ]
+        },
+        {
+            "id": 583470809687785500,
+            "deviceId": "7771",
+            "deviceName": "常熟核心主机",
+            "ipAddress": "10.11.1.1",
+            "groupId": "1",
+            "ports": [
+                {
+                    "id": 584637302265872400,
+                    "portId": "7772",
+                    "name": "22",
+                    "protocol": "SSH",
+                    "deviceId": "7771",
+                    "accountId": null
+                }
+            ],
+            "accounts": [
+                {
+                    "id": 584637302265872400,
+                    "accountId": "12901",
+                    "name": "cyccall",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7771"
+                },
+                {
+                    "id": 584637302265872400,
+                    "accountId": "12903",
+                    "name": "watch",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7771"
+                }
+            ]
+        },
+        {
+            "id": 583470814163107800,
+            "deviceId": "7825",
+            "deviceName": "核心账务系统-武汉验证",
+            "ipAddress": "190.100.100.110",
+            "groupId": "1",
+            "ports": [
+                {
+                    "id": 584637304941838300,
+                    "portId": "7826",
+                    "name": "22",
+                    "protocol": "SSH",
+                    "deviceId": "7825",
+                    "accountId": null
+                },
+                {
+                    "id": 584637304941838300,
+                    "portId": "7827",
+                    "name": "22",
+                    "protocol": "SFTP",
+                    "deviceId": "7825",
+                    "accountId": null
+                }
+            ],
+            "accounts": [
+                {
+                    "id": 584637304941838300,
+                    "accountId": "15338",
+                    "name": "db2irun",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7825"
+                },
+                {
+                    "id": 584637304941838300,
+                    "accountId": "15339",
+                    "name": "root",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7825"
+                },
+                {
+                    "id": 584637304941838300,
+                    "accountId": "15340",
+                    "name": "sudoroot",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7825"
+                },
+                {
+                    "id": 584637304941838300,
+                    "accountId": "15341",
+                    "name": "view",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7825"
+                }
+            ]
+        },
+        {
+            "id": 583470814129553400,
+            "deviceId": "7829",
+            "deviceName": "核心账务系统-武汉容灾",
+            "ipAddress": "10.200.1.1",
+            "groupId": "1",
+            "ports": [
+                {
+                    "id": 584637304887312400,
+                    "portId": "7830",
+                    "name": "22",
+                    "protocol": "SSH",
+                    "deviceId": "7829",
+                    "accountId": null
+                },
+                {
+                    "id": 584637304887312400,
+                    "portId": "7831",
+                    "name": "22",
+                    "protocol": "SFTP",
+                    "deviceId": "7829",
+                    "accountId": null
+                }
+            ],
+            "accounts": [
+                {
+                    "id": 584637304887312400,
+                    "accountId": "14413",
+                    "name": "db2irun",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7829"
+                },
+                {
+                    "id": 584637304887312400,
+                    "accountId": "14415",
+                    "name": "root",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7829"
+                },
+                {
+                    "id": 584637304887312400,
+                    "accountId": "14416",
+                    "name": "sudoroot",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7829"
+                },
+                {
+                    "id": 584637304887312400,
+                    "accountId": "14417",
+                    "name": "view",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7829"
+                }
+            ]
+        },
+        {
+            "id": 583470814091804700,
+            "deviceId": "7833",
+            "deviceName": "核心账务系统-导数",
+            "ipAddress": "10.11.1.27",
+            "groupId": "1",
+            "ports": [
+                {
+                    "id": 584637304862146600,
+                    "portId": "7834",
+                    "name": "22",
+                    "protocol": "SSH",
+                    "deviceId": "7833",
+                    "accountId": null
+                },
+                {
+                    "id": 584637304862146600,
+                    "portId": "7835",
+                    "name": "22",
+                    "protocol": "SFTP",
+                    "deviceId": "7833",
+                    "accountId": null
+                }
+            ],
+            "accounts": [
+                {
+                    "id": 584637304862146600,
+                    "accountId": "12943",
+                    "name": "csrcb",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7833"
+                },
+                {
+                    "id": 584637304862146600,
+                    "accountId": "12944",
+                    "name": "db2iread",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7833"
+                },
+                {
+                    "id": 584637304862146600,
+                    "accountId": "12945",
+                    "name": "root",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7833"
+                },
+                {
+                    "id": 584637304862146600,
+                    "accountId": "12946",
+                    "name": "sudoroot",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7833"
+                },
+                {
+                    "id": 584637304862146600,
+                    "accountId": "12947",
+                    "name": "view",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7833"
+                }
+            ]
+        },
+        {
+            "id": 583470814054056000,
+            "deviceId": "7837",
+            "deviceName": "核心账务系统-DB-主",
+            "ipAddress": "10.11.1.23",
+            "groupId": "1",
+            "ports": [
+                {
+                    "id": 584637304845369300,
+                    "portId": "7838",
+                    "name": "22",
+                    "protocol": "SSH",
+                    "deviceId": "7837",
+                    "accountId": null
+                },
+                {
+                    "id": 584637304845369300,
+                    "portId": "7839",
+                    "name": "22",
+                    "protocol": "SFTP",
+                    "deviceId": "7837",
+                    "accountId": null
+                }
+            ],
+            "accounts": [
+                {
+                    "id": 584637304845369300,
+                    "accountId": "12930",
+                    "name": "csrcb",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7837"
+                },
+                {
+                    "id": 584637304845369300,
+                    "accountId": "12931",
+                    "name": "root",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7837"
+                },
+                {
+                    "id": 584637304845369300,
+                    "accountId": "12932",
+                    "name": "sudoroot",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7837"
+                },
+                {
+                    "id": 584637304845369300,
+                    "accountId": "12933",
+                    "name": "view",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7837"
+                }
+            ]
+        },
+        {
+            "id": 583470814020501500,
+            "deviceId": "7841",
+            "deviceName": "核心账务系统-DB-容灾",
+            "ipAddress": "10.11.1.123",
+            "groupId": "1",
+            "ports": [
+                {
+                    "id": 584637304828592100,
+                    "portId": "7842",
+                    "name": "22",
+                    "protocol": "SSH",
+                    "deviceId": "7841",
+                    "accountId": null
+                },
+                {
+                    "id": 584637304828592100,
+                    "portId": "7843",
+                    "name": "22",
+                    "protocol": "SFTP",
+                    "deviceId": "7841",
+                    "accountId": null
+                }
+            ],
+            "accounts": [
+                {
+                    "id": 584637304828592100,
+                    "accountId": "12912",
+                    "name": "root",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7841"
+                },
+                {
+                    "id": 584637304828592100,
+                    "accountId": "12913",
+                    "name": "sudoroot",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7841"
+                },
+                {
+                    "id": 584637304828592100,
+                    "accountId": "12914",
+                    "name": "view",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7841"
+                }
+            ]
+        },
+        {
+            "id": 583470813982752800,
+            "deviceId": "7845",
+            "deviceName": "核心账务系统-DB-备",
+            "ipAddress": "10.11.1.24",
+            "groupId": "1",
+            "ports": [
+                {
+                    "id": 584637304807620600,
+                    "portId": "7846",
+                    "name": "22",
+                    "protocol": "SSH",
+                    "deviceId": "7845",
+                    "accountId": null
+                },
+                {
+                    "id": 584637304807620600,
+                    "portId": "7847",
+                    "name": "22",
+                    "protocol": "SFTP",
+                    "deviceId": "7845",
+                    "accountId": null
+                }
+            ],
+            "accounts": [
+                {
+                    "id": 584637304807620600,
+                    "accountId": "12934",
+                    "name": "csrcb",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7845"
+                },
+                {
+                    "id": 584637304807620600,
+                    "accountId": "12935",
+                    "name": "root",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7845"
+                },
+                {
+                    "id": 584637304807620600,
+                    "accountId": "12936",
+                    "name": "sudoroot",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7845"
+                },
+                {
+                    "id": 584637304807620600,
+                    "accountId": "12937",
+                    "name": "view",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7845"
+                }
+            ]
+        },
+        {
+            "id": 583470813949198300,
+            "deviceId": "7849",
+            "deviceName": "核心账务系统-APP-主",
+            "ipAddress": "10.11.1.21",
+            "groupId": "1",
+            "ports": [
+                {
+                    "id": 584637304790843400,
+                    "portId": "7850",
+                    "name": "22",
+                    "protocol": "SSH",
+                    "deviceId": "7849",
+                    "accountId": null
+                },
+                {
+                    "id": 584637304790843400,
+                    "portId": "7851",
+                    "name": "22",
+                    "protocol": "SFTP",
+                    "deviceId": "7849",
+                    "accountId": null
+                }
+            ],
+            "accounts": [
+                {
+                    "id": 584637304790843400,
+                    "accountId": "12915",
+                    "name": "csrcb",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7849"
+                },
+                {
+                    "id": 584637304790843400,
+                    "accountId": "12916",
+                    "name": "cyccall",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7849"
+                },
+                {
+                    "id": 584637304790843400,
+                    "accountId": "12917",
+                    "name": "db2iread",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7849"
+                },
+                {
+                    "id": 584637304790843400,
+                    "accountId": "12919",
+                    "name": "root",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7849"
+                },
+                {
+                    "id": 584637304790843400,
+                    "accountId": "12920",
+                    "name": "sudoroot",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7849"
+                },
+                {
+                    "id": 584637304790843400,
+                    "accountId": "12921",
+                    "name": "view",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7849"
+                },
+                {
+                    "id": 584637304790843400,
+                    "accountId": "12922",
+                    "name": "watch",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7849"
+                }
+            ]
+        },
+        {
+            "id": 583470813919838200,
+            "deviceId": "7853",
+            "deviceName": "核心账务系统-APP-备",
+            "ipAddress": "10.11.1.22",
+            "groupId": "1",
+            "ports": [
+                {
+                    "id": 584637304761483300,
+                    "portId": "7854",
+                    "name": "22",
+                    "protocol": "SSH",
+                    "deviceId": "7853",
+                    "accountId": null
+                },
+                {
+                    "id": 584637304761483300,
+                    "portId": "7855",
+                    "name": "22",
+                    "protocol": "SFTP",
+                    "deviceId": "7853",
+                    "accountId": null
+                }
+            ],
+            "accounts": [
+                {
+                    "id": 584637304761483300,
+                    "accountId": "12923",
+                    "name": "csrcb",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7853"
+                },
+                {
+                    "id": 584637304761483300,
+                    "accountId": "12924",
+                    "name": "cyccall",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7853"
+                },
+                {
+                    "id": 584637304761483300,
+                    "accountId": "12925",
+                    "name": "db2iread",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7853"
+                },
+                {
+                    "id": 584637304761483300,
+                    "accountId": "12926",
+                    "name": "root",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7853"
+                },
+                {
+                    "id": 584637304761483300,
+                    "accountId": "12927",
+                    "name": "sudoroot",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7853"
+                },
+                {
+                    "id": 584637304761483300,
+                    "accountId": "12928",
+                    "name": "view",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7853"
+                },
+                {
+                    "id": 584637304761483300,
+                    "accountId": "12929",
+                    "name": "watch",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7853"
+                }
+            ]
+        },
+        {
+            "id": 583470813890478100,
+            "deviceId": "7857",
+            "deviceName": "核心账务系统-历史DB",
+            "ipAddress": "10.11.1.26",
+            "groupId": "1",
+            "ports": [
+                {
+                    "id": 584637304748900400,
+                    "portId": "7858",
+                    "name": "22",
+                    "protocol": "SSH",
+                    "deviceId": "7857",
+                    "accountId": null
+                },
+                {
+                    "id": 584637304748900400,
+                    "portId": "7859",
+                    "name": "22",
+                    "protocol": "SFTP",
+                    "deviceId": "7857",
+                    "accountId": null
+                }
+            ],
+            "accounts": [
+                {
+                    "id": 584637304748900400,
+                    "accountId": "12938",
+                    "name": "csrcb",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7857"
+                },
+                {
+                    "id": 584637304748900400,
+                    "accountId": "12939",
+                    "name": "db2iread",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7857"
+                },
+                {
+                    "id": 584637304748900400,
+                    "accountId": "12940",
+                    "name": "root",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7857"
+                },
+                {
+                    "id": 584637304748900400,
+                    "accountId": "12941",
+                    "name": "sudoroot",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7857"
+                },
+                {
+                    "id": 584637304748900400,
+                    "accountId": "12942",
+                    "name": "view",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7857"
+                }
+            ]
+        },
+        {
+            "id": 583470813856923600,
+            "deviceId": "7861",
+            "deviceName": "核心账务系统-APP-容灾",
+            "ipAddress": "10.11.1.121",
+            "groupId": "1",
+            "ports": [
+                {
+                    "id": 584637304736317400,
+                    "portId": "7862",
+                    "name": "22",
+                    "protocol": "SSH",
+                    "deviceId": "7861",
+                    "accountId": null
+                },
+                {
+                    "id": 584637304736317400,
+                    "portId": "7863",
+                    "name": "22",
+                    "protocol": "SFTP",
+                    "deviceId": "7861",
+                    "accountId": null
+                }
+            ],
+            "accounts": [
+                {
+                    "id": 584637304736317400,
+                    "accountId": "12905",
+                    "name": "csrcb",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7861"
+                },
+                {
+                    "id": 584637304736317400,
+                    "accountId": "12907",
+                    "name": "root",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7861"
+                },
+                {
+                    "id": 584637304736317400,
+                    "accountId": "12908",
+                    "name": "sudoroot",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7861"
+                },
+                {
+                    "id": 584637304736317400,
+                    "accountId": "12910",
+                    "name": "view",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "7861"
+                }
+            ]
+        },
+        {
+            "id": 583470810094633000,
+            "deviceId": "8064",
+            "deviceName": "村镇银行新核心（主）",
+            "ipAddress": "10.11.224.21",
+            "groupId": "1",
+            "ports": [
+                {
+                    "id": 584637302513336300,
+                    "portId": "8065",
+                    "name": "22",
+                    "protocol": "SSH",
+                    "deviceId": "8064",
+                    "accountId": null
+                },
+                {
+                    "id": 584637302513336300,
+                    "portId": "8066",
+                    "name": "22",
+                    "protocol": "SFTP",
+                    "deviceId": "8064",
+                    "accountId": null
+                }
+            ],
+            "accounts": [
+                {
+                    "id": 584637302513336300,
+                    "accountId": "12985",
+                    "name": "czcall",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8064"
+                },
+                {
+                    "id": 584637302513336300,
+                    "accountId": "12986",
+                    "name": "czcb",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8064"
+                },
+                {
+                    "id": 584637302513336300,
+                    "accountId": "12987",
+                    "name": "czwatch",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8064"
+                },
+                {
+                    "id": 584637302513336300,
+                    "accountId": "12988",
+                    "name": "root",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8064"
+                },
+                {
+                    "id": 584637302513336300,
+                    "accountId": "12989",
+                    "name": "sudoroot",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8064"
+                },
+                {
+                    "id": 584637302513336300,
+                    "accountId": "12990",
+                    "name": "view",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8064"
+                }
+            ]
+        },
+        {
+            "id": 583470810061078500,
+            "deviceId": "8068",
+            "deviceName": "村镇银行新核心（备）",
+            "ipAddress": "10.11.224.121",
+            "groupId": "1",
+            "ports": [
+                {
+                    "id": 584637302496559100,
+                    "portId": "8069",
+                    "name": "22",
+                    "protocol": "SSH",
+                    "deviceId": "8068",
+                    "accountId": null
+                },
+                {
+                    "id": 584637302496559100,
+                    "portId": "8070",
+                    "name": "22",
+                    "protocol": "SFTP",
+                    "deviceId": "8068",
+                    "accountId": null
+                }
+            ],
+            "accounts": [
+                {
+                    "id": 584637302496559100,
+                    "accountId": "12978",
+                    "name": "czcall",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8068"
+                },
+                {
+                    "id": 584637302496559100,
+                    "accountId": "12979",
+                    "name": "czcb",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8068"
+                },
+                {
+                    "id": 584637302496559100,
+                    "accountId": "12981",
+                    "name": "czwatch",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8068"
+                },
+                {
+                    "id": 584637302496559100,
+                    "accountId": "12982",
+                    "name": "root",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8068"
+                },
+                {
+                    "id": 584637302496559100,
+                    "accountId": "12983",
+                    "name": "sudoroot",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8068"
+                },
+                {
+                    "id": 584637302496559100,
+                    "accountId": "12984",
+                    "name": "view",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8068"
+                }
+            ]
+        },
+        {
+            "id": 583470809746505700,
+            "deviceId": "8184",
+            "deviceName": "核心模拟跑批1",
+            "ipAddress": "170.100.140.141",
+            "groupId": "1",
+            "ports": [
+                {
+                    "id": 584637302299426800,
+                    "portId": "8185",
+                    "name": "22",
+                    "protocol": "SSH",
+                    "deviceId": "8184",
+                    "accountId": null
+                },
+                {
+                    "id": 584637302299426800,
+                    "portId": "8186",
+                    "name": "22",
+                    "protocol": "SFTP",
+                    "deviceId": "8184",
+                    "accountId": null
+                }
+            ],
+            "accounts": [
+                {
+                    "id": 584637302299426800,
+                    "accountId": "15311",
+                    "name": "csrcb",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8184"
+                },
+                {
+                    "id": 584637302299426800,
+                    "accountId": "15312",
+                    "name": "root",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8184"
+                },
+                {
+                    "id": 584637302299426800,
+                    "accountId": "15313",
+                    "name": "view",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8184"
+                }
+            ]
+        },
+        {
+            "id": 583470809717145600,
+            "deviceId": "8188",
+            "deviceName": "核心模拟跑批2",
+            "ipAddress": "170.100.140.143",
+            "groupId": "1",
+            "ports": [
+                {
+                    "id": 584637302278455300,
+                    "portId": "8189",
+                    "name": "22",
+                    "protocol": "SSH",
+                    "deviceId": "8188",
+                    "accountId": null
+                },
+                {
+                    "id": 584637302278455300,
+                    "portId": "8190",
+                    "name": "22",
+                    "protocol": "SFTP",
+                    "deviceId": "8188",
+                    "accountId": null
+                }
+            ],
+            "accounts": [
+                {
+                    "id": 584637302278455300,
+                    "accountId": "15314",
+                    "name": "csrcb",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8188"
+                },
+                {
+                    "id": 584637302278455300,
+                    "accountId": "15315",
+                    "name": "root",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8188"
+                }
+            ]
+        },
+        {
+            "id": 583470813831757800,
+            "deviceId": "8192",
+            "deviceName": "核心跑批测试24",
+            "ipAddress": "170.100.110.24",
+            "groupId": "1",
+            "ports": [
+                {
+                    "id": 584637304719540200,
+                    "portId": "8193",
+                    "name": "22",
+                    "protocol": "SSH",
+                    "deviceId": "8192",
+                    "accountId": null
+                },
+                {
+                    "id": 584637304719540200,
+                    "portId": "8194",
+                    "name": "22",
+                    "protocol": "SFTP",
+                    "deviceId": "8192",
+                    "accountId": null
+                }
+            ],
+            "accounts": [
+                {
+                    "id": 584637304719540200,
+                    "accountId": "15308",
+                    "name": "csrcb",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8192"
+                },
+                {
+                    "id": 584637304719540200,
+                    "accountId": "15309",
+                    "name": "db2irun",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8192"
+                },
+                {
+                    "id": 584637304719540200,
+                    "accountId": "15310",
+                    "name": "root",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8192"
+                }
+            ]
+        },
+        {
+            "id": 583470813798203400,
+            "deviceId": "8212",
+            "deviceName": "核心历史系统（临时）",
+            "ipAddress": "160.100.212.65",
+            "groupId": "1",
+            "ports": [
+                {
+                    "id": 584637304702763000,
+                    "portId": "8213",
+                    "name": "22",
+                    "protocol": "SSH",
+                    "deviceId": "8212",
+                    "accountId": null
+                },
+                {
+                    "id": 584637304702763000,
+                    "portId": "8214",
+                    "name": "22",
+                    "protocol": "SFTP",
+                    "deviceId": "8212",
+                    "accountId": null
+                }
+            ],
+            "accounts": [
+                {
+                    "id": 584637304702763000,
+                    "accountId": "15295",
+                    "name": "csrcb",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8212"
+                },
+                {
+                    "id": 584637304702763000,
+                    "accountId": "15296",
+                    "name": "root",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8212"
+                },
+                {
+                    "id": 584637304702763000,
+                    "accountId": "15297",
+                    "name": "sudoroot",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8212"
+                },
+                {
+                    "id": 584637304702763000,
+                    "accountId": "15298",
+                    "name": "view",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8212"
+                }
+            ]
+        },
+        {
+            "id": 583470813768843300,
+            "deviceId": "8228",
+            "deviceName": "核心账务DB本地HADR",
+            "ipAddress": "160.100.211.227",
+            "groupId": "1",
+            "ports": [
+                {
+                    "id": 584637304690180100,
+                    "portId": "8229",
+                    "name": "22",
+                    "protocol": "SSH",
+                    "deviceId": "8228",
+                    "accountId": null
+                },
+                {
+                    "id": 584637304690180100,
+                    "portId": "8230",
+                    "name": "22",
+                    "protocol": "SFTP",
+                    "deviceId": "8228",
+                    "accountId": null
+                }
+            ],
+            "accounts": [
+                {
+                    "id": 584637304690180100,
+                    "accountId": "15241",
+                    "name": "root",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8228"
+                },
+                {
+                    "id": 584637304690180100,
+                    "accountId": "15242",
+                    "name": "sudoroot",
+                    "manageAccount": null,
+                    "accountType": "2",
+                    "deviceId": "8228"
+                }
+            ]
+        }
+    ],
+    "errorCode": 0,
+    "errorMessage": null,
+    "message": null,
+    "success": true
+}

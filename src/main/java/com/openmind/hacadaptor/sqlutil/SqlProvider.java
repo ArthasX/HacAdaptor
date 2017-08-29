@@ -13,9 +13,10 @@ import java.util.Map;
 
 /**
  * This class is used to create the sql string according to parameters of each function.
- * Created by LiuBin on 2017/6/22.
+ * Only for mysql at present.
+ * Created by LiuBin on 2017/6/22. KJB-001064
  * <p>
- * TODO 以后改进用map包装参数传入， 就可以附带各种其他参数了。select方面还需要再改进。 目前主键id 没有用到 需要完善 one2many many2one
+ * TODO 以后改进用map包装参数传入， 就可以附带各种其他参数了。select方面还需要再改进。 需要完善 one2many many2one
  */
 public class SqlProvider {
 
@@ -370,8 +371,9 @@ public class SqlProvider {
     }
 
     //TODO selectByCond
-    public String selectByCond(Map map) {
+    public String selectByPage(Map map) {
         Object bean = map.get("obj");
+        Page page =(Page) map.get("page");
 
         return null;
     }

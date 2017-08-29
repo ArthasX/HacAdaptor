@@ -11,6 +11,7 @@ import java.util.List;
  */
 @Service("baseService")
 public interface IBaseService<T extends Serializable, ID extends Serializable> {
+    //TODO use map to add more parameter
     T selectById(Class<T> clz, ID id)throws Throwable;
 
     T deleteById(Class<T> clz, ID id)throws Throwable;

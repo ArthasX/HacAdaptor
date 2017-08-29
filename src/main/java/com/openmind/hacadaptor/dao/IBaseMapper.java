@@ -13,9 +13,17 @@ import java.util.List;
  * Use @Param to make the function more effective,feasible.
  * <p>
  * Notice:the @Param's name should be the same with the key
- * in the map of parameters of the function of  {@link SqlProvider }
+ * in the map which is the parameters of the function in {@link SqlProvider }
  * <p>
- * Created by LiuBin on 2017/6/22.
+ * The parameter marked by @Param("key") must be packaged in the Map.
+ * The corresponding parameter in SqlProvider.method is map.get("key").
+ * The corresponding sql query is:
+ * <p>
+ * insert into tablename (column1,c2,c3...)
+ * values (key[0].column1,key[0].column2,...),(key[1].column1,key[1].column2,...)
+ * <p>
+ * Created  on 2017/6/22.
+ * @author LiuBin
  */
 
 
@@ -26,15 +34,6 @@ public interface IBaseMapper<T extends Serializable> {
     int insert(T t);
 
     /**
-     * The parameter marked by @Param([key]) can be packaged in the Map.
-     * The corresponding parameter in SqlProvider.[method] is map.get([key]).
-     * The corresponding sql query is:
-     * <p>
-     * insert into tablename (column1,c2,c3...)
-     * values (key[0].column1,key[0].column2,...),(key[1].column1,key[1].column2,...)
-     * <p>
-     * See:{@link SqlProvider }
-     *
      * @param list The list of the entity that you want to insert into the DB one-time.
      * @return
      */

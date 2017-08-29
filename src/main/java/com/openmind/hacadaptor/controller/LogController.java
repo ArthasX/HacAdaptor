@@ -18,9 +18,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/logs")
 public class LogController extends BaseController<ILogService,Log>{
     static  Logger logger = Logger.getLogger(LogController.class);
-//
-//    @Autowired
-//    private ILogService logService;
-
-
 }

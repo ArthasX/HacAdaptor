@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Created by LiuBin on 2017/6/29.
+ * startIndex=pageSize*(currentPage-1)
  */
 public class Page<T> {
     private List<T> list;

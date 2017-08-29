@@ -154,8 +154,9 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
         String endTime = workNote.getEndTime();
         String reason = workNote.getReason();
         logger.info("准备提交【" + type + "】变更工单: " + workNoteNumber + " 内容:" + reason);
+        //HAC的原因，传中文会导致无返回值。 及时用GB2312编码后传也一样。 Fuck HAC
         WorkNoteOperation workNoteOperator =
-                new WorkNoteOperation(operator, workNoteNumber, startTime, endTime, reason, sPorts);
+                new WorkNoteOperation(operator, workNoteNumber, startTime, endTime, "", sPorts);
         //获取返回结果
         XMLDTO xmldto = workNoteOperator.getXmldtoBack();
         result = Result.getResult(xmldto);

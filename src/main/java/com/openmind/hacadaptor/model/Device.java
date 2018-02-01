@@ -21,8 +21,8 @@ public class Device extends Identity {
     @Column("groupId")
     private String groupId;
 
-    private List<Port> ports;
-    private List<Account> accounts;
+    private List<Port> portId;
+    private List<Account> accountId;
 
     public Device() {
     }
@@ -98,19 +98,19 @@ public class Device extends Identity {
         this.groupId = groupId;
     }
 
-    public List<Port> getPorts() {
-        return ports;
+    public List<Port> getPortId() {
+        return portId;
     }
 
-    public void setPorts(List<Port> ports) {
-        this.ports = ports;
+    public void setPortId(List<Port> portId) {
+        this.portId = portId;
     }
 
-    public List<Account> getAccounts() {
-        return accounts;
+    public List<Account> getAccountId() {
+        return accountId;
     }
 
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
+    public void setAccountId(List<Account> accountId) {
+        this.accountId = accountId;
     }
 }

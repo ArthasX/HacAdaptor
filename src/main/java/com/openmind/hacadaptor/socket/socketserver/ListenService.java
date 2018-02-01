@@ -42,6 +42,7 @@ public class ListenService implements Runnable {
 //            System.out.println(filePath);
 //            File f = new File(filePath);
             File f = new File(filePath(xmlTypeIn));
+            System.out.println(new String(bodyIn));
             FileReader fileReader = new FileReader(f);
             BufferedReader br = new BufferedReader(fileReader);
             StringBuilder sb = new StringBuilder();
@@ -63,10 +64,12 @@ public class ListenService implements Runnable {
 //            os.write(body);
             os.write(byteBuffer.array());
             os.flush();
-
+            os.close();
+            socket.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     private String filePath(int xmlType) {

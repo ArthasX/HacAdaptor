@@ -3,6 +3,7 @@ package com.openmind.hacadaptor.mvc;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.openmind.hacadaptor.dao.GroupMapper;
 import com.openmind.hacadaptor.model.*;
 import com.openmind.hacadaptor.socket.xml.model.devices.SPort;
 import org.junit.Before;
@@ -33,9 +34,12 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 @WebAppConfiguration
 @ContextConfiguration(locations = {"classpath:applicationContext.xml", "classpath:spring-mybatis.xml"})
 public class TestController {
+
     @Autowired
     private WebApplicationContext wac;
     private MockMvc mockMvc;
+    @Autowired
+    private GroupMapper groupMapper;
 
     @Before
     public void before() {
@@ -70,7 +74,7 @@ public class TestController {
 
     @Test
     public void testWorkNoteStatus() throws Exception {
-        String url = "/worknote/worknotestatus/S20170701002";
+        String url = "/worknote/worknotestatus/S20171207002";
         System.out.println(url);
         mockMvc.perform(put(url))
                 //.param("workNoteNumber", "12345"))
@@ -93,15 +97,24 @@ public class TestController {
     public void testSubmitNormalWorkNote() throws Exception {
         String url = "/worknote/normal";
         WorkNote workNote = new WorkNote();
-        workNote.setWorkNoteNumber("S201707010444");
+        workNote.setId(1234567L);
+        workNote.setWorkNoteNumber("S20180118003");
         workNote.setOperator("001064,001455");
         workNote.setReason("fuck");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'D'HH:mm:ss'T'");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         workNote.setStartTime(sdf.format(new Date()));
-        workNote.setEndTime("2018-01-01D00:00:00T");
+        workNote.setEndTime("2019-01-01 00:00:00");
         List<String> groupNames = new ArrayList<>();
         groupNames.add("核心账务系统");
-        groupNames.add("电子账户系统");
+//        groupNames.add("直销银行系统");
+        List<Group> l=groupMapper.fuzzySelect(new Group());
+//        for(Group g : l){
+//            groupNames.add(g.getGroupName());
+//        }
+        for(int i=0;i<3;i++){
+//            groupNames.add(l.get(i).getGroupName());
+        }
+        System.out.println(l.size());
         JSONObject jjj = new JSONObject();
         jjj.put("groupname", groupNames);
         jjj.put("workNote", workNote);
@@ -127,9 +140,9 @@ public class TestController {
         List<String> groupNames = new ArrayList<>();
         groupNames.add("核心系统");
         List<String> accountId = new ArrayList<>();
-        accountId.add("13358");
+        accountId.add("15247");
         SPort sPort = new SPort();
-        sPort.setPortId("8133");
+        sPort.setPortId("10113");
         sPort.setAccountId(accountId);
         List<SPort> ports = new ArrayList<>();
         ports.add(sPort);
@@ -213,7 +226,7 @@ public class TestController {
 
     @Test
     public void testCloseable() throws  Exception{
-        String url = "/worknote/closeable/S2017070111111";
+        String url = "/worknote/closeable/S2018070108888";
         mockMvc.perform(get(url)
                 .characterEncoding("UTF-8")
         )
@@ -226,7 +239,7 @@ public class TestController {
     public void testGroup() throws Exception{
         String url="/groups/";
         Group group = new Group();
-        group.setId(1111);
+        group.setId(1111L);
         group.setGroupName("xxxxx");
         String  s =JSON.toJSONString(group);
         mockMvc.perform(post(url)

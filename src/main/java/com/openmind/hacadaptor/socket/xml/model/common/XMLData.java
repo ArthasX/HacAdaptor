@@ -19,7 +19,7 @@ public class XMLData {
     public void setXmlHeader(XMLHeader xmlHeader) {
         this.xmlHeader = xmlHeader;
         if(xmlBody!=null)
-            xmlHeader.setiXmlSize(xmlSize);
+            xmlHeader.setiXmlSize(xmlBody.size());
     }
 
     public IXMLBody getXmlBody() {
@@ -28,6 +28,8 @@ public class XMLData {
 
     public void setXmlBody(IXMLBody xmlBody) {
         this.xmlBody = xmlBody;
+        if(xmlBody!=null)
+            xmlHeader.setiXmlSize(xmlBody.size());
 //        if (xmlBody != null)
 //            try {
 //                bodyBytes = XMLParser.Object2XML(this.xmlBody).getBytes();

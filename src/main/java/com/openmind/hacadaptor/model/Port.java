@@ -18,6 +18,7 @@ public class Port extends Identity implements IBasePort {
     private String protocol;
     @Column("deviceid")
     private String deviceId;
+
     private List<String> accountId;
 
     public Port() {

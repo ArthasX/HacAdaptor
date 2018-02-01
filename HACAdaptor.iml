@@ -78,5 +78,7 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.8.8" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.8.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.apache.geronimo.specs:geronimo-servlet_3.0_spec:1.0" level="project" />
+    <orderEntry type="library" name="Maven: db2jcc:db2jcc:10.1" level="project" />
+    <orderEntry type="library" name="Maven: db2java:db2java:10.1" level="project" />
   </component>
 </module>

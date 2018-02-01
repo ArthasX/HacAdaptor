@@ -13,4 +13,6 @@ public interface IXMLBody<S extends IContext,B extends IContext> {
     void setBackContext(B backContext);
 
     byte[] getBytes();
+
+    int size();
 }

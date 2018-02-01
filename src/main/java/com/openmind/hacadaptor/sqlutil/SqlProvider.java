@@ -95,12 +95,13 @@ public class SqlProvider {
                     if (!column.required())
                         continue;
                     columnName = column.value();
+                    insertParaNames.add(columnName);
+                    insertParas.add(field.getName());
                 }
                 if (StringUtils.isEmpty(columnName)) {
                     columnName = tableFormat.getColumnName(field.getName());
                 }
-                insertParaNames.add(columnName);
-                insertParas.add(field.getName());
+
             }
 
 

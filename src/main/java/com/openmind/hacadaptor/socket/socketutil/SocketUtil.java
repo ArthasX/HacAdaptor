@@ -5,6 +5,7 @@ import com.openmind.hacadaptor.socket.xml.model.common.XMLDTO;
 import org.apache.log4j.Logger;
 
 import javax.net.ssl.*;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -58,6 +59,9 @@ public class SocketUtil {
         Socket socket = new Socket();
         socket.setKeepAlive(true);
         socket.setSoTimeout(timeout);
+        logger.info("connect to server...");
+        socket.connect(socketAddress);
+        logger.info("connected...");
         return socket;
     }
 
@@ -67,11 +71,10 @@ public class SocketUtil {
         int readLen = 0;
         int totalLen = 0;
         byte[] buffer = null;
+//        SSLSocket socket = null;
+        Socket socket = null;
         try {
-            SSLSocket socket = getSSLSocket();
-            logger.info("connect to server...");
-            socket.connect(socketAddress);
-            logger.info("connected...");
+             socket = getSocket();
             OutputStream os = socket.getOutputStream();
             os.write(b);
             os.flush();
@@ -103,42 +106,62 @@ public class SocketUtil {
         return request(data.getBytes());
     }
 
+
     public static XMLDTO request(XMLDTO xmldto) {
         byte[] data = xmldto.getXmlData().getBytes();
+        System.out.println("发送的长度"+data.length);
         int headLen = 20;
         byte[] header = new byte[headLen];//去掉头部 20 byte长度
         byte[] body = null;
         int index = 0;
         int readDataLen, writeDataLen = data.length;
+        InputStream is = null;
+        OutputStream os = null;
+        SSLSocket socket = null;
+//        Socket socket = null;
+//        int wIndex = 0, wOffset = 10 * 1024;
         try {
-            SSLSocket socket = getSSLSocket();
-//            Socket socket = getSocket();
-            logger.info("connect to server...");
-//            socket.connect(socketAddress);
-            logger.info("connected...");
-            OutputStream os = socket.getOutputStream();
+            socket = getSSLSocket();
+//            socket = getSocket();
+            socket.setSendBufferSize(32 * 1024);
+            os = socket.getOutputStream();
 //            StreamTool.writeStream(os,data,0,writeDataLen);
-            os.write(data);
-            os.flush();
+            //极端情况一次发送的数据大概有280K TCP只能承载64K一次的数据流 所以 分次发送 每次10K
+//            while (wIndex < data.length) {
+//
+//                os.write(data,wIndex,wOffset);
+//                os.flush();
+//            }
+            StreamTool.writeStream(os, data, 0, data.length);
             logger.info("data pushed to hac server...");
-            InputStream is = socket.getInputStream();
+            is = socket.getInputStream();
             if (is != null) {
                 //读取头20字节，获取结果
                 logger.info("reading data from hac server...");
                 is.read(header);
                 xmldto.setXmlHeaderBytesBack(header);
                 readDataLen = ByteUtil.byteArrayToInt(ByteUtil.getSubBytes(header, 16, 4));
+                logger.info("data length:" + readDataLen);
                 body = new byte[readDataLen];
                 StreamTool.readStream(is, body, index);
             }
-            is.close();
-            os.close();
-            socket.close();
+
             logger.info("read finished...socket closed...");
         } catch (Exception e) {
             e.printStackTrace();
             xmldto.setErrorMessage(e.getMessage());
             xmldto.setErrorCode(1);
+
+        } finally {
+//            try {
+//                if (is != null) is.close();
+//                if (os != null) os.close();
+//                if (socket != null) socket.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                xmldto.setErrorMessage(e.getMessage());
+//                xmldto.setErrorCode(1);
+//            }
         }
         xmldto.setXmlBodyBytesBack(body);
         return xmldto;

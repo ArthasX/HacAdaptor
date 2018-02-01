@@ -9,17 +9,17 @@
         <result property="deviceName" column="devicename"/>
         <result property="ipAddress" column="ipaddress"/>
         <result property="groupId" column="groupid"/>
-        <collection property="ports"  resultMap="ports" javaType="ArrayList"/>
-        <collection property="accounts"  resultMap="accounts" javaType="ArrayList"/>
+        <collection property="portId"  resultMap="portId" javaType="ArrayList"/>
+        <collection property="accountId"  resultMap="accountId" javaType="ArrayList"/>
     </resultMap>
-    <resultMap id="ports" type="com.openmind.hacadaptor.model.Port">
+    <resultMap id="portId" type="com.openmind.hacadaptor.model.Port">
         <id property="deviceId" column="deviceid_port"/>
         <result property="portId" column="portid"/>
         <result property="name" column="portname"/>
         <result property="protocol" column="protocol"/>
     </resultMap>
 
-    <resultMap id="accounts" type="com.openmind.hacadaptor.model.Account">
+    <resultMap id="accountId" type="com.openmind.hacadaptor.model.Account">
         <id property="deviceId" column="deviceid_account"/>
         <result property="accountId" column="accountid"/>
         <result property="name" column="accountname"/>
@@ -54,8 +54,8 @@
         <result property="deviceName" column="devicename"/>
         <result property="ipAddress" column="ipaddress"/>
         <result property="groupId" column="groupid"/>
-        <collection property="ports"  resultMap="ports1" javaType="ArrayList" />
-        <collection property="accounts"  resultMap="accounts1" javaType="ArrayList" />
+        <collection property="portId"  resultMap="ports1" javaType="ArrayList" />
+        <collection property="accountId"  resultMap="accounts1" javaType="ArrayList" />
     </resultMap>
     <resultMap id="ports1" type="com.openmind.hacadaptor.model.Port">
         <id property="id" column="pid"/>

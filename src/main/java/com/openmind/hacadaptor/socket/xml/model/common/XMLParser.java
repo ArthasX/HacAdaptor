@@ -5,6 +5,7 @@ import java.io.*;
 
 
 /**
+ * Created by LiuBin on 2017/7/4.
  * XML to JavaBean
  * JavaBean to XML
  */

@@ -53,7 +53,7 @@ public class XMLDTO<T, B> implements IBaseDTO<T, B> {
             logger.info("start to parse xml to object [" + tClass.getSimpleName() + "]");
 
             try {
-                String xml = new String(xmlBodyBytesBack, "GB2312");
+                String xml = new String(xmlBodyBytesBack, "GBK");
                 logger.info("xmlbody:" + xml);
                 IXMLBody xmlBody = (IXMLBody) XMLParser.XML2Object(tClass, xml);
                 String resultC = xmlBody.getDocumentProperties().getNumber();

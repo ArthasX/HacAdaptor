@@ -15,6 +15,7 @@
         <mysql.version>5.1.30</mysql.version>
         <spring-mvc.version>4.3.8.RELEASE</spring-mvc.version>
         <junit.version>4.12</junit.version>
+        <db2driver.version>10.1</db2driver.version>
     </properties>
     <dependencies>
         <dependency>
@@ -94,6 +95,18 @@
             <artifactId>geronimo-servlet_3.0_spec</artifactId>
             <version>1.0</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>db2jcc</groupId>
+            <artifactId>db2jcc</artifactId>
+            <version>${db2driver.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>db2java</groupId>
+            <artifactId>db2java</artifactId>
+            <version>${db2driver.version}</version>
         </dependency>
     </dependencies>
     <build>

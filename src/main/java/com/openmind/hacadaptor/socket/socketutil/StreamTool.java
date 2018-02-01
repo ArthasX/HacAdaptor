@@ -12,33 +12,35 @@ import java.io.OutputStream;
 public class StreamTool {
 
     public static int writeStream(OutputStream os, byte[] bytes, int index, int dataSize) throws IOException, InterruptedException {
-        int writeSize = 1024;
+        int writeSize = 32*1024;
         int totalWriteLen = 0;
         int remainSize = dataSize;
         while (remainSize > 0) {
             if (remainSize > writeSize) {
                 os.write(bytes, index, writeSize);
+                os.flush();
                 index += writeSize;
                 totalWriteLen += writeSize;
                 remainSize -= writeSize;
             }
             else {
                 os.write(bytes, index, remainSize);
+                os.flush();
                 totalWriteLen+=remainSize;
                 remainSize-=remainSize;
             }
         }
-        os.flush();
+//        os.flush();
         return totalWriteLen;
     }
 
     public static int readStream(InputStream is, byte[] bytes, int index, int dataSize)
             throws IOException, InterruptedException {
-        int readSize = 0;
+        int readSize;
         int totalReadLen = 0;
         int remainSize = dataSize;
         while (remainSize > 0) {
-            readSize = is.read(bytes, index, dataSize);
+            readSize = is.read(bytes, index, remainSize);
             Thread.sleep(1);
             if (readSize > 0) {
                 index += readSize;

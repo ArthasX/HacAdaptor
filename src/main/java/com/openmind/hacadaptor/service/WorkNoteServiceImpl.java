@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * @author LiuBin
@@ -124,8 +125,11 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
                 sPorts.add(sport);
             }
             result = checkPortAccount(sPorts, name);
-            if (!result.isSuccess())
-                return result;
+            //如果port account 有问题需要报出
+            //但是实际上有时候需要过滤，这里设置一个开关。
+            if (ResourceBundle.getBundle("setting").getString("filter").equals("1"))
+                if (!result.isSuccess())
+                    return result;
             sb.append(name).append("|");
         }
 
@@ -141,7 +145,7 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
         List<String> operator = new ArrayList<>();
         for (String op : ops) {
             String s = userMappingService.getOperatorById(op);
-            if (s != null || !s.equals("")) {
+            if (s != null && !s.equals("")) {
                 operator.add(s);
             }
         }
@@ -214,6 +218,7 @@ public class WorkNoteServiceImpl extends BaseServiceImp<WorkNote, Identity> impl
         } else {
             WorkNoteOperation workNoteOperator = new WorkNoteOperation(workNoteNumber);
             XMLDTO xmldto = workNoteOperator.getXmldtoBack();
+            logger.info(new String(xmldto.getXmlDataBack().getBytes()));
             result = Result.getResult(xmldto);
             if (xmldto.getErrorCode() == 0)
                 if (logService.setWorkNoteStatusClosed(workNoteNumber, DateUtil.getYYYMMDD()) == 0)

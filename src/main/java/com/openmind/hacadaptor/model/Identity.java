@@ -9,13 +9,13 @@ import java.util.List;
  */
 public class Identity implements IBaseMode {
     @Column("id")
-    private long id;
+    private Long id;
 
     public Identity() {
 
     }
 
-    public Identity(long id) {
+    public Identity(Long id) {
         this.id = id;
     }
 
@@ -23,7 +23,7 @@ public class Identity implements IBaseMode {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

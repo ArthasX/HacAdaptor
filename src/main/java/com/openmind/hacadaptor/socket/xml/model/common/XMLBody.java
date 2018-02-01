@@ -14,7 +14,8 @@ public abstract class XMLBody<T extends IContext, B extends IContext> implements
     protected DocumentProperties documentProperties;
     protected T sentContext;
     protected B backContext;
-
+    protected int size;
+    protected byte[] bytes;
     public XMLBody() {
         documentProperties = new DocumentProperties();
         documentProperties.setVersion("3");
@@ -59,13 +60,12 @@ public abstract class XMLBody<T extends IContext, B extends IContext> implements
 
     @Override
     public byte[] getBytes() {
-        byte[] bytes = null;
-        try {
-            bytes = XMLParser.Object2XML(this).getBytes();
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
+
         return bytes;
+    }
+    @Override
+    public int size(){
+        return size;
     }
 
 }

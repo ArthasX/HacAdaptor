@@ -10,4 +10,24 @@ public class Condition implements ICondition{
     public String getCondString() {
         return null;
     }
+
+    @Override
+    public ICondition asc() {
+        return null;
+    }
+
+    @Override
+    public ICondition desc() {
+        return null;
+    }
+
+    @Override
+    public ICondition groupBy() {
+        return null;
+    }
+
+    @Override
+    public ICondition orderBy() {
+        return null;
+    }
 }
